@@ -1,0 +1,14 @@
+/* Optional lightweight app-wide tweaks (kept very small) */
+
+:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(79,70,229,.6); /* indigo-600 focus ring */
+}
+
+hr {
+  border-color: rgba(148,163,184,.3); /* slate-400/30 */
+}
+
+code, pre {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+}

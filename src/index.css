@@ -1,0 +1,215 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ---------- Global ---------- */
+:root { 
+  color-scheme: light dark;
+  --gradient-teal: linear-gradient(135deg, #0e7490 0%, #00C2CB 100%);
+  --primary-teal: #00C2CB;
+}
+html, body, #root { height: 100%; }
+body { 
+  @apply bg-white text-gray-900 dark:bg-black dark:text-gray-100;
+  font-family: 'Open Sans', system-ui, sans-serif;
+  font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+}
+
+/* ---------- Typography ---------- */
+.h1 { 
+  @apply text-2xl font-semibold tracking-tight;
+  font-family: 'Montserrat', system-ui, sans-serif;
+}
+.h2 { 
+  @apply text-xl font-semibold;
+  font-family: 'Montserrat', system-ui, sans-serif;
+}
+.h3 { 
+  @apply text-lg font-medium;
+  font-family: 'Montserrat', system-ui, sans-serif;
+}
+.heading {
+  font-family: 'Montserrat', system-ui, sans-serif;
+}
+.body {
+  font-family: 'Open Sans', system-ui, sans-serif;
+}
+.subtle { @apply text-sm text-gray-500 dark:text-gray-400; }
+
+/* ---------- Layout helpers ---------- */
+.container { @apply mx-auto max-w-7xl px-4 sm:px-6 lg:px-8; }
+.section { @apply py-8 lg:py-12; }
+.section-tight { @apply py-6 lg:py-8; }
+
+/* ---------- Cards ---------- */
+.card {
+  @apply bg-white dark:bg-gray-950 border border-gray-200 dark:border-gray-800 rounded-xl shadow-sm;
+  transition: all 0.2s ease-in-out;
+}
+.card:hover {
+  @apply shadow-lg border-teal-200 dark:border-teal-800;
+  transform: translateY(-1px);
+}
+.card-header { @apply p-8 border-b border-gray-200 dark:border-gray-800; }
+.card-title  { 
+  @apply text-xl font-semibold bg-gradient-to-r from-teal-600 to-teal-500 bg-clip-text text-transparent mb-2;
+  font-family: 'Montserrat', system-ui, sans-serif;
+}
+.card-subtitle { @apply text-sm text-gray-600 dark:text-gray-400 mb-4; }
+.card-subtle { @apply text-sm text-gray-600 dark:text-gray-400; }
+.card-body   { @apply p-8 space-y-6; }
+.card-footer { @apply p-8 pt-6 border-t border-gray-200 dark:border-gray-800; }
+
+/* ---------- Buttons ---------- */
+.btn {
+  @apply inline-flex items-center justify-center gap-3 px-6 py-3 rounded-xl text-sm font-semibold transition-all duration-200
+         focus:outline-none focus-visible:ring-2 focus-visible:ring-teal-500 focus-visible:ring-offset-2 disabled:opacity-60
+         transform hover:scale-[1.02] active:scale-95;
+  font-family: 'Open Sans', system-ui, sans-serif;
+  min-height: 44px; /* Better touch target */
+}
+.btn-primary  { 
+  @apply btn text-white px-6 py-3;
+  background: var(--primary-teal);
+  box-shadow: 0 4px 14px 0 rgba(0, 194, 203, 0.25);
+}
+.btn-primary:hover {
+  background: #0e7490;
+  box-shadow: 0 6px 20px rgba(0, 194, 203, 0.4);
+  transform: translateY(-2px);
+}
+.btn-secondary{ 
+  @apply btn border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-900
+         text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-800 
+         hover:border-teal-300 dark:hover:border-teal-600;
+}
+.btn-ghost    { @apply btn bg-transparent hover:bg-teal-50 dark:hover:bg-teal-900/20 hover:text-teal-600 px-4 py-2; }
+.btn-danger   { 
+  @apply btn bg-gradient-to-r from-rose-600 to-rose-500 text-white hover:from-rose-700 hover:to-rose-600 
+         shadow-lg shadow-rose-500/25 hover:shadow-xl hover:shadow-rose-500/30;
+}
+.btn-sm { @apply px-4 py-2 text-xs min-h-9; }
+.btn-lg { @apply px-8 py-4 text-base min-h-12; }
+
+/* ---------- Badges ---------- */
+.badge { @apply inline-flex items-center rounded-full px-2 py-0.5 text-xs font-medium; }
+.badge-green  { @apply badge bg-emerald-50 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-300; }
+.badge-yellow { @apply badge bg-amber-50  text-amber-700  dark:bg-amber-900/30  dark:text-amber-300; }
+.badge-red    { @apply badge bg-rose-50   text-rose-700   dark:bg-rose-900/30   dark:text-rose-300; }
+.badge-slate  { @apply badge bg-gray-100  text-gray-700   dark:bg-gray-800/60   dark:text-gray-300; }
+
+/* ---------- Tables ---------- */
+.table { @apply min-w-full divide-y divide-gray-200 dark:divide-gray-800; }
+.table thead th { @apply bg-gray-50 dark:bg-gray-900/40 px-6 py-4 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider; }
+.table tbody td { @apply px-6 py-4 text-sm; }
+.table-row     { @apply border-b border-gray-200 dark:border-gray-800 hover:bg-gray-50/50 dark:hover:bg-gray-800/50 transition-colors; }
+
+/* ---------- Forms ---------- */
+.input, .select, .textarea {
+  @apply w-full px-4 py-3 rounded-xl border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-950 dark:text-gray-100
+         focus:border-teal-500 focus:ring-2 focus:ring-teal-500/20 transition-all duration-200
+         placeholder:text-gray-400 dark:placeholder:text-gray-500;
+  font-family: 'Open Sans', system-ui, sans-serif;
+  min-height: 44px; /* Better touch target */
+}
+.input:focus, .select:focus, .textarea:focus {
+  outline: none;
+  border-color: var(--primary-teal);
+  box-shadow: 0 0 0 3px rgba(0, 194, 203, 0.1);
+}
+.label { 
+  @apply block text-sm font-medium mb-3 text-gray-700 dark:text-gray-300;
+  font-family: 'Open Sans', system-ui, sans-serif;
+}
+.help  { @apply mt-2 text-xs text-gray-500 dark:text-gray-400; }
+.err   { @apply mt-2 text-xs text-rose-600 dark:text-rose-400 font-medium; }
+.form-group { @apply mb-6; }
+.form-row { @apply grid grid-cols-1 md:grid-cols-2 gap-6; }
+
+/* Checkbox styling */
+.checkbox {
+  @apply w-4 h-4 rounded border-gray-300 text-teal-500 focus:ring-teal-500 focus:ring-2 transition-all duration-200;
+}
+.checkbox:checked {
+  background-color: var(--primary-teal);
+  border-color: var(--primary-teal);
+}
+
+/* ---------- Icons (hard lock size) ---------- */
+.nav-icon { inline-size: 1rem; block-size: 1rem; flex-shrink: 0; }
+.nav-icon svg { inline-size: 1rem; block-size: 1rem; }
+svg.nav-icon { width: 1rem; height: 1rem; }
+
+/* ---------- Utilities ---------- */
+.skeleton { @apply animate-pulse bg-gray-200 dark:bg-gray-800 rounded-xl; }
+.link { @apply text-teal-600 hover:text-teal-700 hover:underline font-medium transition-colors duration-200; }
+
+/* ---------- Modern Enhancements ---------- */
+.glass {
+  @apply bg-white/10 backdrop-blur-md border border-white/20 dark:border-gray-700/20;
+}
+
+.gradient-text {
+  background: linear-gradient(135deg, var(--primary-teal), #0e7490);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  @apply font-bold;
+  font-family: 'Montserrat', system-ui, sans-serif;
+}
+
+.floating {
+  animation: float 6s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+}
+
+/* Animation utilities */
+@keyframes fade-in {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-fade-in {
+  animation: fade-in 0.5s ease-out;
+}
+
+/* Admin tool cards */
+.admin-tool {
+  @apply block p-6 rounded-xl border border-gray-200 dark:border-gray-700 
+         hover:border-teal-200 dark:hover:border-teal-600 
+         hover:shadow-lg transition-all duration-200
+         text-center hover:bg-gray-50 dark:hover:bg-gray-800/50
+         transform hover:scale-[1.02];
+}
+
+/* Enhanced spacing utilities */
+.space-y-tight > * + * { margin-top: 1rem; }
+.space-y-comfortable > * + * { margin-top: 1.5rem; }
+.space-y-generous > * + * { margin-top: 2rem; }
+
+/* Grid utilities with proper gaps */
+.grid-2 { @apply grid grid-cols-1 md:grid-cols-2 gap-6; }
+.grid-3 { @apply grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6; }
+.grid-4 { @apply grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6; }
+
+/* Page layout utilities */
+.page-header { @apply mb-8 pb-6 border-b border-gray-200 dark:border-gray-700; }
+.page-title { 
+  @apply text-2xl lg:text-3xl font-bold bg-gradient-to-r from-teal-600 to-teal-500 bg-clip-text text-transparent mb-2;
+  font-family: 'Montserrat', system-ui, sans-serif;
+}
+.page-subtitle { @apply text-gray-600 dark:text-gray-400 text-lg; }
+
+/* Status indicators with better spacing */
+.status-indicator {
+  @apply inline-flex items-center px-3 py-1.5 rounded-full text-xs font-medium;
+}
+
+/* Enhanced focus states for accessibility */
+.focus-visible\:enhanced-focus:focus-visible {
+  @apply ring-2 ring-teal-500 ring-offset-2 ring-offset-white dark:ring-offset-gray-950;
+}
