@@ -163,9 +163,6 @@ const superAdminNavigation: NavItem[] = [
 
 export function AppShell({ children, userRole = 'employee' }: { children: React.ReactNode; userRole?: string }) {
   const [sidebarOpen, setSidebarOpen] = useState(false)
-  const [searchQuery, setSearchQuery] = useState('')
-  const [searchResults, setSearchResults] = useState<string[]>([])
-  const [showSearchResults, setShowSearchResults] = useState(false)
   const [isMobile, setIsMobile] = useState(false)
   const [showUserDropdown, setShowUserDropdown] = useState(false)
   const [showNotifications, setShowNotifications] = useState(false)
@@ -267,42 +264,6 @@ export function AppShell({ children, userRole = 'employee' }: { children: React.
     !item.roles || item.roles.includes(member?.role || 'employee')
   )
 
-  // Mock search data
-  const mockSearchData = [
-    'John Smith - Employee',
-    'Mary Davis - Employee',
-    'Annual Leave Request - Pending',
-    'Sick Leave Policy',
-    'Employee Management',
-    'Leave Requests',
-    'Team Calendar',
-    'Reports & Analytics',
-    'System Settings',
-    'Department: Engineering',
-    'Department: Marketing',
-    'Department: Sales'
-  ]
-
-  const handleSearch = (query: string) => {
-    setSearchQuery(query)
-    if (query.length > 2) {
-      const results = mockSearchData.filter(item =>
-        item.toLowerCase().includes(query.toLowerCase())
-      )
-      setSearchResults(results.slice(0, 5)) // Limit to 5 results
-      setShowSearchResults(true)
-    } else {
-      setSearchResults([])
-      setShowSearchResults(false)
-    }
-  }
-
-  const handleSearchSelect = (result: string) => {
-    setSearchQuery(result)
-    setShowSearchResults(false)
-    // In a real app, this would navigate to the selected item
-    console.log('Selected:', result)
-  }
 
   return (
     <div className="h-screen flex overflow-hidden bg-gray-100 dark:bg-gray-900 transition-colors duration-200">
@@ -453,47 +414,7 @@ export function AppShell({ children, userRole = 'employee' }: { children: React.
             </svg>
           </button>
           
-          <div className="flex-1 px-2 sm:px-4 flex justify-between">
-            <div className="flex-1 flex">
-              <div className="w-full flex md:ml-0">
-                <div className="relative w-full text-gray-400 focus-within:text-gray-600">
-                  <div className="absolute inset-y-0 left-0 flex items-center pointer-events-none pl-2">
-                    <svg className="h-4 w-4 sm:h-5 sm:w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-                    </svg>
-                  </div>
-                  <input
-                    className="block w-full h-full pl-8 sm:pl-8 pr-3 py-2 border-transparent text-sm sm:text-base text-gray-900 placeholder-gray-500 focus:outline-none focus:placeholder-gray-400 focus:ring-0 focus:border-transparent"
-                    placeholder={isMobile ? "Search..." : "Search employees, requests, policies..."}
-                    type="search"
-                    value={searchQuery}
-                    onChange={(e) => handleSearch(e.target.value)}
-                    onFocus={() => searchQuery.length > 2 && setShowSearchResults(true)}
-                    onBlur={() => setTimeout(() => setShowSearchResults(false), 200)}
-                  />
-                  
-                  {/* Search Results Dropdown */}
-                  {showSearchResults && searchResults.length > 0 && (
-                    <div className="absolute top-full left-0 right-0 mt-1 bg-white border border-gray-200 rounded-lg shadow-lg z-50 max-h-60 overflow-y-auto">
-                      {searchResults.map((result, index) => (
-                        <button
-                          key={index}
-                          onClick={() => handleSearchSelect(result)}
-                          className="w-full text-left px-4 py-3 hover:bg-gray-50 border-b border-gray-100 last:border-b-0 transition-colors duration-150"
-                        >
-                          <div className="flex items-center space-x-3">
-                            <svg className="h-4 w-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-                            </svg>
-                            <span className="text-sm text-gray-700">{result}</span>
-                          </div>
-                        </button>
-                      ))}
-                    </div>
-                  )}
-                </div>
-              </div>
-            </div>
+          <div className="flex-1 px-2 sm:px-4 flex justify-end">
             
             <div className="ml-2 sm:ml-4 flex items-center space-x-1 sm:space-x-3 md:ml-6">
               {/* Theme Toggle */}

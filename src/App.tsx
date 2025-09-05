@@ -32,6 +32,8 @@ import { initializeReferralTracking } from './lib/affiliateTracking'
 import { ThemeToggle } from './components/ui/ThemeToggle'
 import { startDemo } from './lib/demoMode'
 import { useNavigate } from 'react-router-dom'
+import { ErrorBoundary } from './components/ErrorBoundary'
+import { NotFound } from './components/NotFound'
 
 function HomePage() {
   const navigate = useNavigate()
@@ -2006,7 +2008,8 @@ function App() {
   
   return (
     <ThemeProvider>
-      <AuthProvider>
+      <ErrorBoundary>
+        <AuthProvider>
         <div className="App">
         <Routes>
         <Route path="/" element={
@@ -2054,15 +2057,11 @@ function App() {
         <Route path="/superadmin/settings" element={<SuperAdminSettingsPage />} />
         
         {/* Catch-all route */}
-        <Route path="*" element={<div style={{padding: '2rem', textAlign: 'center'}}>
-          <h1>Page Not Found</h1>
-          <p>Current path: {window.location.pathname}</p>
-          <p>This is a React Router 404 - the page component might be missing or there's an error.</p>
-          <a href="/" style={{color: 'blue', textDecoration: 'underline'}}>Go Home</a>
-        </div>} />
+        <Route path="*" element={<NotFound />} />
         </Routes>
         </div>
-      </AuthProvider>
+        </AuthProvider>
+      </ErrorBoundary>
     </ThemeProvider>
   )
 }
