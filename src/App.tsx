@@ -585,19 +585,21 @@ function AdminDashboard() {
 
   return (
     <AppShell userRole="admin">
-      <div className="space-y-6 p-4 sm:p-6">
-        <div className="flex flex-col space-y-4 lg:flex-row lg:items-center lg:justify-between lg:space-y-0 mb-6 sm:mb-8">
-          <div className="space-y-1">
+      <div className="space-y-6 p-4 sm:p-6 lg:p-8">
+        <div className="mb-8">
+          <div className="space-y-2">
             <h1 className="text-2xl sm:text-3xl lg:text-4xl heading-premium text-gray-900 font-bold">Admin Dashboard</h1>
             <p className="text-premium text-gray-600 text-sm sm:text-base lg:text-lg">Manage leave requests, employees, and organizational policies</p>
           </div>
         </div>
 
-        <DashboardStats role="admin" />
+        <div className="mb-8">
+          <DashboardStats role="admin" />
+        </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6 lg:gap-8">
-          <div className="card-premium shadow-2xl bg-gradient-to-br from-white to-gray-50">
-            <div className="px-4 sm:px-6 lg:px-8 py-4 sm:py-6 border-b border-gray-200">
+        <div className="grid grid-cols-1 xl:grid-cols-2 gap-6 lg:gap-8">
+          <div className="card-premium shadow-lg bg-gradient-to-br from-white to-gray-50 overflow-hidden">
+            <div className="px-4 sm:px-6 py-6 border-b border-gray-200">
               <div className="flex flex-col space-y-3 sm:flex-row sm:items-center sm:justify-between sm:space-y-0">
                 <div className="space-y-1">
                   <h2 className="text-xl sm:text-2xl heading-premium text-gray-900 font-bold">Pending Approvals</h2>
@@ -607,24 +609,26 @@ function AdminDashboard() {
               </div>
               
               {/* Action Buttons */}
-              <div className="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-3 mt-4">
-                <button className="btn-premium bg-gradient-to-r from-green-500 to-emerald-600 text-white px-4 py-2 rounded-xl hover:from-green-600 hover:to-emerald-700 shadow-lg transform hover:scale-105 transition-all duration-200 flex items-center justify-center space-x-2">
-                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                  </svg>
-                  <span className="text-sm">Approve Selected</span>
-                </button>
-                <button className="btn-premium bg-gradient-to-r from-red-500 to-red-600 text-white px-4 py-2 rounded-xl hover:from-red-600 hover:to-red-700 shadow-lg transform hover:scale-105 transition-all duration-200 flex items-center justify-center space-x-2">
-                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                  </svg>
-                  <span className="text-sm">Reject Selected</span>
-                </button>
+              <div className="mt-4">
+                <div className="flex flex-col gap-2 sm:flex-row sm:gap-3">
+                  <button className="btn-premium bg-gradient-to-r from-green-500 to-emerald-600 text-white px-4 py-2.5 rounded-xl hover:from-green-600 hover:to-emerald-700 shadow-lg transform hover:scale-105 transition-all duration-200 flex items-center justify-center space-x-2 text-sm font-medium">
+                    <svg className="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                    </svg>
+                    <span>Approve Selected</span>
+                  </button>
+                  <button className="btn-premium bg-gradient-to-r from-red-500 to-red-600 text-white px-4 py-2.5 rounded-xl hover:from-red-600 hover:to-red-700 shadow-lg transform hover:scale-105 transition-all duration-200 flex items-center justify-center space-x-2 text-sm font-medium">
+                    <svg className="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                    <span>Reject Selected</span>
+                  </button>
+                </div>
               </div>
             </div>
-            <div className="p-4 sm:p-6 lg:p-8">
-              <div className="space-y-4 sm:space-y-6">
-                <div className="bg-white p-4 sm:p-6 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100 transform hover:-translate-y-1">
+            <div className="p-6">
+              <div className="space-y-4">
+                <div className="bg-white p-4 rounded-xl shadow-md hover:shadow-lg transition-all duration-200 border border-gray-100">
                   <div className="flex items-start justify-between space-x-3">
                     <div className="flex items-start space-x-2 sm:space-x-4 flex-1 min-w-0">
                       <input type="checkbox" className="w-4 h-4 sm:w-5 sm:h-5 text-indigo-600 rounded focus:ring-indigo-500 focus:ring-2 mt-1 flex-shrink-0" />
@@ -639,22 +643,24 @@ function AdminDashboard() {
                         <p className="text-premium text-gray-500 text-xs sm:text-sm">Dec 20-24, 2024</p>
                       </div>
                     </div>
-                    <div className="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-2 lg:space-x-3 flex-shrink-0">
-                      <button className="p-2 sm:p-3 text-green-600 hover:bg-green-50 rounded-lg sm:rounded-xl transition-colors duration-200 shadow-md hover:shadow-lg">
-                        <svg className="w-4 h-4 sm:w-5 sm:h-5 lg:w-6 lg:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                        </svg>
-                      </button>
-                      <button className="p-2 sm:p-3 text-red-600 hover:bg-red-50 rounded-lg sm:rounded-xl transition-colors duration-200 shadow-md hover:shadow-lg">
-                        <svg className="w-4 h-4 sm:w-5 sm:h-5 lg:w-6 lg:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                        </svg>
-                      </button>
+                    <div className="flex-shrink-0">
+                      <div className="flex gap-2">
+                        <button className="p-2 sm:p-3 text-green-600 hover:bg-green-50 rounded-lg transition-colors duration-200 shadow-sm hover:shadow-md" title="Approve">
+                          <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                          </svg>
+                        </button>
+                        <button className="p-2 sm:p-3 text-red-600 hover:bg-red-50 rounded-lg transition-colors duration-200 shadow-sm hover:shadow-md" title="Reject">
+                          <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                          </svg>
+                        </button>
+                      </div>
                     </div>
                   </div>
                 </div>
                 
-                <div className="bg-white p-4 sm:p-6 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100 transform hover:-translate-y-1">
+                <div className="bg-white p-4 rounded-xl shadow-md hover:shadow-lg transition-all duration-200 border border-gray-100">
                   <div className="flex items-start justify-between space-x-3">
                     <div className="flex items-start space-x-2 sm:space-x-4 flex-1 min-w-0">
                       <input type="checkbox" className="w-4 h-4 sm:w-5 sm:h-5 text-indigo-600 rounded focus:ring-indigo-500 focus:ring-2 mt-1 flex-shrink-0" />
@@ -669,17 +675,19 @@ function AdminDashboard() {
                         <p className="text-premium text-gray-500 text-xs sm:text-sm">Jan 15 - Apr 15, 2025</p>
                       </div>
                     </div>
-                    <div className="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-2 lg:space-x-3 flex-shrink-0">
-                      <button className="p-2 sm:p-3 text-green-600 hover:bg-green-50 rounded-lg sm:rounded-xl transition-colors duration-200 shadow-md hover:shadow-lg">
-                        <svg className="w-4 h-4 sm:w-5 sm:h-5 lg:w-6 lg:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                        </svg>
-                      </button>
-                      <button className="p-2 sm:p-3 text-red-600 hover:bg-red-50 rounded-lg sm:rounded-xl transition-colors duration-200 shadow-md hover:shadow-lg">
-                        <svg className="w-4 h-4 sm:w-5 sm:h-5 lg:w-6 lg:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                        </svg>
-                      </button>
+                    <div className="flex-shrink-0">
+                      <div className="flex gap-2">
+                        <button className="p-2 sm:p-3 text-green-600 hover:bg-green-50 rounded-lg transition-colors duration-200 shadow-sm hover:shadow-md" title="Approve">
+                          <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                          </svg>
+                        </button>
+                        <button className="p-2 sm:p-3 text-red-600 hover:bg-red-50 rounded-lg transition-colors duration-200 shadow-sm hover:shadow-md" title="Reject">
+                          <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                          </svg>
+                        </button>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -695,8 +703,8 @@ function AdminDashboard() {
             </div>
           </div>
 
-          <div className="card-premium shadow-2xl bg-gradient-to-br from-white to-gray-50">
-            <div className="px-4 sm:px-6 lg:px-8 py-4 sm:py-6 border-b border-gray-200">
+          <div className="card-premium shadow-lg bg-gradient-to-br from-white to-gray-50 overflow-hidden">
+            <div className="px-4 sm:px-6 py-6 border-b border-gray-200">
               <div className="flex flex-col space-y-2 sm:flex-row sm:items-center sm:justify-between sm:space-y-0">
                 <div className="space-y-1">
                   <h2 className="text-xl sm:text-2xl heading-premium text-gray-900 font-bold">Team Availability</h2>
