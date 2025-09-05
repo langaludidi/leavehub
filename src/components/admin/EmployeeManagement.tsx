@@ -96,39 +96,54 @@ export function EmployeeManagement({ userRole = 'admin' }: { userRole?: 'admin' 
   return (
     <AppShell userRole={userRole}>
       <div className="space-y-8 p-6">
-        <div className="flex items-center justify-between">
+        <div className="flex flex-col space-y-4 lg:flex-row lg:items-center lg:justify-between lg:space-y-0">
           <div>
             <h1 className="text-2xl sm:text-3xl lg:text-4xl heading-premium text-gray-900 font-bold">Employee Management</h1>
             <p className="text-sm sm:text-base lg:text-lg text-premium text-gray-600 mt-1 sm:mt-2">Manage employees, departments, and organizational structure</p>
           </div>
-          <div className="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-3">
-            <button 
-              onClick={() => handleExportEmployees('csv')}
-              className="btn-premium bg-green-600 text-white px-3 py-2 sm:px-4 sm:py-3 rounded-xl hover:bg-green-700 shadow-lg flex items-center justify-center space-x-2 transform hover:scale-105 transition-all duration-200 text-sm"
-            >
-              <svg className="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3M3 17V7a2 2 0 012-2h6l2 2h6a2 2 0 012 2v10a2 2 0 01-2 2H5a2 2 0 01-2-2z" />
+        </div>
+
+        {/* Action Controls Card */}
+        <div className="card-premium shadow-lg p-6">
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between space-y-4 sm:space-y-0">
+            <div className="flex items-center space-x-3">
+              <svg className="w-6 h-6 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
               </svg>
-              <span className="text-xs sm:text-sm">Export CSV</span>
-            </button>
-            <button 
-              onClick={() => handleExportEmployees('pdf')}
-              className="btn-premium bg-red-600 text-white px-3 py-2 sm:px-4 sm:py-3 rounded-xl hover:bg-red-700 shadow-lg flex items-center justify-center space-x-2 transform hover:scale-105 transition-all duration-200 text-sm"
-            >
-              <svg className="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z" />
-              </svg>
-              <span className="text-xs sm:text-sm">Export PDF</span>
-            </button>
-            <button 
-              onClick={() => setShowAddForm(true)}
-              className="btn-premium bg-indigo-600 text-white px-3 py-2 sm:px-4 sm:py-3 rounded-xl hover:bg-indigo-700 shadow-lg flex items-center justify-center space-x-2 transform hover:scale-105 transition-all duration-200 text-sm"
-            >
-              <svg className="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
-              </svg>
-              <span className="text-xs sm:text-sm">Add Employee</span>
-            </button>
+              <div>
+                <h3 className="text-lg font-semibold text-gray-900">Employee Actions</h3>
+                <p className="text-sm text-gray-600">Export data or add new employees</p>
+              </div>
+            </div>
+            <div className="flex flex-col sm:flex-row space-y-3 sm:space-y-0 sm:space-x-3">
+              <button 
+                onClick={() => handleExportEmployees('csv')}
+                className="btn-premium bg-green-600 text-white px-4 py-3 rounded-xl hover:bg-green-700 shadow-lg flex items-center justify-center space-x-2 transform hover:scale-105 transition-all duration-200 text-sm font-medium"
+              >
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3M3 17V7a2 2 0 012-2h6l2 2h6a2 2 0 012 2v10a2 2 0 01-2 2H5a2 2 0 01-2-2z" />
+                </svg>
+                <span>Export CSV</span>
+              </button>
+              <button 
+                onClick={() => handleExportEmployees('pdf')}
+                className="btn-premium bg-red-600 text-white px-4 py-3 rounded-xl hover:bg-red-700 shadow-lg flex items-center justify-center space-x-2 transform hover:scale-105 transition-all duration-200 text-sm font-medium"
+              >
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z" />
+                </svg>
+                <span>Export PDF</span>
+              </button>
+              <button 
+                onClick={() => setShowAddForm(true)}
+                className="btn-premium bg-indigo-600 text-white px-4 py-3 rounded-xl hover:bg-indigo-700 shadow-lg flex items-center justify-center space-x-2 transform hover:scale-105 transition-all duration-200 text-sm font-medium"
+              >
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+                </svg>
+                <span>Add Employee</span>
+              </button>
+            </div>
           </div>
         </div>
 

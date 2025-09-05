@@ -354,27 +354,29 @@ export function AdminSettings({ userRole = 'admin' }: { userRole?: 'admin' | 'su
                     Add Policy
                   </button>
                 </div>
-                <div className="p-8 space-y-6">
+                <div className="p-4 sm:p-6 lg:p-8 space-y-6">
                   {policies.map(policy => (
-                    <div key={policy.id} className="bg-white border border-gray-200 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden">
+                    <div key={policy.id} className="card-premium shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:scale-[1.01] overflow-hidden border border-gray-200">
                       {/* Header Section */}
-                      <div className="p-6 border-b border-gray-100 bg-gradient-to-r from-gray-50 to-white">
-                        <div className="flex items-start justify-between">
+                      <div className="p-4 sm:p-6 border-b border-gray-200 bg-gradient-to-r from-blue-50 via-indigo-50 to-purple-50">
+                        <div className="flex flex-col space-y-4 sm:flex-row sm:items-start sm:justify-between sm:space-y-0">
                           <div className="flex-1">
-                            <div className="flex items-center space-x-3 mb-3">
-                              <h3 className="text-2xl heading-premium text-gray-900 font-bold">{policy.name}</h3>
-                              <span className={`px-3 py-1 text-xs font-semibold rounded-full ${
-                                policy.status === 'active' ? 'bg-green-100 text-green-800' : 'bg-gray-100 text-gray-800'
+                            <div className="flex flex-col space-y-2 sm:flex-row sm:items-center sm:space-y-0 sm:space-x-3 mb-2">
+                              <h3 className="text-xl sm:text-2xl heading-premium text-gray-900 font-bold">{policy.name}</h3>
+                              <span className={`self-start px-3 py-1 text-xs font-bold rounded-full ${
+                                policy.status === 'active' 
+                                ? 'bg-green-100 text-green-800 border border-green-200' 
+                                : 'bg-gray-100 text-gray-800 border border-gray-200'
                               }`}>
                                 {policy.status.toUpperCase()}
                               </span>
                             </div>
                           </div>
                           
-                          <div className="flex space-x-2">
+                          <div className="flex flex-col space-y-2 sm:flex-row sm:space-y-0 sm:space-x-3">
                             <button 
                               onClick={() => handleEditPolicy(policy)}
-                              className="bg-indigo-100 text-indigo-700 hover:bg-indigo-200 px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 hover:shadow-md flex items-center space-x-2"
+                              className="btn-premium bg-indigo-600 text-white hover:bg-indigo-700 px-4 py-2 rounded-xl text-sm font-medium transition-all duration-200 transform hover:scale-105 shadow-lg flex items-center justify-center space-x-2"
                             >
                               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
@@ -383,7 +385,7 @@ export function AdminSettings({ userRole = 'admin' }: { userRole?: 'admin' | 'su
                             </button>
                             <button 
                               onClick={() => handleDeletePolicy(policy.id)}
-                              className="bg-red-100 text-red-700 hover:bg-red-200 px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 hover:shadow-md flex items-center space-x-2"
+                              className="btn-premium bg-red-600 text-white hover:bg-red-700 px-4 py-2 rounded-xl text-sm font-medium transition-all duration-200 transform hover:scale-105 shadow-lg flex items-center justify-center space-x-2"
                             >
                               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
@@ -395,14 +397,15 @@ export function AdminSettings({ userRole = 'admin' }: { userRole?: 'admin' | 'su
                       </div>
 
                       {/* Content Section */}
-                      <div className="p-6">
+                      <div className="p-4 sm:p-6">
                         {/* Description */}
                         <div className="mb-6">
-                          <p className="text-premium text-gray-700 leading-relaxed bg-gray-50 p-4 rounded-lg border border-gray-100">{policy.description}</p>
+                          <h4 className="text-sm font-semibold text-gray-500 uppercase tracking-wider mb-2">Policy Description</h4>
+                          <p className="text-premium text-gray-700 leading-relaxed bg-gradient-to-r from-gray-50 to-blue-50 p-4 rounded-xl border border-gray-200 shadow-sm">{policy.description}</p>
                         </div>
 
                         {/* Policy Details Grid */}
-                        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6">
                           <div className="bg-blue-50 border border-blue-200 rounded-xl p-4">
                             <div className="text-center">
                               <div className="text-3xl font-bold text-blue-700 mb-1">{policy.daysAllowed}</div>

@@ -26,35 +26,50 @@ export function ReportsAnalytics({ userRole = 'admin' }: { userRole?: 'admin' | 
   return (
     <AppShell userRole={userRole}>
       <div className="space-y-8 p-6">
-        <div className="flex items-center justify-between">
+        <div className="flex flex-col space-y-4 lg:flex-row lg:items-center lg:justify-between lg:space-y-0">
           <div>
             <h1 className="text-2xl sm:text-3xl lg:text-4xl heading-premium text-gray-900 font-bold">Reports & Analytics</h1>
             <p className="text-sm sm:text-base lg:text-lg text-premium text-gray-600 mt-1 sm:mt-2">View detailed reports and analytics on leave usage and team productivity</p>
           </div>
-          <div className="flex flex-col sm:flex-row space-y-3 sm:space-y-0 sm:space-x-3">
-            <select
-              value={selectedPeriod}
-              onChange={(e) => {
-                if (e.target.value === 'custom') {
-                  setShowCustomDatePicker(true)
-                } else {
-                  setSelectedPeriod(e.target.value)
-                }
-              }}
-              className="px-3 py-2 sm:px-4 sm:py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 text-sm"
-            >
-              <option value="last-7-days">Last 7 days</option>
-              <option value="last-30-days">Last 30 days</option>
-              <option value="last-90-days">Last 90 days</option>
-              <option value="this-year">This year</option>
-              <option value="custom">Custom Range</option>
-            </select>
-            <button className="btn-premium bg-indigo-600 text-white px-3 py-2 sm:px-6 sm:py-3 rounded-xl hover:bg-indigo-700 shadow-lg flex items-center justify-center space-x-2 text-sm">
-              <svg className="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+        </div>
+
+        {/* Export & Filter Section */}
+        <div className="card-premium shadow-lg p-6">
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between space-y-4 sm:space-y-0">
+            <div className="flex items-center space-x-3">
+              <svg className="w-6 h-6 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v4a2 2 0 01-2 2H9z" />
               </svg>
-              <span className="text-xs sm:text-sm">Export Report</span>
-            </button>
+              <div>
+                <h3 className="text-lg font-semibold text-gray-900">Report Controls</h3>
+                <p className="text-sm text-gray-600">Filter data and export reports</p>
+              </div>
+            </div>
+            <div className="flex flex-col sm:flex-row space-y-3 sm:space-y-0 sm:space-x-3">
+              <select
+                value={selectedPeriod}
+                onChange={(e) => {
+                  if (e.target.value === 'custom') {
+                    setShowCustomDatePicker(true)
+                  } else {
+                    setSelectedPeriod(e.target.value)
+                  }
+                }}
+                className="px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 text-sm min-w-[140px]"
+              >
+                <option value="last-7-days">Last 7 days</option>
+                <option value="last-30-days">Last 30 days</option>
+                <option value="last-90-days">Last 90 days</option>
+                <option value="this-year">This year</option>
+                <option value="custom">Custom Range</option>
+              </select>
+              <button className="btn-premium bg-indigo-600 text-white px-6 py-3 rounded-xl hover:bg-indigo-700 shadow-lg flex items-center justify-center space-x-2 text-sm font-medium transition-all duration-200 transform hover:scale-105">
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                </svg>
+                <span>Export Report</span>
+              </button>
+            </div>
           </div>
         </div>
 
