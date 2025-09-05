@@ -296,36 +296,36 @@ export function AdminSettings({ userRole = 'admin' }: { userRole?: 'admin' | 'su
   return (
     <AppShell userRole={userRole}>
       <div className="space-y-8 p-6">
-        <div className="flex items-center justify-between mb-8">
+        <div className="flex flex-col space-y-4 lg:flex-row lg:items-center lg:justify-between lg:space-y-0 mb-6 sm:mb-8">
           <div className="space-y-1">
-            <h1 className="text-4xl heading-premium text-gray-900 font-bold">Admin Settings</h1>
-            <p className="text-premium text-gray-600 text-lg">Configure leave policies, approval workflows, and system settings</p>
+            <h1 className="text-2xl sm:text-3xl lg:text-4xl heading-premium text-gray-900 font-bold">Admin Settings</h1>
+            <p className="text-sm sm:text-base lg:text-lg text-premium text-gray-600">Configure leave policies, approval workflows, and system settings</p>
           </div>
-          <div className="flex space-x-4">
-            <button className="btn-premium bg-gray-100 text-gray-700 px-6 py-3 rounded-xl hover:bg-gray-200 shadow-lg transition-all duration-200">
+          <div className="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-4">
+            <button className="btn-premium bg-gray-100 text-gray-700 px-4 py-2 sm:px-6 sm:py-3 rounded-xl hover:bg-gray-200 shadow-lg transition-all duration-200 text-sm">
               Reset to Default
             </button>
-            <button className="btn-premium bg-indigo-600 text-white px-8 py-3 rounded-xl hover:bg-indigo-700 shadow-lg transform hover:scale-105 transition-all duration-200">
+            <button className="btn-premium bg-indigo-600 text-white px-4 py-2 sm:px-8 sm:py-3 rounded-xl hover:bg-indigo-700 shadow-lg transform hover:scale-105 transition-all duration-200 text-sm">
               Save Changes
             </button>
           </div>
         </div>
 
-        <div className="flex space-x-8">
+        <div className="flex flex-col lg:flex-row lg:space-x-8 space-y-6 lg:space-y-0">
           {/* Settings Navigation */}
-          <div className="w-80 space-y-3">
+          <div className="w-full lg:w-80 space-y-3">
             {tabs.map(tab => (
               <button
                 key={tab.id}
                 onClick={() => setActiveTab(tab.id)}
-                className={`w-full flex items-center space-x-4 px-6 py-4 text-left rounded-xl transition-all duration-200 transform hover:scale-105 ${
+                className={`w-full flex items-center space-x-3 px-4 py-3 lg:px-6 lg:py-4 text-left rounded-xl transition-all duration-200 transform hover:scale-105 ${
                   activeTab === tab.id
                     ? 'bg-gradient-to-r from-indigo-500 to-purple-600 text-white shadow-lg'
                     : 'text-gray-700 hover:bg-gray-50 hover:text-gray-900 hover:shadow-md'
                 }`}
               >
-                <span className="text-2xl">{tab.icon}</span>
-                <span className="text-premium font-medium">{tab.name}</span>
+                <span className="text-xl lg:text-2xl">{tab.icon}</span>
+                <span className="text-sm lg:text-base text-premium font-medium">{tab.name}</span>
                 {activeTab === tab.id && (
                   <svg className="w-5 h-5 ml-auto" fill="currentColor" viewBox="0 0 20 20">
                     <path fillRule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 111.414-1.414L12.414 9a2 2 0 000 2.828l-3.707 3.707a1 1 0 01-1.414 0z" clipRule="evenodd" />
@@ -339,10 +339,10 @@ export function AdminSettings({ userRole = 'admin' }: { userRole?: 'admin' | 'su
           <div className="flex-1">
             {activeTab === 'policies' && (
               <div className="card-premium shadow-2xl bg-gradient-to-br from-white to-gray-50">
-                <div className="px-8 py-6 border-b border-gray-200 flex items-center justify-between">
+                <div className="px-4 py-4 sm:px-6 sm:py-5 lg:px-8 lg:py-6 border-b border-gray-200 flex flex-col space-y-3 sm:flex-row sm:items-center sm:justify-between sm:space-y-0">
                   <div className="space-y-2">
-                    <h2 className="text-2xl heading-premium text-gray-900 font-bold">Leave Policies</h2>
-                    <p className="text-premium text-gray-600">Manage leave types and entitlements for all employees</p>
+                    <h2 className="text-xl sm:text-2xl heading-premium text-gray-900 font-bold">Leave Policies</h2>
+                    <p className="text-sm sm:text-base text-premium text-gray-600">Manage leave types and entitlements for all employees</p>
                   </div>
                   <button 
                     onClick={handleAddPolicy}
@@ -453,10 +453,10 @@ export function AdminSettings({ userRole = 'admin' }: { userRole?: 'admin' | 'su
 
             {activeTab === 'approval' && (
               <div className="card-premium shadow-2xl bg-gradient-to-br from-white to-gray-50">
-                <div className="px-8 py-6 border-b border-gray-200">
+                <div className="px-4 py-4 sm:px-6 sm:py-5 lg:px-8 lg:py-6 border-b border-gray-200">
                   <div className="space-y-2">
-                    <h2 className="text-2xl heading-premium text-gray-900 font-bold">Approval Workflow</h2>
-                    <p className="text-premium text-gray-600">Configure multi-step approval processes for different leave types</p>
+                    <h2 className="text-xl sm:text-2xl heading-premium text-gray-900 font-bold">Approval Workflow</h2>
+                    <p className="text-sm sm:text-base text-premium text-gray-600">Configure multi-step approval processes for different leave types</p>
                   </div>
                 </div>
                 <div className="p-8 space-y-8">
@@ -516,10 +516,10 @@ export function AdminSettings({ userRole = 'admin' }: { userRole?: 'admin' | 'su
 
             {activeTab === 'notifications' && (
               <div className="card-premium shadow-2xl bg-gradient-to-br from-white to-gray-50">
-                <div className="px-8 py-6 border-b border-gray-200">
+                <div className="px-4 py-4 sm:px-6 sm:py-5 lg:px-8 lg:py-6 border-b border-gray-200">
                   <div className="space-y-2">
-                    <h2 className="text-2xl heading-premium text-gray-900 font-bold">Notification Settings</h2>
-                    <p className="text-premium text-gray-600">Configure email and system notifications for different events</p>
+                    <h2 className="text-xl sm:text-2xl heading-premium text-gray-900 font-bold">Notification Settings</h2>
+                    <p className="text-sm sm:text-base text-premium text-gray-600">Configure email and system notifications for different events</p>
                   </div>
                 </div>
                 <div className="p-8 space-y-6">
@@ -533,7 +533,7 @@ export function AdminSettings({ userRole = 'admin' }: { userRole?: 'admin' | 'su
                         </div>
                         <div>
                           <h4 className="heading-premium text-gray-900 font-bold">New Leave Request</h4>
-                          <p className="text-premium text-gray-600">Notify managers instantly when employees submit leave requests</p>
+                          <p className="text-sm sm:text-base text-premium text-gray-600">Notify managers instantly when employees submit leave requests</p>
                         </div>
                       </div>
                       <label className="relative inline-flex items-center cursor-pointer">
@@ -551,7 +551,7 @@ export function AdminSettings({ userRole = 'admin' }: { userRole?: 'admin' | 'su
                         </div>
                         <div>
                           <h4 className="heading-premium text-gray-900 font-bold">Request Status Updates</h4>
-                          <p className="text-premium text-gray-600">Notify employees immediately when requests are approved or rejected</p>
+                          <p className="text-sm sm:text-base text-premium text-gray-600">Notify employees immediately when requests are approved or rejected</p>
                         </div>
                       </div>
                       <label className="relative inline-flex items-center cursor-pointer">
@@ -569,7 +569,7 @@ export function AdminSettings({ userRole = 'admin' }: { userRole?: 'admin' | 'su
                         </div>
                         <div>
                           <h4 className="heading-premium text-gray-900 font-bold">Balance Reminders</h4>
-                          <p className="text-premium text-gray-600">Send monthly reminders about leave balance and upcoming expiry</p>
+                          <p className="text-sm sm:text-base text-premium text-gray-600">Send monthly reminders about leave balance and upcoming expiry</p>
                         </div>
                       </div>
                       <label className="relative inline-flex items-center cursor-pointer">
@@ -584,10 +584,10 @@ export function AdminSettings({ userRole = 'admin' }: { userRole?: 'admin' | 'su
 
             {activeTab === 'integrations' && (
               <div className="card-premium shadow-2xl bg-gradient-to-br from-white to-gray-50">
-                <div className="px-8 py-6 border-b border-gray-200">
+                <div className="px-4 py-4 sm:px-6 sm:py-5 lg:px-8 lg:py-6 border-b border-gray-200">
                   <div className="space-y-2">
-                    <h2 className="text-2xl heading-premium text-gray-900 font-bold">Integrations</h2>
-                    <p className="text-premium text-gray-600">Connect with external systems and tools</p>
+                    <h2 className="text-xl sm:text-2xl heading-premium text-gray-900 font-bold">Integrations</h2>
+                    <p className="text-sm sm:text-base text-premium text-gray-600">Connect with external systems and tools</p>
                   </div>
                 </div>
                 <div className="p-8 space-y-6">
@@ -690,10 +690,10 @@ export function AdminSettings({ userRole = 'admin' }: { userRole?: 'admin' | 'su
 
             {activeTab === 'general' && (
               <div className="card-premium shadow-2xl bg-gradient-to-br from-white to-gray-50">
-                <div className="px-8 py-6 border-b border-gray-200">
+                <div className="px-4 py-4 sm:px-6 sm:py-5 lg:px-8 lg:py-6 border-b border-gray-200">
                   <div className="space-y-2">
-                    <h2 className="text-2xl heading-premium text-gray-900 font-bold">General Settings</h2>
-                    <p className="text-premium text-gray-600">Configure system-wide settings and preferences</p>
+                    <h2 className="text-xl sm:text-2xl heading-premium text-gray-900 font-bold">General Settings</h2>
+                    <p className="text-sm sm:text-base text-premium text-gray-600">Configure system-wide settings and preferences</p>
                   </div>
                 </div>
                 <div className="p-8 space-y-8">

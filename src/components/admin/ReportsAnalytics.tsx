@@ -31,7 +31,7 @@ export function ReportsAnalytics({ userRole = 'admin' }: { userRole?: 'admin' | 
             <h1 className="text-3xl heading-premium text-gray-900">Reports & Analytics</h1>
             <p className="text-premium text-gray-600 mt-2">View detailed reports and analytics on leave usage and team productivity</p>
           </div>
-          <div className="flex space-x-3">
+          <div className="flex flex-col sm:flex-row space-y-3 sm:space-y-0 sm:space-x-3">
             <select
               value={selectedPeriod}
               onChange={(e) => {
@@ -41,7 +41,7 @@ export function ReportsAnalytics({ userRole = 'admin' }: { userRole?: 'admin' | 
                   setSelectedPeriod(e.target.value)
                 }
               }}
-              className="px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
+              className="px-3 py-2 sm:px-4 sm:py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 text-sm"
             >
               <option value="last-7-days">Last 7 days</option>
               <option value="last-30-days">Last 30 days</option>
@@ -49,11 +49,11 @@ export function ReportsAnalytics({ userRole = 'admin' }: { userRole?: 'admin' | 
               <option value="this-year">This year</option>
               <option value="custom">Custom Range</option>
             </select>
-            <button className="btn-premium bg-indigo-600 text-white px-6 py-3 rounded-xl hover:bg-indigo-700 shadow-lg flex items-center space-x-2">
-              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <button className="btn-premium bg-indigo-600 text-white px-3 py-2 sm:px-6 sm:py-3 rounded-xl hover:bg-indigo-700 shadow-lg flex items-center justify-center space-x-2 text-sm">
+              <svg className="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
               </svg>
-              <span>Export Report</span>
+              <span className="text-xs sm:text-sm">Export Report</span>
             </button>
           </div>
         </div>

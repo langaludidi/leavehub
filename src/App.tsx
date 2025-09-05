@@ -7,6 +7,7 @@ import { SignUp } from './components/auth/SignUp'
 import { ForgotPassword } from './components/auth/ForgotPassword'
 import { ResetPassword } from './components/auth/ResetPassword'
 import { AuthCallback } from './components/auth/AuthCallback'
+import { PRICING_PLANS, formatPrice, getPlanById } from './lib/pricing'
 import { DocumentModal } from './components/modals/DocumentModal'
 import { AppShell } from './components/layout/AppShell'
 import { DashboardStats } from './components/dashboard/DashboardStats'
@@ -795,8 +796,8 @@ function AdminDashboard() {
                   </div>
                   <span className="text-xs bg-blue-200 text-blue-800 px-2 py-1 rounded-full font-medium">ACTIVE</span>
                 </div>
-                <h3 className="text-base sm:text-lg font-bold text-blue-900 mb-1">🚀 Professional Plan</h3>
-                <p className="text-xs sm:text-sm text-blue-700">R849/month • Up to 50 employees</p>
+                <h3 className="text-base sm:text-lg font-bold text-blue-900 mb-1">🚀 Pro Plan</h3>
+                <p className="text-xs sm:text-sm text-blue-700">R849/month • Up to 50 employees (≈R17/employee)</p>
                 <p className="text-xs text-blue-600 mt-2">Next billing: Dec 15, 2024</p>
               </div>
 
@@ -859,7 +860,7 @@ function AdminDashboard() {
                         </div>
                         <div className="min-w-0 flex-1">
                           <h4 className="text-lg sm:text-xl font-bold text-green-900">Enterprise Plan</h4>
-                          <p className="text-xs sm:text-sm text-green-700">Perfect for organizations with 51+ employees</p>
+                          <p className="text-xs sm:text-sm text-green-700">Perfect for unlimited employees (≈R5/employee at 500 staff, R2.50/employee at 1,000 staff)</p>
                         </div>
                       </div>
                       <div className="self-start sm:text-right">
@@ -948,7 +949,7 @@ function AdminDashboard() {
                         </div>
                         <div>
                           <h5 className="font-bold text-orange-900">Starter Plan</h5>
-                          <p className="text-xs text-orange-700">4-20 employees</p>
+                          <p className="text-xs text-orange-700">Up to 20 employees (≈R20/employee)</p>
                         </div>
                       </div>
                       <div className="flex items-center justify-between">
@@ -1124,14 +1125,14 @@ function AdminDashboard() {
                       <h4 className="font-bold text-gray-900">Free Plan</h4>
                       <p className="text-xs text-gray-600 mb-2">For tiny teams and startups</p>
                       <div className="text-2xl font-bold text-gray-900">R0</div>
-                      <p className="text-xs text-gray-600">forever</p>
+                      <p className="text-xs text-gray-600">3 users • R0/employee</p>
                     </div>
                     <div className="space-y-2 text-xs text-gray-700 mb-4">
                       <div className="flex items-center space-x-2">
                         <svg className="w-3 h-3 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                         </svg>
-                        <span>Up to 3 employees</span>
+                        <span>3 employees included</span>
                       </div>
                       <div className="flex items-center space-x-2">
                         <svg className="w-3 h-3 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -1170,14 +1171,14 @@ function AdminDashboard() {
                       <h4 className="font-bold text-orange-900">Starter Plan</h4>
                       <p className="text-xs text-orange-700 mb-2">Perfect for growing teams</p>
                       <div className="text-2xl font-bold text-orange-900">R399</div>
-                      <p className="text-xs text-orange-700">/month</p>
+                      <p className="text-xs text-orange-700">20 users • ≈R20/employee</p>
                     </div>
                     <div className="space-y-2 text-xs text-orange-800 mb-4">
                       <div className="flex items-center space-x-2">
                         <svg className="w-3 h-3 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                         </svg>
-                        <span>All Free features</span>
+                        <span>Up to 20 employees</span>
                       </div>
                       <div className="flex items-center space-x-2">
                         <svg className="w-3 h-3 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -1216,17 +1217,17 @@ function AdminDashboard() {
                     </div>
                     <div className="text-center mb-4 mt-2">
                       <div className="text-2xl mb-2">🚀</div>
-                      <h4 className="font-bold text-blue-900">Professional Plan</h4>
+                      <h4 className="font-bold text-blue-900">Pro Plan</h4>
                       <p className="text-xs text-blue-700 mb-2">Built for SMEs & mid-size companies</p>
                       <div className="text-2xl font-bold text-blue-900">R849</div>
-                      <p className="text-xs text-blue-700">/month</p>
+                      <p className="text-xs text-blue-700">50 users • ≈R17/employee</p>
                     </div>
                     <div className="space-y-2 text-xs text-blue-800 mb-4">
                       <div className="flex items-center space-x-2">
                         <svg className="w-3 h-3 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                         </svg>
-                        <span>All Starter features</span>
+                        <span>Up to 50 employees</span>
                       </div>
                       <div className="flex items-center space-x-2">
                         <svg className="w-3 h-3 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -1265,14 +1266,14 @@ function AdminDashboard() {
                       <h4 className="font-bold text-green-900">Enterprise Plan</h4>
                       <p className="text-xs text-green-700 mb-2">Enterprise-grade compliance</p>
                       <div className="text-2xl font-bold text-green-900">R2,499</div>
-                      <p className="text-xs text-green-700">/month flat</p>
+                      <p className="text-xs text-green-700">unlimited • ≈R5/employee at 500</p>
                     </div>
                     <div className="space-y-2 text-xs text-green-800 mb-4">
                       <div className="flex items-center space-x-2">
                         <svg className="w-3 h-3 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                         </svg>
-                        <span>All Professional features</span>
+                        <span>Unlimited employees</span>
                       </div>
                       <div className="flex items-center space-x-2">
                         <svg className="w-3 h-3 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
