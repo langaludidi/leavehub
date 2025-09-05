@@ -5,16 +5,11 @@
 [build.environment]
   NODE_VERSION = "20"
 
-# SPA fallback for client-side routing
-[[redirects]]
-  from = "/api/*"
-  to = "/.netlify/functions/:splat"
-  status = 200
+# Force SPA behavior - redirect all 404s to the app
+[build.processing]
+  skip_processing = false
 
-[[redirects]]
-  from = "/*"
-  to = "/index.html"
-  status = 200
+# Redirects are now handled in public/_redirects file for better compatibility
 
 [dev]
   command = "npm run dev"
@@ -71,23 +66,4 @@
     Pragma = "no-cache"
     Expires = "0"
 
-# Additional redirects for better SPA handling
-[[redirects]]
-  from = "/admin"
-  to = "/index.html"
-  status = 200
-
-[[redirects]]
-  from = "/admin/*"
-  to = "/index.html"
-  status = 200
-
-[[redirects]]
-  from = "/dashboard"
-  to = "/index.html"
-  status = 200
-
-[[redirects]]
-  from = "/dashboard/*"
-  to = "/index.html"
-  status = 200
+# All redirects moved to public/_redirects file

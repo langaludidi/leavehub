@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Routing Test</title>
+</head>
+<body>
+    <h1>Testing LeaveHub Routes</h1>
+    <p>Current URL: <span id="currentUrl"></span></p>
+    
+    <h2>Test Links:</h2>
+    <ul>
+        <li><a href="http://localhost:5174/">Home</a></li>
+        <li><a href="http://localhost:5174/employee">Employee Dashboard</a></li>
+        <li><a href="http://localhost:5174/admin">Admin Dashboard</a></li>
+        <li><a href="http://localhost:5174/nonexistent">Non-existent Route</a></li>
+        <li><a href="http://localhost:5174/signin">Sign In</a></li>
+    </ul>
+    
+    <h2>Test Results:</h2>
+    <div id="results"></div>
+    
+    <script>
+        document.getElementById('currentUrl').textContent = window.location.href;
+        
+        async function testRoute(url) {
+            try {
+                const response = await fetch(url);
+                return {
+                    url: url,
+                    status: response.status,
+                    statusText: response.statusText,
+                    ok: response.ok
+                };
+            } catch (error) {
+                return {
+                    url: url,
+                    status: 'ERROR',
+                    statusText: error.message,
+                    ok: false
+                };
+            }
+        }
+        
+        async function runTests() {
+            const routes = [
+                'http://localhost:5174/',
+                'http://localhost:5174/employee',
+                'http://localhost:5174/admin',
+                'http://localhost:5174/nonexistent',
+                'http://localhost:5174/signin'
+            ];
+            
+            const results = document.getElementById('results');
+            results.innerHTML = '<p>Testing routes...</p>';
+            
+            const testResults = [];
+            for (const route of routes) {
+                const result = await testRoute(route);
+                testResults.push(result);
+            }
+            
+            let html = '<table border="1"><tr><th>URL</th><th>Status</th><th>OK</th></tr>';
+            testResults.forEach(result => {
+                html += `<tr><td>${result.url}</td><td>${result.status}</td><td>${result.ok}</td></tr>`;
+            });
+            html += '</table>';
+            
+            results.innerHTML = html;
+        }
+        
+        // Run tests on page load
+        runTests();
+    </script>
+</body>
+</html>

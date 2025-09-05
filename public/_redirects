@@ -1,1 +1,16 @@
-/*    /index.html   200
+# API routes (if any) - handle first
+/api/*  /.netlify/functions/:splat  200
+
+# Handle specific routes explicitly
+/signin           /index.html  200
+/signup           /index.html  200
+/employee         /index.html  200
+/employee/*       /index.html  200
+/admin            /index.html  200  
+/admin/*          /index.html  200
+/superadmin       /index.html  200
+/superadmin/*     /index.html  200
+/auth/*           /index.html  200
+
+# SPA fallback - catch all other routes
+/*                /index.html  200
