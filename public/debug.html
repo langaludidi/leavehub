@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LeaveHub - Debug</title>
+    <style>
+        body { 
+            font-family: Arial, sans-serif; 
+            padding: 2rem; 
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            text-align: center;
+            min-height: 100vh;
+            margin: 0;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: rgba(255,255,255,0.95);
+            padding: 2rem;
+            border-radius: 1rem;
+            color: #333;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+        .btn {
+            display: inline-block;
+            padding: 1rem 2rem;
+            background: #4CAF50;
+            color: white;
+            text-decoration: none;
+            border-radius: 0.5rem;
+            margin: 0.5rem;
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+        .btn:hover { 
+            background: #45a049; 
+            transform: translateY(-2px);
+        }
+        .btn-secondary {
+            background: #2196F3;
+        }
+        .btn-secondary:hover {
+            background: #1976D2;
+        }
+        .status {
+            background: #e8f5e8;
+            border: 2px solid #4CAF50;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            margin: 1rem 0;
+        }
+        .debug-info {
+            background: #f5f5f5;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            margin: 1rem 0;
+            text-align: left;
+            font-family: monospace;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🏢 LeaveHub</h1>
+        <h2>Leave Management System</h2>
+        
+        <div class="status">
+            <h3>✅ Site Status: ONLINE</h3>
+            <p>This page is loading correctly without JavaScript</p>
+        </div>
+        
+        <p>A comprehensive solution for managing employee leave requests, approvals, and tracking.</p>
+        
+        <div style="margin: 2rem 0;">
+            <h3>🚀 Quick Access</h3>
+            <a href="/signin" class="btn">Sign In</a>
+            <a href="/signup" class="btn btn-secondary">Sign Up</a>
+            <a href="/" class="btn">Home</a>
+        </div>
+        
+        <div class="debug-info">
+            <h4>Debug Information:</h4>
+            <p><strong>URL:</strong> <span id="current-url"></span></p>
+            <p><strong>User Agent:</strong> <span id="user-agent"></span></p>
+            <p><strong>Timestamp:</strong> <span id="timestamp"></span></p>
+            <p><strong>Screen Size:</strong> <span id="screen-size"></span></p>
+        </div>
+        
+        <div style="margin-top: 2rem;">
+            <h3>✨ Features</h3>
+            <ul style="text-align: left; display: inline-block;">
+                <li>📅 Easy leave request submission</li>
+                <li>⚡ Real-time approval workflow</li>
+                <li>📊 Analytics and reporting</li>
+                <li>👥 Team calendar integration</li>
+                <li>📱 Mobile responsive design</li>
+                <li>🔐 Secure authentication</li>
+            </ul>
+        </div>
+        
+        <div style="margin-top: 2rem; padding: 1rem; background: #e3f2fd; border-radius: 0.5rem;">
+            <p><strong>If you're seeing this page, the site is working!</strong></p>
+            <p><small>Version 1.0 | HTML Fallback Mode</small></p>
+        </div>
+    </div>
+
+    <script>
+        // Simple debug info
+        document.getElementById('current-url').textContent = window.location.href;
+        document.getElementById('user-agent').textContent = navigator.userAgent.substring(0, 80) + '...';
+        document.getElementById('timestamp').textContent = new Date().toLocaleString();
+        document.getElementById('screen-size').textContent = window.screen.width + 'x' + window.screen.height;
+        
+        // Test if we can log to console
+        console.log('LeaveHub Debug Page Loaded Successfully');
+        console.log('Location:', window.location.href);
+        console.log('Time:', new Date().toISOString());
+    </script>
+</body>
+</html>

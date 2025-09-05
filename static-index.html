@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LeaveHub - Employee Leave Management</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .container {
+            background: rgba(255,255,255,0.95);
+            padding: 3rem;
+            border-radius: 1rem;
+            text-align: center;
+            max-width: 600px;
+            width: 90%;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+            backdrop-filter: blur(10px);
+        }
+        h1 { 
+            color: #333; 
+            font-size: 2.5rem; 
+            margin-bottom: 0.5rem; 
+            font-weight: 700;
+        }
+        h2 { 
+            color: #666; 
+            margin-bottom: 2rem; 
+            font-weight: 400;
+        }
+        p { 
+            color: #555; 
+            line-height: 1.6; 
+            margin-bottom: 2rem;
+        }
+        .buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 2rem;
+        }
+        .btn {
+            padding: 1rem 2rem;
+            text-decoration: none;
+            border-radius: 0.5rem;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+        .btn-primary {
+            background: #4CAF50;
+            color: white;
+        }
+        .btn-primary:hover {
+            background: #45a049;
+            transform: translateY(-2px);
+        }
+        .btn-secondary {
+            background: #2196F3;
+            color: white;
+        }
+        .btn-secondary:hover {
+            background: #1976D2;
+            transform: translateY(-2px);
+        }
+        .status {
+            background: #e8f5e8;
+            border: 2px solid #4CAF50;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            margin-bottom: 2rem;
+        }
+        .features {
+            text-align: left;
+            background: #f9f9f9;
+            padding: 1.5rem;
+            border-radius: 0.5rem;
+            margin: 1rem 0;
+        }
+        .features ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        .features li {
+            padding: 0.5rem 0;
+            border-bottom: 1px solid #eee;
+        }
+        .features li:last-child {
+            border-bottom: none;
+        }
+        @media (max-width: 600px) {
+            .container { padding: 2rem; }
+            h1 { font-size: 2rem; }
+            .buttons { flex-direction: column; }
+            .btn { width: 100%; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🏢 LeaveHub</h1>
+        <h2>Employee Leave Management System</h2>
+        
+        <div class="status">
+            <h3 style="color: #4CAF50; margin-bottom: 0.5rem;">✅ System Online</h3>
+            <p style="margin: 0; color: #333;">Welcome to LeaveHub - Your comprehensive leave management solution</p>
+        </div>
+        
+        <p>Streamline your organization's leave management process with our intuitive platform designed for modern workplaces.</p>
+        
+        <div class="buttons">
+            <a href="/signin" class="btn btn-primary">Sign In</a>
+            <a href="/signup" class="btn btn-secondary">Get Started</a>
+        </div>
+        
+        <div class="features">
+            <h3 style="text-align: center; margin-bottom: 1rem; color: #333;">✨ Key Features</h3>
+            <ul>
+                <li>📅 Simple leave request submission</li>
+                <li>⚡ Automated approval workflows</li>
+                <li>📊 Real-time analytics and reporting</li>
+                <li>👥 Team calendar integration</li>
+                <li>📱 Mobile-responsive design</li>
+                <li>🔐 Enterprise-grade security</li>
+                <li>🔔 Smart notifications</li>
+                <li>📈 Leave balance tracking</li>
+            </ul>
+        </div>
+        
+        <div style="margin-top: 2rem; padding: 1rem; background: #e3f2fd; border-radius: 0.5rem;">
+            <p style="margin: 0;"><strong>Ready to get started?</strong></p>
+            <p style="margin: 0.5rem 0 0 0; font-size: 0.9rem; color: #666;">Join thousands of companies already using LeaveHub</p>
+        </div>
+    </div>
+
+    <script>
+        console.log('✅ LeaveHub loaded successfully');
+        console.log('🌐 URL:', window.location.href);
+        console.log('🕒 Time:', new Date().toISOString());
+        
+        // Test basic JavaScript functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('✅ DOM loaded');
+        });
+    </script>
+</body>
+</html>
