@@ -214,8 +214,8 @@ export function InviteEmployees({ userRole = 'admin' }: { userRole?: 'admin' | '
       <div className="space-y-4 sm:space-y-6 lg:space-y-8 p-4 sm:p-6">
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between space-y-4 sm:space-y-0">
           <div className="min-w-0 flex-1">
-            <h1 className="text-xl sm:text-2xl lg:text-3xl heading-premium text-gray-900 dark:text-gray-100">Invite Employees</h1>
-            <p className="text-premium text-gray-600 dark:text-gray-400 mt-1 sm:mt-2 text-sm sm:text-base">Send invitations to new employees to join your organization</p>
+            <h1 className="text-2xl sm:text-3xl lg:text-4xl heading-premium text-gray-900 dark:text-gray-100 font-bold">Invite Employees</h1>
+            <p className="text-sm sm:text-base lg:text-lg text-premium text-gray-600 dark:text-gray-400 mt-1 sm:mt-2">Send invitations to new employees to join your organization</p>
           </div>
         </div>
 

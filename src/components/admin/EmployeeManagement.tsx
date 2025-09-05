@@ -98,8 +98,8 @@ export function EmployeeManagement({ userRole = 'admin' }: { userRole?: 'admin' 
       <div className="space-y-8 p-6">
         <div className="flex items-center justify-between">
           <div>
-            <h1 className="text-3xl heading-premium text-gray-900">Employee Management</h1>
-            <p className="text-premium text-gray-600 mt-2">Manage employees, departments, and organizational structure</p>
+            <h1 className="text-2xl sm:text-3xl lg:text-4xl heading-premium text-gray-900 font-bold">Employee Management</h1>
+            <p className="text-sm sm:text-base lg:text-lg text-premium text-gray-600 mt-1 sm:mt-2">Manage employees, departments, and organizational structure</p>
           </div>
           <div className="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-3">
             <button 
@@ -133,7 +133,7 @@ export function EmployeeManagement({ userRole = 'admin' }: { userRole?: 'admin' 
         </div>
 
         {/* Stats Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
           <div className="card-premium shadow-lg p-6">
             <div className="flex items-center space-x-4">
               <div className="w-12 h-12 bg-blue-500 rounded-xl flex items-center justify-center">
@@ -230,7 +230,7 @@ export function EmployeeManagement({ userRole = 'admin' }: { userRole?: 'admin' 
               Showing {filteredEmployees.length} of {employees.length} employees
             </p>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4 sm:gap-6">
             {filteredEmployees.map(employee => (
               <div key={employee.id} className="bg-white rounded-2xl shadow-lg border border-gray-200 p-6 hover:shadow-xl transition-all duration-300 transform hover:scale-[1.02]">
                 {/* Employee Header */}

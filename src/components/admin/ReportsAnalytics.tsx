@@ -28,8 +28,8 @@ export function ReportsAnalytics({ userRole = 'admin' }: { userRole?: 'admin' | 
       <div className="space-y-8 p-6">
         <div className="flex items-center justify-between">
           <div>
-            <h1 className="text-3xl heading-premium text-gray-900">Reports & Analytics</h1>
-            <p className="text-premium text-gray-600 mt-2">View detailed reports and analytics on leave usage and team productivity</p>
+            <h1 className="text-2xl sm:text-3xl lg:text-4xl heading-premium text-gray-900 font-bold">Reports & Analytics</h1>
+            <p className="text-sm sm:text-base lg:text-lg text-premium text-gray-600 mt-1 sm:mt-2">View detailed reports and analytics on leave usage and team productivity</p>
           </div>
           <div className="flex flex-col sm:flex-row space-y-3 sm:space-y-0 sm:space-x-3">
             <select
@@ -59,7 +59,7 @@ export function ReportsAnalytics({ userRole = 'admin' }: { userRole?: 'admin' | 
         </div>
 
         {/* Key Metrics */}
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
           <div className="card-premium shadow-lg p-6">
             <div className="flex items-center space-x-4">
               <div className="w-12 h-12 bg-blue-500 rounded-xl flex items-center justify-center">
@@ -122,7 +122,7 @@ export function ReportsAnalytics({ userRole = 'admin' }: { userRole?: 'admin' | 
         </div>
 
         {/* Charts and Reports */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-8">
           <div className="card-premium shadow-xl">
             <div className="px-8 py-6 border-b border-gray-100">
               <h2 className="text-xl heading-premium text-gray-900">Monthly Leave Trends</h2>
