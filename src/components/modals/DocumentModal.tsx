@@ -13,10 +13,30 @@ interface Document {
   url?: string
 }
 
+interface AdminFile {
+  id: string
+  fileName: string
+  originalName: string
+  version: string
+  dateOfDocument?: string
+  dateUploaded: string
+  uploadedBy: string
+  fileSize: string
+  fileType: string
+  description?: string
+  distributionType: 'all' | 'department' | 'branch' | 'specific'
+  departments: string[]
+  branches: string[]
+  specificEmployees: string[]
+  downloadCount: number
+  status: 'active' | 'inactive'
+}
+
 interface DocumentModalProps {
   isOpen: boolean
   onClose: () => void
   documents?: Document[]
+  adminFiles?: AdminFile[]
 }
 
 const sampleDocuments: Document[] = [
@@ -58,7 +78,7 @@ const sampleDocuments: Document[] = [
   }
 ]
 
-export function DocumentModal({ isOpen, onClose, documents = sampleDocuments }: DocumentModalProps) {
+export function DocumentModal({ isOpen, onClose, documents = sampleDocuments, adminFiles = [] }: DocumentModalProps) {
   const { user, member } = useAuth()
   const [loading, setLoading] = useState(false)
   const [uploadLoading, setUploadLoading] = useState(false)
@@ -70,6 +90,23 @@ export function DocumentModal({ isOpen, onClose, documents = sampleDocuments }: 
 
   const isAdmin = member?.role === 'admin' || member?.role === 'owner'
 
+  // Convert admin files to document format
+  const convertedAdminFiles: Document[] = adminFiles
+    .filter(file => file.status === 'active')
+    .map(file => ({
+      id: file.id,
+      name: file.fileName,
+      type: file.fileType || file.originalName.split('.').pop()?.toUpperCase() || 'FILE',
+      size: file.fileSize,
+      uploadedAt: file.dateUploaded,
+      uploadedBy: file.uploadedBy,
+      category: 'other' as const,
+      url: undefined // Would be provided by backend in real implementation
+    }))
+
+  // Combine sample documents with admin files
+  const allDocuments = [...documents, ...convertedAdminFiles]
+
   const categories = [
     { value: 'all', label: 'All Documents' },
     { value: 'policy', label: 'Policies' },
@@ -79,7 +116,7 @@ export function DocumentModal({ isOpen, onClose, documents = sampleDocuments }: 
     { value: 'other', label: 'Other' }
   ]
 
-  const filteredDocuments = documents.filter(doc => {
+  const filteredDocuments = allDocuments.filter(doc => {
     const matchesCategory = selectedCategory === 'all' || doc.category === selectedCategory
     const matchesSearch = searchQuery === '' || 
       doc.name.toLowerCase().includes(searchQuery.toLowerCase()) ||

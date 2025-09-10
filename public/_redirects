@@ -1,6 +1,18 @@
 # API routes (if any) - handle first
 /api/*  /.netlify/functions/:splat  200
 
+# Static assets - serve directly (don't redirect to index.html)
+/assets/*         /assets/:splat  200
+/*.js             /:splat  200
+/*.css            /:splat  200
+/*.png            /:splat  200
+/*.jpg            /:splat  200
+/*.svg            /:splat  200
+/*.ico            /:splat  200
+/*.woff           /:splat  200
+/*.woff2          /:splat  200
+/*.ttf            /:splat  200
+
 # Handle specific routes explicitly
 /signin           /index.html  200
 /signup           /index.html  200
@@ -11,6 +23,16 @@
 /superadmin       /index.html  200
 /superadmin/*     /index.html  200
 /auth/*           /index.html  200
+/affiliate        /index.html  200
+/affiliate/*      /index.html  200
+/whitelabel       /index.html  200
+/whitelabel/*     /index.html  200
 
-# SPA fallback - catch all other routes
+# Return 404 for non-existent API endpoints and files with extensions
+/api/404          /404.html    404
+/*.json           /404.html    404 ! File=:splat
+/*.xml            /404.html    404 ! File=:splat
+/*.txt            /404.html    404 ! File=:splat
+
+# SPA fallback - catch all other routes (but not assets)
 /*                /index.html  200

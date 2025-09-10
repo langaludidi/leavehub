@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign in to LeaveHub</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            margin: 0;
+            padding: 0;
+            background-color: #f8fafc;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            margin-top: 20px;
+            margin-bottom: 20px;
+        }
+        .header {
+            background: linear-gradient(135deg, #059669 0%, #10B981 100%);
+            padding: 40px 20px;
+            text-align: center;
+        }
+        .logo {
+            display: inline-block;
+            margin-bottom: 20px;
+        }
+        .header h1 {
+            color: white;
+            margin: 0;
+            font-size: 28px;
+            font-weight: 600;
+        }
+        .header p {
+            color: rgba(255, 255, 255, 0.9);
+            margin: 10px 0 0 0;
+            font-size: 16px;
+        }
+        .content {
+            padding: 40px 30px;
+        }
+        .content h2 {
+            color: #1f2937;
+            font-size: 24px;
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+        .content p {
+            color: #6b7280;
+            font-size: 16px;
+            margin-bottom: 20px;
+            line-height: 1.7;
+        }
+        .button {
+            display: inline-block;
+            background: linear-gradient(135deg, #059669 0%, #10B981 100%);
+            color: white;
+            padding: 14px 32px;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 16px;
+            margin: 20px 0;
+            transition: all 0.3s ease;
+        }
+        .button:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 8px 15px rgba(5, 150, 105, 0.3);
+        }
+        .button-container {
+            text-align: center;
+            margin: 30px 0;
+        }
+        .footer {
+            background-color: #f8fafc;
+            padding: 30px;
+            text-align: center;
+            border-top: 1px solid #e5e7eb;
+        }
+        .footer p {
+            color: #9ca3af;
+            font-size: 14px;
+            margin: 5px 0;
+        }
+        .footer a {
+            color: #4F46E5;
+            text-decoration: none;
+        }
+        .security-notice {
+            background-color: #ecfdf5;
+            border: 1px solid #10b981;
+            border-radius: 8px;
+            padding: 16px;
+            margin: 20px 0;
+        }
+        .security-notice p {
+            color: #065f46;
+            font-size: 14px;
+            margin: 0;
+        }
+        .info-box {
+            background-color: #eff6ff;
+            border: 1px solid #3b82f6;
+            border-radius: 8px;
+            padding: 16px;
+            margin: 20px 0;
+        }
+        .info-box p {
+            color: #1e40af;
+            font-size: 14px;
+            margin: 0;
+        }
+        @media (max-width: 600px) {
+            .container {
+                margin: 10px;
+                border-radius: 0;
+            }
+            .header, .content, .footer {
+                padding: 20px;
+            }
+            .header h1 {
+                font-size: 24px;
+            }
+            .content h2 {
+                font-size: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="logo">
+                <svg width="150" height="45" viewBox="0 0 200 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="25" cy="30" r="20" fill="rgba(255,255,255,0.2)" stroke="white" stroke-width="2" />
+                    <rect x="15" y="20" width="20" height="20" rx="2" fill="white" />
+                    <rect x="15" y="24" width="20" height="16" rx="1" fill="none" stroke="#059669" stroke-width="1.5" />
+                    <line x1="19" y1="28" x2="19" y2="36" stroke="#059669" stroke-width="0.8" />
+                    <line x1="23" y1="28" x2="23" y2="36" stroke="#059669" stroke-width="0.8" />
+                    <line x1="27" y1="28" x2="27" y2="36" stroke="#059669" stroke-width="0.8" />
+                    <line x1="31" y1="28" x2="31" y2="36" stroke="#059669" stroke-width="0.8" />
+                    <line x1="17" y1="30" x2="33" y2="30" stroke="#059669" stroke-width="0.8" />
+                    <line x1="17" y1="33" x2="33" y2="33" stroke="#059669" stroke-width="0.8" />
+                    <rect x="20" y="18" width="2" height="4" rx="1" fill="#059669" />
+                    <rect x="28" y="18" width="2" height="4" rx="1" fill="#059669" />
+                    <circle cx="21" cy="31.5" r="1.5" fill="#EF4444" />
+                    <circle cx="29" cy="34.5" r="1.5" fill="#10B981" />
+                    <text x="55" y="25" font-family="Arial, sans-serif" font-size="18" font-weight="bold" fill="white">LeaveHub</text>
+                    <text x="55" y="42" font-family="Arial, sans-serif" font-size="10" fill="rgba(255,255,255,0.8)">Leave Management Platform</text>
+                </svg>
+            </div>
+            <h1>Sign in to LeaveHub</h1>
+            <p>Quick and secure access to your account</p>
+        </div>
+        
+        <div class="content">
+            <h2>Your Magic Sign-in Link</h2>
+            <p>Hi there,</p>
+            <p>Click the button below to securely sign in to your LeaveHub account. No password required - just click and you're in!</p>
+            
+            <div class="button-container">
+                <a href="{{ .ConfirmationURL }}" class="button">Sign In to LeaveHub</a>
+            </div>
+            
+            <div class="info-box">
+                <p><strong>This is a magic link</strong> - it will automatically sign you in without requiring your password. The link is valid for 24 hours and can only be used once.</p>
+            </div>
+            
+            <p>After signing in, you can:</p>
+            <ul style="color: #6b7280; padding-left: 20px;">
+                <li>View and manage your leave requests</li>
+                <li>Check your current leave balance</li>
+                <li>Access team calendars and schedules</li>
+                <li>Download important company documents</li>
+            </ul>
+            
+            <div class="security-notice">
+                <p><strong>Security Note:</strong> This link will only work from the device and browser where you requested it. If you didn't request this sign-in link, you can safely ignore this email.</p>
+            </div>
+            
+            <p>Having trouble with the button? Copy and paste this link into your browser:</p>
+            <p style="word-break: break-all; color: #059669; font-size: 14px;">{{ .ConfirmationURL }}</p>
+        </div>
+        
+        <div class="footer">
+            <p><strong>LeaveHub Team</strong></p>
+            <p>Making leave management effortless</p>
+            <p style="margin-top: 20px;">
+                <a href="mailto:support@leavehub.com">support@leavehub.com</a> | 
+                <a href="https://leavehub.com">leavehub.com</a>
+            </p>
+            <p style="font-size: 12px; margin-top: 15px;">
+                This email was sent because you requested a magic sign-in link for LeaveHub.<br>
+                Magic links expire after 24 hours for your security.
+            </p>
+        </div>
+    </div>
+</body>
+</html>

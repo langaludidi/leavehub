@@ -16,8 +16,8 @@ const mockEvents: CalendarEvent[] = [
     id: '1',
     title: 'Annual Leave',
     employee: 'John Smith',
-    startDate: '2024-12-20',
-    endDate: '2024-12-24',
+    startDate: '2025-01-10',
+    endDate: '2025-01-12',
     type: 'annual',
     status: 'approved'
   },
@@ -34,10 +34,28 @@ const mockEvents: CalendarEvent[] = [
     id: '3',
     title: 'Sick Leave',
     employee: 'David Wilson',
-    startDate: '2024-12-15',
-    endDate: '2024-12-15',
+    startDate: '2025-01-08',
+    endDate: '2025-01-08',
     type: 'sick',
     status: 'pending'
+  },
+  {
+    id: '4',
+    title: 'Annual Leave',
+    employee: 'Sarah Johnson',
+    startDate: '2025-01-20',
+    endDate: '2025-01-25',
+    type: 'annual',
+    status: 'approved'
+  },
+  {
+    id: '5',
+    title: 'Paternity Leave',
+    employee: 'Mike Brown',
+    startDate: '2025-01-28',
+    endDate: '2025-02-11',
+    type: 'paternity',
+    status: 'approved'
   }
 ]
 
@@ -46,7 +64,11 @@ interface TeamCalendarProps {
 }
 
 export function TeamCalendar({ userRole }: TeamCalendarProps) {
-  const [currentDate, setCurrentDate] = useState(new Date())
+  const [currentDate, setCurrentDate] = useState(() => {
+    const today = new Date()
+    today.setHours(12, 0, 0, 0) // Normalize time to avoid timezone issues
+    return today
+  })
   const [viewMode, setViewMode] = useState<'month' | 'week'>('month')
 
   const getTypeColor = (type: string) => {
@@ -65,6 +87,65 @@ export function TeamCalendar({ userRole }: TeamCalendarProps) {
 
   const getFirstDayOfMonth = (date: Date) => {
     return new Date(date.getFullYear(), date.getMonth(), 1).getDay()
+  }
+
+  const getWeekDates = (date: Date) => {
+    const startOfWeek = new Date(date)
+    startOfWeek.setDate(date.getDate() - date.getDay())
+    
+    const weekDates = []
+    for (let i = 0; i < 7; i++) {
+      const weekDate = new Date(startOfWeek)
+      weekDate.setDate(startOfWeek.getDate() + i)
+      weekDates.push(weekDate)
+    }
+    return weekDates
+  }
+
+  const renderWeekView = () => {
+    const weekDates = getWeekDates(currentDate)
+    
+    return weekDates.map((date, index) => {
+      const dateStr = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}`
+      const dayEvents = mockEvents.filter(event => {
+        const eventStart = new Date(event.startDate)
+        const eventEnd = new Date(event.endDate)
+        return date >= eventStart && date <= eventEnd
+      })
+      
+      const isToday = new Date().toDateString() === date.toDateString()
+      const isCurrentMonth = date.getMonth() === currentDate.getMonth()
+      
+      return (
+        <div key={`week-${index}-${dateStr}`} className={`h-40 sm:h-48 border border-gray-200 dark:border-gray-700 p-2 sm:p-3 overflow-hidden hover:bg-gray-50 dark:hover:bg-gray-800 cursor-pointer ${
+          isToday ? 'bg-blue-50 dark:bg-blue-900/20 border-blue-300 dark:border-blue-700' : 
+          isCurrentMonth ? 'bg-white dark:bg-gray-900' : 'bg-gray-50 dark:bg-gray-800'
+        }`}>
+          <div className={`font-semibold text-sm sm:text-base mb-2 ${
+            isToday ? 'text-blue-600 dark:text-blue-400' : 
+            isCurrentMonth ? 'text-gray-900 dark:text-gray-100' : 'text-gray-400 dark:text-gray-500'
+          }`}>
+            <div>{date.getDate()}</div>
+            <div className="text-xs opacity-60">{date.toLocaleDateString('en-US', { month: 'short' })}</div>
+          </div>
+          <div className="space-y-1 overflow-y-auto max-h-28 sm:max-h-32">
+            {dayEvents.map((event, eventIndex) => (
+              <div
+                key={`${event.id}-${eventIndex}`}
+                className={`text-xs px-2 py-1 rounded border ${getTypeColor(event.type)} truncate`}
+                title={`${event.employee} - ${event.title}`}
+              >
+                <div className="font-medium truncate">{event.employee}</div>
+                <div className="text-xs opacity-75 truncate">{event.title}</div>
+              </div>
+            ))}
+            {dayEvents.length === 0 && (
+              <div className="text-xs text-gray-400 dark:text-gray-500 italic">No events</div>
+            )}
+          </div>
+        </div>
+      )
+    })
   }
 
   const renderCalendarGrid = () => {
@@ -89,13 +170,19 @@ export function TeamCalendar({ userRole }: TeamCalendarProps) {
         return currentDay >= eventStart && currentDay <= eventEnd
       })
       
+      const isToday = new Date().toDateString() === new Date(dateStr).toDateString()
+      
       days.push(
-        <div key={day} className="h-16 sm:h-24 lg:h-32 bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 p-1 sm:p-2 overflow-hidden hover:bg-gray-50 dark:hover:bg-gray-800 cursor-pointer">
-          <div className="font-semibold text-xs sm:text-sm text-gray-900 dark:text-gray-100 mb-1">{day}</div>
+        <div key={`month-${day}-${currentDate.getMonth()}-${currentDate.getFullYear()}`} className={`h-16 sm:h-24 lg:h-32 border border-gray-200 dark:border-gray-700 p-1 sm:p-2 overflow-hidden hover:bg-gray-50 dark:hover:bg-gray-800 cursor-pointer ${
+          isToday ? 'bg-blue-50 dark:bg-blue-900/20 border-blue-300 dark:border-blue-700' : 'bg-white dark:bg-gray-900'
+        }`}>
+          <div className={`font-semibold text-xs sm:text-sm mb-1 ${
+            isToday ? 'text-blue-600 dark:text-blue-400' : 'text-gray-900 dark:text-gray-100'
+          }`}>{day}</div>
           <div className="space-y-1">
-            {dayEvents.slice(0, viewMode === 'month' ? 1 : 2).map(event => (
+            {dayEvents.slice(0, 2).map((event, eventIndex) => (
               <div
-                key={event.id}
+                key={`${event.id}-${eventIndex}-${day}`}
                 className={`text-xs px-1 sm:px-2 py-0.5 sm:py-1 rounded border ${getTypeColor(event.type)} truncate`}
                 title={`${event.employee} - ${event.title}`}
               >
@@ -103,8 +190,8 @@ export function TeamCalendar({ userRole }: TeamCalendarProps) {
                 <span className="sm:hidden">{event.employee.split(' ')[0]}</span>
               </div>
             ))}
-            {dayEvents.length > (viewMode === 'month' ? 1 : 2) && (
-              <div className="text-xs text-gray-500 dark:text-gray-400">+{dayEvents.length - (viewMode === 'month' ? 1 : 2)} more</div>
+            {dayEvents.length > 2 && (
+              <div className="text-xs text-gray-500 dark:text-gray-400">+{dayEvents.length - 2} more</div>
             )}
           </div>
         </div>
@@ -115,11 +202,57 @@ export function TeamCalendar({ userRole }: TeamCalendarProps) {
   }
 
   const nextMonth = () => {
-    setCurrentDate(new Date(currentDate.getFullYear(), currentDate.getMonth() + 1))
+    const newDate = new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 1)
+    setCurrentDate(newDate)
   }
 
   const prevMonth = () => {
-    setCurrentDate(new Date(currentDate.getFullYear(), currentDate.getMonth() - 1))
+    const newDate = new Date(currentDate.getFullYear(), currentDate.getMonth() - 1, 1)
+    setCurrentDate(newDate)
+  }
+
+  const nextWeek = () => {
+    const newDate = new Date(currentDate)
+    newDate.setDate(newDate.getDate() + 7)
+    setCurrentDate(newDate)
+  }
+
+  const prevWeek = () => {
+    const newDate = new Date(currentDate)
+    newDate.setDate(newDate.getDate() - 7)
+    setCurrentDate(newDate)
+  }
+
+  const goToToday = () => {
+    const today = new Date()
+    // Reset time to avoid any timezone or time-based issues
+    today.setHours(12, 0, 0, 0)
+    setCurrentDate(today)
+  }
+
+  const handleViewModeChange = (mode: 'month' | 'week') => {
+    setViewMode(mode)
+    // Reset to today when switching views for better UX
+    if (mode === 'week') {
+      const today = new Date()
+      today.setHours(12, 0, 0, 0)
+      setCurrentDate(today)
+    }
+  }
+
+  const getDisplayTitle = () => {
+    if (viewMode === 'week') {
+      const weekDates = getWeekDates(currentDate)
+      const startDate = weekDates[0]
+      const endDate = weekDates[6]
+      
+      if (startDate.getMonth() === endDate.getMonth()) {
+        return `${startDate.toLocaleDateString('en-US', { month: 'long', year: 'numeric' })} ${startDate.getDate()}-${endDate.getDate()}`
+      } else {
+        return `${startDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric' })} - ${endDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}`
+      }
+    }
+    return currentDate.toLocaleDateString('en-US', { month: 'long', year: 'numeric' })
   }
 
   return (
@@ -133,7 +266,7 @@ export function TeamCalendar({ userRole }: TeamCalendarProps) {
           <div className="flex items-center justify-center sm:justify-end space-x-4">
             <div className="flex bg-gray-100 dark:bg-gray-800 rounded-lg p-1">
               <button
-                onClick={() => setViewMode('month')}
+                onClick={() => handleViewModeChange('month')}
                 className={`px-3 sm:px-4 py-2 rounded-md text-xs sm:text-sm font-medium transition-colors ${
                   viewMode === 'month' 
                     ? 'bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 shadow' 
@@ -143,7 +276,7 @@ export function TeamCalendar({ userRole }: TeamCalendarProps) {
                 Month
               </button>
               <button
-                onClick={() => setViewMode('week')}
+                onClick={() => handleViewModeChange('week')}
                 className={`px-3 sm:px-4 py-2 rounded-md text-xs sm:text-sm font-medium transition-colors ${
                   viewMode === 'week' 
                     ? 'bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 shadow' 
@@ -159,22 +292,31 @@ export function TeamCalendar({ userRole }: TeamCalendarProps) {
         <div className="card-premium shadow-xl">
           <div className="px-4 sm:px-8 py-4 sm:py-6 border-b border-gray-100 dark:border-gray-700 flex flex-col sm:flex-row sm:items-center sm:justify-between space-y-3 sm:space-y-0">
             <div className="flex items-center justify-center sm:justify-start space-x-2 sm:space-x-4">
-              <button onClick={prevMonth} className="p-2 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg">
+              <button 
+                onClick={viewMode === 'month' ? prevMonth : prevWeek} 
+                className="p-2 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg"
+              >
                 <svg className="w-4 h-4 sm:w-5 sm:h-5 text-gray-600 dark:text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
                 </svg>
               </button>
               <h2 className="text-lg sm:text-xl heading-premium text-gray-900 dark:text-gray-100">
-                {currentDate.toLocaleDateString('en-US', { month: 'long', year: 'numeric' })}
+                {getDisplayTitle()}
               </h2>
-              <button onClick={nextMonth} className="p-2 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg">
+              <button 
+                onClick={viewMode === 'month' ? nextMonth : nextWeek} 
+                className="p-2 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg"
+              >
                 <svg className="w-4 h-4 sm:w-5 sm:h-5 text-gray-600 dark:text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                 </svg>
               </button>
             </div>
-            <button className="btn-premium bg-indigo-600 text-white px-4 sm:px-6 py-2 sm:py-3 rounded-xl hover:bg-indigo-700 shadow-lg text-sm sm:text-base">
-              Today
+            <button 
+              onClick={goToToday}
+              className="btn-premium bg-indigo-600 text-white px-4 sm:px-6 py-2 sm:py-3 rounded-xl hover:bg-indigo-700 focus:bg-indigo-800 active:bg-indigo-800 shadow-lg text-sm sm:text-base transition-all duration-200"
+            >
+              📅 Today
             </button>
           </div>
 
@@ -187,8 +329,8 @@ export function TeamCalendar({ userRole }: TeamCalendarProps) {
                 </div>
               ))}
             </div>
-            <div className="grid grid-cols-7 gap-px bg-gray-200 dark:bg-gray-600">
-              {renderCalendarGrid()}
+            <div className={`grid grid-cols-7 gap-px bg-gray-200 dark:bg-gray-600 ${viewMode === 'week' ? 'h-40 sm:h-48' : ''}`}>
+              {viewMode === 'month' ? renderCalendarGrid() : renderWeekView()}
             </div>
           </div>
         </div>

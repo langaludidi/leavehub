@@ -6,27 +6,39 @@ export default defineConfig({
   build: {
     rollupOptions: {
       output: {
-        manualChunks: {
-          'react-vendor': ['react', 'react-dom', 'react-router-dom'],
-          'ui-vendor': ['@heroicons/react'],
-          'affiliate': [
-            './src/components/affiliate/AffiliateDashboard',
-            './src/components/affiliate/AffiliateSignup',
-            './src/components/affiliate/AffiliateAnalytics',
-            './src/components/affiliate/AffiliateMarketingMaterials',
-            './src/components/affiliate/AffiliatePayments'
-          ],
-          'whitelabel': [
-            './src/components/whitelabel/WhiteLabelDashboard',
-            './src/components/whitelabel/WhiteLabelOnboarding',
-            './src/components/whitelabel/TenantManagement',
-            './src/components/whitelabel/WhiteLabelConfig'
-          ]
+        manualChunks: (id) => {
+          // Vendor chunks for better caching
+          if (id.includes('node_modules')) {
+            if (id.includes('react') || id.includes('react-dom') || id.includes('react-router')) {
+              return 'react-vendor';
+            }
+            if (id.includes('@heroicons') || id.includes('lucide')) {
+              return 'ui-vendor';
+            }
+            if (id.includes('supabase')) {
+              return 'supabase-vendor';
+            }
+            return 'vendor';
+          }
+          // Feature-specific chunks
+          if (id.includes('affiliate')) {
+            return 'affiliate';
+          }
+          if (id.includes('whitelabel')) {
+            return 'whitelabel';
+          }
+          if (id.includes('components/modals')) {
+            return 'modals';
+          }
+          if (id.includes('components/dashboard')) {
+            return 'dashboard';
+          }
         }
       }
     },
-    chunkSizeWarningLimit: 600,
-    reportCompressedSize: false
+    chunkSizeWarningLimit: 800, // Increased for larger main chunk
+    reportCompressedSize: false,
+    minify: true // Use default minification
   },
   server: {
     port: 5173,
