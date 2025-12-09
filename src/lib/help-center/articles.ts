@@ -1111,6 +1111,1271 @@ For urgent medical certificates:
     tags: ['documents', 'upload', 'troubleshooting', 'errors'],
     lastUpdated: '2025-12-09',
   },
+
+  // Additional Leave Management Articles
+  {
+    id: '8',
+    title: 'Manager Approval Process',
+    category: 'leave-management',
+    content: `# Manager Approval Process
+
+Understanding how managers review and approve leave requests.
+
+## Manager Dashboard
+
+Managers have access to:
+- Pending approval queue
+- Team calendar view
+- Leave balance reports
+- Historical requests
+
+## Approval Workflow
+
+### 1. Request Notification
+- Email alert sent immediately
+- In-app notification badge
+- Mobile push notification (if enabled)
+
+### 2. Review Factors
+Managers consider:
+- Leave balance availability
+- Team coverage needs
+- Business critical dates
+- Previous request patterns
+- Supporting documentation
+
+### 3. Quick Actions
+- **Approve**: Grant leave immediately
+- **Reject**: Decline with reason
+- **Request Info**: Ask for clarification
+- **Defer**: Mark for later review
+
+## Approval Timeframes
+
+Standard processing:
+- Urgent requests: Within 24 hours
+- Standard requests: Within 48 hours
+- Future-dated requests: Within 5 business days
+
+## Appeals Process
+
+If request is rejected:
+1. Review rejection reason
+2. Address manager's concerns
+3. Resubmit with additional info
+4. Escalate to HR if needed
+
+## Best Practices for Employees
+
+✅ Submit well in advance
+✅ Provide clear reasons
+✅ Include required documents
+✅ Check team calendar first
+✅ Be flexible with dates
+✅ Respond promptly to questions`,
+    tags: ['approval', 'manager', 'workflow'],
+    lastUpdated: '2025-12-09',
+  },
+  {
+    id: '9',
+    title: 'Public Holidays in South Africa',
+    category: 'leave-management',
+    content: `# South African Public Holidays
+
+Complete guide to SA public holidays and how they affect leave.
+
+## 2025 Public Holidays
+
+1. **New Year's Day** - 1 January (Wednesday)
+2. **Human Rights Day** - 21 March (Friday)
+3. **Good Friday** - 18 April
+4. **Family Day** - 21 April (Monday)
+5. **Freedom Day** - 27 April (Sunday) → 28 April (Monday)
+6. **Workers' Day** - 1 May (Thursday)
+7. **Youth Day** - 16 June (Monday)
+8. **National Women's Day** - 9 August (Saturday) → 11 August (Monday)
+9. **Heritage Day** - 24 September (Wednesday)
+10. **Day of Reconciliation** - 16 December (Tuesday)
+11. **Christmas Day** - 25 December (Thursday)
+12. **Day of Goodwill** - 26 December (Friday)
+
+## Sunday Rule
+
+When a public holiday falls on Sunday:
+- Next Monday becomes a public holiday
+- Example: Freedom Day 2025 falls on Sunday, so Monday 28 April is off
+
+## How Holidays Affect Leave
+
+### Working Around Holidays
+- Public holidays don't count toward leave balance
+- Bridge days between holiday and weekend = smart planning
+- LeaveHub automatically excludes holidays from calculations
+
+### Example Scenarios
+
+**Christmas 2025 Bridge**:
+- 25 Dec (Thu) - Public Holiday
+- 26 Dec (Fri) - Public Holiday
+- 27-28 Dec (Weekend)
+- 29-31 Dec - **Take 3 days leave**
+- Result: 9 consecutive days off using only 3 leave days!
+
+**Long Weekend Strategy**:
+- Take Friday + Monday around a Tuesday holiday
+- Result: 4-day weekend using 2 leave days
+
+## Holiday Pay
+
+Under BCEA:
+- Paid at normal rate
+- Cannot be substituted with leave days
+- Must be given as time off
+- Overtime may apply if you work on holiday (double pay)
+
+## LeaveHub Features
+
+✅ Holidays pre-loaded in calendar
+✅ Automatic exclusion from working days
+✅ Smart suggestions for bridge days
+✅ Holiday reminders`,
+    tags: ['public-holidays', 'sa', 'bcea'],
+    lastUpdated: '2025-12-09',
+  },
+  {
+    id: '10',
+    title: 'Team Calendar and Coordination',
+    category: 'leave-management',
+    content: `# Using the Team Calendar
+
+Coordinate leave with your team to ensure adequate coverage.
+
+## Accessing Team Calendar
+
+Navigate to: Dashboard → Calendar
+
+## Calendar Views
+
+### Month View
+- See all team members' leave
+- Color-coded by leave type
+- Public holidays highlighted
+- Hover for details
+
+### Week View
+- Detailed daily breakdown
+- Team availability at a glance
+- Conflict warnings
+
+### Day View
+- Who's in office vs out
+- Department breakdown
+- Meeting availability
+
+## Color Coding
+
+- 🟢 **Green**: Annual Leave
+- 🔴 **Red**: Sick Leave
+- 🟡 **Yellow**: Family Responsibility
+- 🟣 **Purple**: Maternity/Paternity
+- 🔵 **Blue**: Study Leave
+- ⚪ **Gray**: Unpaid Leave
+
+## Checking Conflicts
+
+Before submitting leave:
+1. Open Team Calendar
+2. Select your desired dates
+3. Check "Availability" panel
+4. Look for warnings:
+   - "High team absence"
+   - "Manager unavailable"
+   - "Critical coverage period"
+
+## Coverage Planning
+
+### Best Practices
+✅ Coordinate with teammates
+✅ Stagger leave dates
+✅ Document handover tasks
+✅ Set up out-of-office auto-reply
+✅ Provide emergency contact
+
+### Blackout Periods
+Some teams have blackout dates:
+- Month-end close (Finance)
+- Peak season (Retail/Hospitality)
+- Budget planning (All departments)
+- Major project deadlines
+
+Check with your manager for team-specific rules.
+
+## Mobile Calendar Sync
+
+Approved leave syncs to:
+- Google Calendar
+- Outlook Calendar
+- Apple Calendar
+
+Setup in Settings → Integrations`,
+    tags: ['calendar', 'team', 'coordination'],
+    lastUpdated: '2025-12-09',
+  },
+  {
+    id: '11',
+    title: 'Leave Accrual and Carry Over',
+    category: 'leave-management',
+    content: `# Leave Accrual and Carry Over Rules
+
+Understanding how leave accumulates and rolls over.
+
+## How Annual Leave Accrues
+
+### Monthly Accrual
+- 1.75 days per month (21 days ÷ 12 months)
+- Accrues on the 1st of each month
+- Pro-rated for part-month employment
+
+### Example Timeline
+- **Jan 1**: +1.75 days
+- **Feb 1**: +1.75 days (total: 3.5)
+- **Mar 1**: +1.75 days (total: 5.25)
+- And so on...
+
+## Carry Over Rules
+
+### BCEA Minimum
+- Employer must allow minimum 6 months carry over
+- Leave must be used within 6 months of new cycle
+- Cannot force forfeiture before 6 months
+
+### Company Policies Vary
+Common approaches:
+1. **6-month carry over**: Use it or lose it after 6 months
+2. **12-month carry over**: Full year to use previous year's leave
+3. **Unlimited carry over**: Accumulate indefinitely
+4. **Cash out option**: Convert to payment (rare)
+
+**Check your company's specific policy in the Employee Handbook**
+
+## Leave Year Cycles
+
+Most common cycles:
+- **Calendar year**: Jan 1 - Dec 31
+- **Financial year**: Mar 1 - Feb 28/29
+- **Anniversary**: Based on hire date
+
+LeaveHub tracks your specific cycle.
+
+## New Employees
+
+### First Year Pro-Rata
+- Accrue based on months worked
+- Example: Start July 1 = 10.5 days for year
+- (6 months × 1.75 days/month)
+
+### Probation Period
+- Still accrues during probation
+- May have restrictions on taking leave
+- Check employment contract
+
+## Negative Balance
+
+### What Happens
+- System prevents overuse
+- Requests rejected if insufficient balance
+- Exception: Pre-approved advance leave
+
+### Advance Leave
+Some employers allow:
+- Taking next year's allocation early
+- Must be repaid if you resign
+- Requires manager and HR approval
+
+## Tracking in LeaveHub
+
+Dashboard shows:
+- Current balance
+- Accrued this month
+- Scheduled to accrue
+- Pending deductions
+- Carry over from previous year (if applicable)
+
+## Year-End Planning
+
+**November/December Tips**:
+- Check balance before year-end
+- Book remaining days
+- Coordinate with team
+- Submit requests early
+- Consider carry over limits`,
+    tags: ['accrual', 'carry-over', 'balance'],
+    lastUpdated: '2025-12-09',
+  },
+
+  // Additional AI Features Articles
+  {
+    id: '16',
+    title: 'AI Conflict Detection Explained',
+    category: 'ai-features',
+    content: `# How AI Conflict Detection Works
+
+Understanding LeaveHub's intelligent conflict detection system.
+
+## What is Conflict Detection?
+
+The AI analyzes your requested dates against:
+- Team member schedules
+- Department capacity
+- Historical patterns
+- Company policies
+- Critical business dates
+
+## Conflict Severity Levels
+
+### 🟢 Low Severity
+- 1-2 team members away
+- Adequate coverage maintained
+- No critical roles affected
+- Proceed with confidence
+
+### 🟡 Medium Severity
+- 3-4 team members away
+- Reduced but manageable coverage
+- May need contingency planning
+- Manager review recommended
+
+### 🔴 High Severity
+- 5+ team members away
+- Critical roles uncovered
+- High impact on operations
+- Alternative dates strongly suggested
+
+## What the AI Considers
+
+### Team Dynamics
+- Department size
+- Role criticality
+- Cross-training levels
+- Historical coverage issues
+
+### Business Context
+- Peak vs off-peak seasons
+- Project deadlines
+- Client commitments
+- Regulatory requirements
+
+### Historical Data
+- Previous conflicts
+- Success/failure patterns
+- Team preferences
+- Seasonal trends
+
+## Smart Suggestions
+
+When conflicts detected, AI suggests:
+
+1. **Alternative Week**: Same duration, different timing
+2. **Split Leave**: Break into smaller periods
+3. **Shorter Duration**: Reduce number of days
+4. **Extended Weekend**: Long weekend instead of full week
+
+Each suggestion includes:
+- Conflict severity reduction
+- Team availability improvement
+- Business impact assessment
+- Employee benefit analysis
+
+## Override Options
+
+You can still submit despite conflicts if:
+- Emergency or urgent need
+- Pre-approved by management
+- Mitigating circumstances
+- Coverage arranged manually
+
+Always add explanation in request notes.
+
+## Limitations
+
+AI cannot account for:
+- Last-minute changes
+- Unplanned sick leave
+- External factors (client emergencies)
+- Informal arrangements
+
+**Always coordinate with your manager**
+
+## Note About API
+
+⚠️ AI features require Anthropic API key
+⚠️ If unavailable, basic calendar checking still works
+⚠️ Contact IT to enable AI features`,
+    tags: ['ai', 'conflicts', 'detection'],
+    lastUpdated: '2025-12-09',
+  },
+  {
+    id: '17',
+    title: 'Holiday Optimization Strategies',
+    category: 'ai-features',
+    content: `# Maximizing Your Leave with AI
+
+Learn how to use AI to get the most from your leave days.
+
+## The Bridge Day Opportunity
+
+### What is a Bridge Day?
+A bridge day is a working day between:
+- Public holiday and weekend
+- Two public holidays
+- Holiday and existing leave
+
+### Example
+- Friday: Public Holiday
+- Monday: Take 1 day leave
+- Result: 4-day weekend with 1 leave day!
+
+## AI Holiday Optimization
+
+The AI scans:
+- All SA public holidays
+- Your preferred dates
+- Team availability
+- Company calendar
+
+Then suggests:
+- Best bridge opportunities
+- Long weekend options
+- Extended break strategies
+- Maximum days off for minimum leave used
+
+## 2025 Optimization Opportunities
+
+### Easter Long Weekend
+- Take Thu 17 Apr + Tue 22 Apr (2 days)
+- Get: 17-22 April off (6 consecutive days)
+- Cost: Only 2 leave days
+
+### Freedom Day Extension
+- Take Tue 29 + Wed 30 April (2 days)
+- Get: 26 Apr - 4 May off (9 consecutive days)
+- Cost: Only 2 leave days + 3 public holidays
+
+### Workers' Day Bridge
+- Public holiday Thursday 1 May
+- Take Friday 2 May (1 day)
+- Get: 4-day weekend
+- Cost: 1 leave day
+
+### Heritage Day Strategy
+- Take Thu 25 + Fri 26 September (2 days)
+- Get: 24-28 September off (5 consecutive days)
+- Cost: 2 leave days
+
+### Christmas/New Year Mega Break
+- 25-26 Dec: Public holidays
+- 27-28 Dec: Weekend
+- 29-31 Dec: Take 3 days
+- 1 Jan 2026: Public holiday
+- Result: 8 days off for 3 leave days!
+
+## Planning Your Year
+
+### Q1 Strategy (Jan-Mar)
+- Plan major breaks
+- Use AI to identify opportunities
+- Book early for popular dates
+
+### Q2-Q3 Execution (Apr-Sep)
+- Take planned leave
+- Monitor balance
+- Adjust as needed
+
+### Q4 Wrap-up (Oct-Dec)
+- Use remaining balance
+- Maximize year-end holidays
+- Consider carry-over rules
+
+## Tips for Success
+
+✅ Plan 3-6 months ahead
+✅ Book flights after approval
+✅ Coordinate with family
+✅ Check school holiday dates
+✅ Monitor fare prices
+✅ Have backup dates ready
+
+## AI Recommendations
+
+Ask AI to:
+- "Find best dates for 2-week vacation"
+- "Maximize December break"
+- "Suggest long weekend options"
+- "When should I take leave to minimize conflicts?"
+
+## Combining Strategies
+
+**For Maximum Impact**:
+1. Use AI suggestions
+2. Check team calendar
+3. Align with public holidays
+4. Submit early
+5. Book travel after approval`,
+    tags: ['optimization', 'holidays', 'strategy', 'ai'],
+    lastUpdated: '2025-12-09',
+  },
+  {
+    id: '18',
+    title: 'AI Balance Warnings and Recommendations',
+    category: 'ai-features',
+    content: `# Understanding AI Balance Warnings
+
+Smart guidance to help you use leave wisely throughout the year.
+
+## What are Balance Warnings?
+
+The AI monitors:
+- Your current leave usage
+- Remaining balance
+- Time left in year
+- Historical patterns
+
+And alerts you to:
+- Overspending early
+- Underspending risk
+- Optimal distribution
+- Carry-over implications
+
+## Warning Types
+
+### 🔴 High Usage Alert
+"You're using 60% of annual leave in Q1"
+
+**What it means**:
+- Burning through leave too quickly
+- May have shortage later
+- Emergency leave buffer needed
+
+**Recommendation**:
+- Reduce current request
+- Spread leave across year
+- Keep 3-5 days for emergencies
+
+### 🟡 Pace Concern
+"Current rate will deplete balance by September"
+
+**What it means**:
+- Usage tracking shows early depletion
+- No leave for Q4 holidays
+- May miss carry-over opportunity
+
+**Recommendation**:
+- Review upcoming plans
+- Reduce frequency
+- Plan smaller breaks
+
+### 🟢 Under-Utilization
+"You have 15 unused days with 2 months left"
+
+**What it means**:
+- Not using entitled leave
+- Risk losing days to policy
+- Missing rest opportunities
+
+**Recommendation**:
+- Book remaining leave now
+- Check carry-over rules
+- Plan year-end break
+
+## Optimal Distribution
+
+AI recommends:
+- **Q1 (Jan-Mar)**: Use 15-20% of balance
+- **Q2 (Apr-Jun)**: Use 25-30% of balance
+- **Q3 (Jul-Sep)**: Use 25-30% of balance
+- **Q4 (Oct-Dec)**: Use remaining 25-30%
+
+## Smart Allocation Strategy
+
+### Emergency Buffer
+Always keep:
+- 2-3 days for unexpected needs
+- Family emergencies
+- Illness (if sick leave depleted)
+- Personal matters
+
+### Planned vs Spontaneous
+Split your leave:
+- 60-70% planned (holidays, events)
+- 30-40% flexible (long weekends, spontaneous)
+
+## AI Personalization
+
+The AI learns:
+- Your usage patterns
+- Team dynamics
+- Seasonal preferences
+- Work intensity cycles
+
+And customizes warnings to your:
+- Department
+- Role
+- Historical behavior
+- Company policies
+
+## Responding to Warnings
+
+### If Overusing
+1. Cancel or reduce planned leave
+2. Reschedule to later quarter
+3. Take shorter breaks
+4. Use public holidays strategically
+
+### If Under-Using
+1. Book remaining days immediately
+2. Check company buy-back policy
+3. Plan year-end vacation
+4. Use for extended break
+
+## Year-End Planning
+
+**October Checkpoint**:
+- Review remaining balance
+- Calculate working days left
+- Plan Q4 leave
+- Consider carry-over limits
+
+**December Rush**:
+- Don't wait until December
+- Popular dates book fast
+- Team coverage becomes difficult
+- Submit by November
+
+## Exceptions
+
+AI understands special cases:
+- New employees (pro-rata balance)
+- Parental leave (separate entitlement)
+- Long service leave
+- Sabbatical planning
+
+## No API Key?
+
+Without AI, you can still:
+- Manually calculate optimal distribution
+- Use simple leave calculator
+- Follow 25% per quarter rule
+- Check balance regularly
+
+Contact IT to enable AI features for smarter planning.`,
+    tags: ['balance', 'warnings', 'ai', 'planning'],
+    lastUpdated: '2025-12-09',
+  },
+
+  // Additional Documents Articles
+  {
+    id: '20',
+    title: 'Managing Your Document Library',
+    category: 'documents',
+    content: `# Managing Your Document Library
+
+Keep your documents organized and accessible.
+
+## Document Organization
+
+### Categories
+- **Medical Certificates**: Sick leave proof
+- **Supporting Documents**: Additional evidence
+- **Contracts**: Employment agreements
+- **Identification**: ID, proof of address
+- **Other**: Miscellaneous files
+
+### Naming Convention
+Good names:
+✅ Medical_Cert_2025-12-09_Dr_Smith.pdf
+✅ Annual_Leave_Flight_Booking.pdf
+✅ Family_Emergency_Hospital_Letter.pdf
+
+Bad names:
+❌ IMG_1234.jpg
+❌ Document.pdf
+❌ Scan001.pdf
+
+## Viewing Documents
+
+### Document List View
+Shows:
+- Filename
+- Category badge
+- Upload date
+- File size
+- Quick actions
+
+### Sorting Options
+- By date (newest/oldest)
+- By category
+- By size
+- Alphabetically
+
+### Search Function
+- Search by filename
+- Filter by category
+- Filter by date range
+
+## Downloading Documents
+
+1. Click download icon (⬇️)
+2. File downloads to your browser's download folder
+3. Original filename preserved
+4. Can download multiple times
+
+**Use cases**:
+- Backup to personal storage
+- Print physical copies
+- Email to third parties
+- Archive for records
+
+## Deleting Documents
+
+### When to Delete
+- Outdated documents
+- Duplicate uploads
+- Wrong file uploaded
+- No longer needed
+
+### How to Delete
+1. Click delete icon (🗑️)
+2. Confirm deletion
+3. Permanent removal from storage
+
+⚠️ **Warning**: Deletion is permanent and cannot be undone
+
+### Best Practice
+- Keep documents for at least 1 year
+- Check if referenced in leave requests
+- Download backup before deleting
+- Follow company retention policy
+
+## Document History
+
+LeaveHub tracks:
+- Upload date and time
+- Uploaded by (user)
+- File metadata
+- Download history (admin view)
+
+Managers and HR can see:
+- When documents were submitted
+- If requirements were met
+- Verification status
+
+## Storage Limits
+
+### Current Limits
+- 10MB per file
+- 100MB total per user
+- Unlimited number of files (within storage limit)
+
+### Managing Space
+If approaching limit:
+1. Delete old documents
+2. Compress large PDFs
+3. Remove duplicates
+4. Request quota increase from HR
+
+## Document Security
+
+### Privacy
+🔒 Only you and authorized HR can see your documents
+🔒 Encrypted in transit and at rest
+🔒 Secure cloud storage (Supabase)
+🔒 Regular backups
+
+### Compliance
+- POPIA compliant (SA data protection)
+- GDPR principles followed
+- Audit trail maintained
+- Right to deletion honored
+
+## Integration with Leave Requests
+
+### Automatic Linking
+When you upload:
+1. Select category
+2. Upload file
+3. Reference in leave request notes
+4. Manager can view attached documents
+
+### Required Documents
+System may automatically request:
+- Medical cert for 3+ sick days
+- Proof for family responsibility leave
+- Supporting evidence for special leave
+
+## Mobile Access
+
+Documents accessible via:
+- Mobile browser
+- Responsive design
+- Download on mobile
+- View in-app
+
+**Tip**: Enable Google Drive sync for automatic backup
+
+## Troubleshooting
+
+**Can't see uploaded document?**
+- Refresh page
+- Check category filter
+- Clear browser cache
+- Contact support
+
+**Download fails?**
+- Check internet connection
+- Try different browser
+- Disable popup blockers
+- Check disk space`,
+    tags: ['documents', 'management', 'library'],
+    lastUpdated: '2025-12-09',
+  },
+  {
+    id: '21',
+    title: 'Document Requirements by Leave Type',
+    category: 'documents',
+    content: `# Required Documents for Different Leave Types
+
+Know what documentation you need for each leave type.
+
+## Annual Leave
+**Required Documents**: ❌ None
+
+Annual leave doesn't require supporting documents. However, you may want to upload:
+- Flight bookings (for manager context)
+- Conference invitations
+- Event tickets
+
+## Sick Leave
+
+### 1-2 Days
+**Required**: ❌ No medical certificate needed
+
+Under BCEA:
+- First two days don't require proof
+- Self-certification acceptable
+- Just submit leave request
+
+### 3+ Consecutive Days
+**Required**: ✅ Medical Certificate
+
+Certificate must include:
+- Doctor's details and signature
+- Practice number
+- Date of consultation
+- Recommended days off
+- Your name and ID number
+- Stamp or letterhead
+
+**Upload within**: 5 working days of return
+
+### Repeat Sick Leave (2+ occasions in 8 weeks)
+**Required**: ✅ Medical Certificate (even for 1 day)
+
+BCEA allows employers to request medical proof if pattern emerges.
+
+## Family Responsibility Leave
+
+**Required**: ✅ Supporting Documentation
+
+Acceptable documents:
+- **Birth**: Birth certificate, hospital certificate
+- **Death**: Death certificate, funeral notice
+- **Illness**: Hospital admission letter, medical report
+
+Must prove:
+- Immediate family relationship
+- Seriousness of situation
+- Your need to be present
+
+## Maternity Leave
+**Required**: ✅ Medical Certificate
+
+Must include:
+- Confirmation of pregnancy
+- Expected due date
+- Recommended leave period
+- Doctor/midwife details
+
+**Submit**: 4 weeks before intended leave start
+
+**Additional**:
+- Proof of birth (after delivery)
+- Hospital discharge summary
+
+## Paternity Leave
+**Required**: ✅ Proof of Birth
+
+Acceptable documents:
+- Birth certificate
+- Hospital birth record
+- Clinic birth notification
+
+**Submit**: Within 4 weeks of birth
+
+## Study Leave
+**Required**: ✅ Proof of Enrollment + Exam Schedule
+
+Must include:
+- Institution name
+- Course details
+- Exam dates and times
+- Your student number
+
+**Additional**:
+- Letter from institution
+- Course timetable
+- Proof of payment
+
+## Unpaid Leave
+**Required**: ⚠️ Varies by reason
+
+Manager may request:
+- Explanation letter
+- Supporting evidence
+- Timeline
+- Financial impact acknowledgment
+
+## Emergency Leave
+**Required**: ✅ Submit proof afterward
+
+For urgent situations:
+1. Submit leave request immediately
+2. Upload documents when possible
+3. Provide explanation
+4. Follow up with HR
+
+## Document Checklist
+
+Before submitting:
+- [ ] Document is clear and readable
+- [ ] All required info visible
+- [ ] File size under 10MB
+- [ ] Saved as PDF (preferred) or JPG
+- [ ] Named descriptively
+- [ ] Correct category selected
+
+## Medical Certificate Requirements
+
+Valid medical certificates must have:
+✅ Letterhead or stamp
+✅ Doctor's name and practice number
+✅ Consultation date
+✅ Number of days off recommended
+✅ Your name and ID
+✅ Doctor's signature
+✅ Contact details
+
+Invalid certificates:
+❌ Handwritten notes without letterhead
+❌ Unsigned documents
+❌ No practice number
+❌ Generic "sick note" templates
+❌ Expired or post-dated certificates
+
+## Verification Process
+
+HR may verify:
+- Doctor's registration with HPCSA
+- Hospital records
+- Death/birth certificates with Home Affairs
+
+False documentation = dismissible offense
+
+## Privacy and Confidentiality
+
+Your documents are:
+- Only viewable by you, your manager, and HR
+- Stored securely
+- Not shared with other employees
+- Deleted per retention policy
+
+Medical details:
+- Manager sees "medical certificate uploaded"
+- Does not see diagnosis details
+- HR maintains medical file separately
+
+## International Documents
+
+For leave abroad:
+- Ensure documents in English (or translated)
+- Notarize if required
+- Check authentication requirements
+- Allow extra processing time
+
+## Digital vs Physical
+
+### Digital Preferred
+- Upload to LeaveHub
+- Faster processing
+- No lost documents
+- Easy to retrieve
+
+### Physical Copy
+- Bring to HR if system unavailable
+- Keep as personal backup
+- Required for legal proceedings
+- Submit within 5 days
+
+## FAQs
+
+**Q: What if my doctor doesn't provide certificates?**
+A: All registered practitioners must provide certificates. If refused, find another doctor or report to HPCSA.
+
+**Q: Can I submit a pharmacy till slip?**
+A: No, only certificates from registered medical practitioners accepted.
+
+**Q: What if I'm too sick to get certificate immediately?**
+A: Get certificate when able, upload retroactively, explain delay to manager.`,
+    tags: ['documents', 'requirements', 'medical-certificate'],
+    lastUpdated: '2025-12-09',
+  },
+
+  // Additional BCEA Compliance Articles
+  {
+    id: '22',
+    title: 'Your Rights as an Employee Under BCEA',
+    category: 'bcea-compliance',
+    content: `# Your Employment Rights Under BCEA
+
+Understanding your rights under South African labor law.
+
+## What is the BCEA?
+
+The Basic Conditions of Employment Act (1997) sets minimum standards for:
+- Working hours
+- Leave entitlements
+- Payment
+- Termination procedures
+- Protection of employees
+
+## Leave Rights
+
+### You Are Entitled To:
+✅ 21 days annual leave per year
+✅ 30 days sick leave per 3-year cycle
+✅ 3 days family responsibility leave per year
+✅ 4 months unpaid maternity leave
+✅ 10 days paid paternity leave
+✅ Payment during leave at normal rate
+
+### Employer Cannot:
+❌ Force you to forfeit annual leave
+❌ Pay less than normal rate during leave
+❌ Require work on public holidays without permission
+❌ Deny leave without valid reason
+❌ Dismiss you for taking BCEA-entitled leave
+
+## Working Hours
+
+**Maximum**: 45 hours per week
+- 9 hours per day (5-day week)
+- 8 hours per day (6-day week)
+
+**Overtime**:
+- Up to 10 hours per week
+- Must be paid at 1.5× normal rate
+- Or time off equivalent
+
+**Rest periods**:
+- Minimum 12 hours between shifts
+- 1 hour lunch break (if working 5+ hours)
+- 36 consecutive hours off per week (usually weekend)
+
+## Payment Rights
+
+### Timely Payment
+- Monthly salaries: Last working day
+- Weekly wages: End of week
+- Cannot be later than 7 days after period end
+
+### Pay Deductions
+Employer can only deduct:
+- With your written consent
+- For debt owed to employer
+- By court order
+- Statutory deductions (tax, UIF, pension)
+
+### Payslip Required
+Must show:
+- Employer and employee details
+- Payment period
+- Gross and net pay
+- All deductions
+- Leave balance
+
+## Protection from Unfair Practices
+
+### Cannot be Dismissed For:
+- Taking entitled leave
+- Reporting violations
+- Pregnancy
+- Participating in union activities
+- Refusing illegal activities
+
+### Protection During Pregnancy
+- Cannot be forced to work dangerous tasks
+- Entitled to maternity leave
+- Job protection during leave
+- Right to return to same/similar position
+- Cannot be dismissed for pregnancy
+
+## Probation Period Rights
+
+Even during probation:
+- Still covered by BCEA
+- Leave accrues normally
+- Can take sick leave
+- Cannot be arbitrarily dismissed
+
+**Maximum probation**: 3-6 months
+
+## Contract Requirements
+
+Employment contract must include:
+- Names of parties
+- Job title and description
+- Start date
+- Place of work
+- Working hours
+- Remuneration
+- Leave entitlements
+- Notice periods
+- Dispute resolution process
+
+### Types of Contracts
+- **Permanent**: Ongoing employment
+- **Fixed-term**: Specific end date (max 3 months probation)
+- **Part-time**: Reduced hours, pro-rata benefits
+
+## Termination Rights
+
+### Notice Periods
+- 1 week: Employed < 6 months
+- 2 weeks: Employed 6 months - 1 year
+- 4 weeks: Employed > 1 year
+
+### Severance Pay
+If dismissed for operational reasons:
+- 1 week's pay per year of service
+- Applicable after 1 year of service
+
+### Unfair Dismissal
+You can challenge dismissal if:
+- No valid reason
+- Unfair procedure
+- Discriminatory
+- Automated (without reason)
+
+**File complaint with**: CCMA within 30 days
+
+## Vulnerable Workers
+
+### Domestic Workers
+- Covered by BCEA
+- Entitled to all leave
+- Minimum wage applies
+- Written contract required
+
+### Farm Workers
+- Covered by BCEA
+- Sectoral determination applies
+- Housing and food allowances
+
+### Part-time Workers
+- Pro-rata entitlements
+- Same protections
+- Cannot be discriminated against
+
+## Public Holiday Rights
+
+If you work on public holiday:
+- Must be voluntary (or in essential services)
+- Paid double time
+- Or normal pay + day off within 7 days
+- Or extra day's pay
+
+## UIF (Unemployment Insurance Fund)
+
+### Contributions
+- 1% from employee
+- 1% from employer
+- Deducted monthly
+
+### Benefits
+- Unemployment benefits
+- Maternity benefits
+- Illness benefits
+- Dependant benefits
+
+## Where to Report Violations
+
+### Department of Employment and Labour
+📞 **Call Centre**: 0860 10 20 20
+📧 **Email**: info@labour.gov.za
+🌐 **Website**: www.labour.gov.za
+
+### CCMA (Commission for Conciliation, Mediation and Arbitration)
+For disputes:
+📞 **Call Centre**: 0861 16 16 16
+📧 **Email**: info@ccma.org.za
+
+### Union Representatives
+- Speak to shop steward
+- File internal grievance
+- Seek union legal assistance
+
+## Company Policies vs BCEA
+
+Company can offer:
+- MORE than BCEA minimums ✅
+- Stricter procedures ✅ (if not contradicting BCEA)
+- Additional benefits ✅
+
+Company cannot:
+- Offer LESS than BCEA minimums ❌
+- Remove BCEA rights ❌
+- Override BCEA protections ❌
+
+**Your employment contract cannot waive BCEA rights**
+
+## Record Keeping
+
+Keep records of:
+- Employment contract
+- Payslips (min 3 years)
+- Leave records
+- Performance reviews
+- Correspondence with employer
+- Medical certificates
+
+**Required retention**: 3 years minimum
+
+## Further Information
+
+### Resources
+- Department of Labour website
+- BCEA full text: www.gov.za
+- Your company HR handbook
+- Union resources
+- Legal aid clinics
+
+### Free Advice
+- Labour Centres
+- University law clinics
+- Legal Aid SA
+- Trade union offices`,
+    tags: ['bcea', 'rights', 'employment', 'law'],
+    lastUpdated: '2025-12-09',
+  },
 ];
 
 // Search function
