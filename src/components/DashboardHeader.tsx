@@ -59,6 +59,11 @@ export default function DashboardHeader({
                   Approvals
                 </Button>
               </Link>
+              <Link href="/dashboard/help">
+                <Button variant="ghost" size="sm">
+                  Help
+                </Button>
+              </Link>
             </nav>
           </div>
 
