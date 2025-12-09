@@ -3,6 +3,7 @@ import { headers } from 'next/headers';
 import { WebhookEvent } from '@clerk/nextjs/server';
 import { createServerClient } from '@/lib/supabase/server';
 import { UserRole } from '@/types/roles';
+import { sendWelcomeEmail } from '@/lib/email/send';
 
 export async function POST(req: Request) {
   const WEBHOOK_SECRET = process.env.CLERK_WEBHOOK_SECRET;
@@ -79,6 +80,14 @@ export async function POST(req: Request) {
       }
 
       console.log('✓ Profile created for user:', id);
+
+      // Send welcome email
+      const userEmail = email_addresses[0]?.email_address;
+      const userName = first_name || 'there';
+      if (userEmail) {
+        await sendWelcomeEmail(userName, userEmail);
+        console.log('✓ Welcome email sent to:', userEmail);
+      }
     } catch (error) {
       console.error('Error in user.created webhook:', error);
       return new Response('Error processing webhook', { status: 500 });
