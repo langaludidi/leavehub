@@ -10,7 +10,7 @@ export default function Home() {
     <div className="min-h-screen bg-gray-50">
       <MarketingNav />
       {/* Hero Section */}
-      <section className="bg-teal-600 text-white py-24">
+      <section className="bg-teal-700 text-white py-24">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center max-w-4xl mx-auto">
             {/* Badge */}
@@ -222,7 +222,7 @@ export default function Home() {
                 and administrators.
               </p>
               <Link href="/dashboard">
-                <Button size="lg" className="w-full bg-teal-600 hover:bg-teal-700">
+                <Button size="lg" className="w-full bg-teal-700 hover:bg-teal-800">
                   Access Demo
                 </Button>
               </Link>
@@ -285,7 +285,7 @@ export default function Home() {
               <h3 className="text-xl font-semibold text-gray-900 mb-2">Manager Demo</h3>
               <p className="text-sm text-gray-600 mb-4">Approve requests and manage team</p>
               <Link href="/dashboard/manager">
-                <Button size="sm" className="w-full bg-teal-600 hover:bg-teal-700 mb-3">
+                <Button size="sm" className="w-full bg-teal-700 hover:bg-teal-800 mb-3">
                   Try Manager Dashboard
                 </Button>
               </Link>
@@ -331,7 +331,7 @@ export default function Home() {
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center mb-6">
             <Link href="/dashboard">
-              <Button size="lg" className="bg-teal-600 hover:bg-teal-700 px-8">
+              <Button size="lg" className="bg-teal-700 hover:bg-teal-800 px-8">
                 Try Demo
               </Button>
             </Link>

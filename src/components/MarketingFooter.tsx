@@ -70,7 +70,7 @@ export default function MarketingFooter() {
           {/* Company Info */}
           <div className="col-span-2 md:col-span-3 lg:col-span-2">
             <Link href="/" className="flex items-center gap-2 mb-4">
-              <div className="w-8 h-8 bg-teal-600 rounded-lg flex items-center justify-center">
+              <div className="w-8 h-8 bg-teal-700 rounded-lg flex items-center justify-center">
                 <span className="text-white font-bold text-lg">L</span>
               </div>
               <span className="text-xl font-bold text-white">LeaveHub</span>
@@ -86,7 +86,7 @@ export default function MarketingFooter() {
                   <a
                     key={social.name}
                     href={social.href}
-                    className="w-10 h-10 bg-gray-800 rounded-lg flex items-center justify-center hover:bg-teal-600 transition-colors"
+                    className="w-10 h-10 bg-gray-800 rounded-lg flex items-center justify-center hover:bg-teal-800 transition-colors"
                     aria-label={social.name}
                   >
                     <Icon className="w-5 h-5" />
@@ -132,7 +132,7 @@ export default function MarketingFooter() {
                   className="w-full pl-10 pr-4 py-2 bg-gray-800 border border-gray-700 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-teal-600"
                 />
               </div>
-              <button className="px-6 py-2 bg-teal-600 text-white rounded-lg hover:bg-teal-700 transition-colors font-medium">
+              <button className="px-6 py-2 bg-teal-700 text-white rounded-lg hover:bg-teal-800 transition-colors font-medium">
                 Subscribe
               </button>
             </div>

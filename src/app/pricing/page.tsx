@@ -120,7 +120,7 @@ export default function PricingPage() {
               onClick={() => setBillingCycle('monthly')}
               className={`px-6 py-2 rounded-full text-sm font-medium transition-colors ${
                 billingCycle === 'monthly'
-                  ? 'bg-teal-600 text-white'
+                  ? 'bg-teal-700 text-white'
                   : 'text-gray-600 hover:text-gray-900'
               }`}
             >
@@ -130,7 +130,7 @@ export default function PricingPage() {
               onClick={() => setBillingCycle('annually')}
               className={`px-6 py-2 rounded-full text-sm font-medium transition-colors ${
                 billingCycle === 'annually'
-                  ? 'bg-teal-600 text-white'
+                  ? 'bg-teal-700 text-white'
                   : 'text-gray-600 hover:text-gray-900'
               }`}
             >
@@ -188,7 +188,7 @@ export default function PricingPage() {
                   <Button
                     className={`w-full ${
                       plan.popular
-                        ? 'bg-teal-600 hover:bg-teal-700 text-white'
+                        ? 'bg-teal-700 hover:bg-teal-800 text-white'
                         : 'bg-white border-2 border-gray-300 text-gray-900 hover:bg-gray-50'
                     }`}
                   >

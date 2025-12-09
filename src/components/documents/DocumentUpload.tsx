@@ -198,7 +198,7 @@ export default function DocumentUpload() {
       <Button
         onClick={handleUpload}
         disabled={uploading || selectedFiles.length === 0}
-        className="w-full bg-teal-600 hover:bg-teal-700 text-white"
+        className="w-full bg-teal-700 hover:bg-teal-800 text-white"
       >
         {uploading ? (
           <>

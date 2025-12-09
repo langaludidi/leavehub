@@ -54,9 +54,9 @@ export default function MarketingNav() {
               <Image
                 src="/logo-main.svg"
                 alt="LeaveHub"
-                width={140}
-                height={32}
-                className="h-8 w-auto"
+                width={180}
+                height={40}
+                className="h-10 w-auto"
                 priority
               />
             </Link>
@@ -105,7 +105,7 @@ export default function MarketingNav() {
               </Button>
             </Link>
             <Link href="/sign-up">
-              <Button size="sm" className="bg-teal-600 hover:bg-teal-700">
+              <Button size="sm" className="bg-teal-700 hover:bg-teal-800">
                 Get Started
               </Button>
             </Link>
@@ -154,7 +154,7 @@ export default function MarketingNav() {
                 </Button>
               </Link>
               <Link href="/sign-up" className="block w-full">
-                <Button size="sm" className="w-full bg-teal-600 hover:bg-teal-700">
+                <Button size="sm" className="w-full bg-teal-700 hover:bg-teal-800">
                   Get Started
                 </Button>
               </Link>
