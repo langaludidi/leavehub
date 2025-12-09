@@ -10,20 +10,22 @@ export default function Home() {
     <div className="min-h-screen bg-gray-50">
       <MarketingNav />
       {/* Hero Section */}
-      <section className="bg-primary text-white py-24">
+      <section className="bg-teal-600 text-white py-24">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center max-w-4xl mx-auto">
             {/* Badge */}
-            <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm px-4 py-2 rounded-full mb-8">
+            <div className="inline-flex items-center gap-2 bg-white/20 backdrop-blur-sm px-4 py-2 rounded-full mb-8">
               <span className="text-sm font-medium">
-                ▶ Built for South African Businesses
+                🇿🇦 Built for South African Businesses
               </span>
             </div>
 
             {/* Logo */}
             <div className="flex justify-center mb-8">
-              <div className="w-16 h-16 bg-white/10 backdrop-blur-sm rounded-full flex items-center justify-center">
-                <Calendar className="w-8 h-8" />
+              <div className="w-20 h-20 bg-white rounded-full flex items-center justify-center">
+                <div className="w-12 h-12 bg-teal-500 rounded-full flex items-center justify-center">
+                  <Users className="w-6 h-6 text-white" />
+                </div>
               </div>
             </div>
 
@@ -36,8 +38,8 @@ export default function Home() {
 
             {/* Subheading */}
             <p className="text-xl text-white/90 mb-8 max-w-3xl mx-auto leading-relaxed">
-              Role-based access. BCEA compliance support. Essential reporting.
-              Simplify leave management for your business with an easy-to-use platform.
+              Role-based access. BCEA compliance support. Essential reporting. Simplify
+              leave management for your business with an easy-to-use platform.
             </p>
 
             {/* CTA Buttons */}
@@ -45,22 +47,24 @@ export default function Home() {
               <Link href="/dashboard">
                 <Button
                   size="lg"
-                  className="bg-white text-primary hover:bg-gray-50 px-8"
+                  className="bg-white text-teal-600 hover:bg-gray-50 px-8"
                 >
-                  View Dashboard
+                  Try Demo →
                 </Button>
               </Link>
-              <Button
-                size="lg"
-                variant="outline"
-                className="border-white text-white hover:bg-white/10 px-8"
-              >
-                View Features
-              </Button>
+              <Link href="/features">
+                <Button
+                  size="lg"
+                  variant="outline"
+                  className="border-2 border-white text-white hover:bg-white/10 px-8"
+                >
+                  View Features
+                </Button>
+              </Link>
             </div>
 
             {/* Trust Indicators */}
-            <div className="flex flex-wrap justify-center gap-6 mt-12 text-sm text-white/80">
+            <div className="flex flex-wrap justify-center gap-6 mt-12 text-sm text-white/90">
               <div className="flex items-center gap-2">
                 <CheckCircle className="w-4 h-4" />
                 <span>Demo accounts available</span>
