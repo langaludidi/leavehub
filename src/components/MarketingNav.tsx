@@ -67,12 +67,11 @@ export default function MarketingNav() {
             {Object.entries(navigation).map(([key, section]) => (
               <div
                 key={key}
-                className="relative"
-                onMouseEnter={() => setOpenDropdown(key)}
-                onMouseLeave={() => setOpenDropdown(null)}
+                className="relative group"
               >
                 <button
                   className="flex items-center gap-1 px-3 py-2 text-sm font-medium text-gray-700 hover:text-teal-600 transition-colors"
+                  onMouseEnter={() => setOpenDropdown(key)}
                 >
                   {section.title}
                   <ChevronDown className="w-4 h-4" />
@@ -80,17 +79,23 @@ export default function MarketingNav() {
 
                 {/* Dropdown Menu */}
                 {openDropdown === key && (
-                  <div className="absolute left-0 mt-2 w-64 bg-white rounded-lg shadow-lg border border-gray-200 py-2">
-                    {section.items.map((item) => (
-                      <Link
-                        key={item.name}
-                        href={item.href}
-                        className="block px-4 py-3 hover:bg-gray-50 transition-colors"
-                      >
-                        <div className="font-medium text-gray-900">{item.name}</div>
-                        <div className="text-sm text-gray-500">{item.description}</div>
-                      </Link>
-                    ))}
+                  <div
+                    className="absolute left-0 top-full pt-2 z-50"
+                    onMouseLeave={() => setOpenDropdown(null)}
+                  >
+                    <div className="w-64 bg-white rounded-lg shadow-lg border border-gray-200 py-2">
+                      {section.items.map((item) => (
+                        <Link
+                          key={item.name}
+                          href={item.href}
+                          className="block px-4 py-3 hover:bg-gray-50 transition-colors"
+                          onClick={() => setOpenDropdown(null)}
+                        >
+                          <div className="font-medium text-gray-900">{item.name}</div>
+                          <div className="text-sm text-gray-500">{item.description}</div>
+                        </Link>
+                      ))}
+                    </div>
                   </div>
                 )}
               </div>
