@@ -4,6 +4,7 @@ import { Bell, Menu, User } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 import NotificationBell from './NotificationBell';
+import RoleBasedNav from './RoleBasedNav';
 
 interface DashboardHeaderProps {
   userId?: string;
@@ -27,44 +28,8 @@ export default function DashboardHeader({
               <span className="text-xl font-bold text-gray-900">LeaveHub</span>
             </Link>
 
-            {/* Navigation */}
-            <nav className="hidden md:flex items-center gap-1">
-              <Link href="/dashboard">
-                <Button variant="ghost" size="sm">
-                  Dashboard
-                </Button>
-              </Link>
-              <Link href="/dashboard/calendar">
-                <Button variant="ghost" size="sm">
-                  Calendar
-                </Button>
-              </Link>
-              <Link href="/dashboard/documents">
-                <Button variant="ghost" size="sm">
-                  Documents
-                </Button>
-              </Link>
-              <Link href="/dashboard/ai-planner">
-                <Button variant="ghost" size="sm">
-                  AI Planner
-                </Button>
-              </Link>
-              <Link href="/dashboard/reports">
-                <Button variant="ghost" size="sm">
-                  Reports
-                </Button>
-              </Link>
-              <Link href="/dashboard/approvals">
-                <Button variant="ghost" size="sm">
-                  Approvals
-                </Button>
-              </Link>
-              <Link href="/dashboard/help">
-                <Button variant="ghost" size="sm">
-                  Help
-                </Button>
-              </Link>
-            </nav>
+            {/* Role-Based Navigation */}
+            <RoleBasedNav />
           </div>
 
           {/* Right side - Notifications and User */}
