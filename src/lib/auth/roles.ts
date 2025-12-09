@@ -1,5 +1,5 @@
 import { auth } from '@clerk/nextjs/server';
-import { createServerClient } from '@/lib/supabase/server';
+import { createClient } from '@/lib/supabase/server';
 import { UserRole, getRolePermissions, type RolePermissions } from '@/types/roles';
 
 /**
@@ -13,7 +13,7 @@ export async function getUserRole(): Promise<UserRole | null> {
       return null;
     }
 
-    const supabase = createServerClient();
+    const supabase = await createClient();
     const { data, error } = await supabase
       .from('profiles')
       .select('role')

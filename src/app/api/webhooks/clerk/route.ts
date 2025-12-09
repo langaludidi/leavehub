@@ -1,7 +1,7 @@
 import { Webhook } from 'svix';
 import { headers } from 'next/headers';
 import { WebhookEvent } from '@clerk/nextjs/server';
-import { createServerClient } from '@/lib/supabase/server';
+import { createClient } from '@/lib/supabase/server';
 import { UserRole } from '@/types/roles';
 import { sendWelcomeEmail } from '@/lib/email/send';
 
@@ -55,7 +55,7 @@ export async function POST(req: Request) {
     const { id, email_addresses, first_name, last_name } = evt.data;
 
     try {
-      const supabase = createServerClient();
+      const supabase = await createClient();
 
       // Get the demo company ID (for now, all users join the demo company)
       // In production, you'd implement proper organization selection
@@ -98,7 +98,7 @@ export async function POST(req: Request) {
     const { id, email_addresses, first_name, last_name } = evt.data;
 
     try {
-      const supabase = createServerClient();
+      const supabase = await createClient();
 
       // Update profile
       const { error: updateError } = await supabase
@@ -127,7 +127,7 @@ export async function POST(req: Request) {
     const { id } = evt.data;
 
     try {
-      const supabase = createServerClient();
+      const supabase = await createClient();
 
       // Soft delete or remove profile
       const { error: deleteError } = await supabase

@@ -1,5 +1,5 @@
 import { auth, currentUser } from '@clerk/nextjs/server';
-import { createServerClient } from '@/lib/supabase/server';
+import { createClient } from '@/lib/supabase/server';
 import { UserRole } from '@/types/roles';
 
 /**
@@ -13,7 +13,7 @@ export async function ensureProfileExists(): Promise<boolean> {
       return false;
     }
 
-    const supabase = createServerClient();
+    const supabase = await createClient();
 
     // Check if profile exists
     const { data: existingProfile, error: fetchError } = await supabase

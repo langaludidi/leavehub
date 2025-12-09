@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { auth } from '@clerk/nextjs/server';
-import { createServerClient } from '@/lib/supabase/server';
+import { createClient } from '@/lib/supabase/server';
 import { UserRole } from '@/types/roles';
 import { requireRole } from '@/lib/auth/roles';
 
@@ -36,7 +36,7 @@ export async function PATCH(
       );
     }
 
-    const supabase = createServerClient();
+    const supabase = await createClient();
 
     // Get current user's role to prevent unauthorized escalation
     const { data: currentUserData } = await supabase
@@ -117,7 +117,7 @@ export async function GET(
     }
 
     const { userId: targetUserId } = await params;
-    const supabase = createServerClient();
+    const supabase = await createClient();
 
     const { data, error } = await supabase
       .from('profiles')
