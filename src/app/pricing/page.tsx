@@ -2,79 +2,14 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
-import { useUser } from '@clerk/nextjs';
 import { Check, X, Users, Crown, Building2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
-import { toast } from 'sonner';
 import MarketingNav from '@/components/MarketingNav';
 import MarketingFooter from '@/components/MarketingFooter';
-import { usePaystack } from '@/hooks/usePaystack';
 
 export default function PricingPage() {
   const [billingCycle, setBillingCycle] = useState<'monthly' | 'annually'>('monthly');
-  const [isProcessing, setIsProcessing] = useState(false);
-  const { user, isSignedIn } = useUser();
-  const router = useRouter();
-  const { initializePayment } = usePaystack();
-
-  const handleSubscribe = async (plan: typeof plans[0]) => {
-    // Redirect to sign-up if not authenticated
-    if (!isSignedIn || !user) {
-      router.push('/sign-up?redirect=/pricing');
-      return;
-    }
-
-    setIsProcessing(true);
-
-    const pricePerUser = billingCycle === 'monthly' ? plan.monthlyPrice : plan.annualPrice;
-    const totalAmount = pricePerUser * 5; // Minimum 5 users for demo
-
-    try {
-      initializePayment({
-        email: user.primaryEmailAddress?.emailAddress || '',
-        amount: totalAmount,
-        planName: plan.name,
-        planId: plan.name.toLowerCase(),
-        billingCycle,
-        userId: user.id,
-        companyName: user.fullName || undefined,
-        onSuccess: async (reference) => {
-          // Verify payment with backend
-          try {
-            const response = await fetch('/api/payments/verify', {
-              method: 'POST',
-              headers: { 'Content-Type': 'application/json' },
-              body: JSON.stringify({ reference }),
-            });
-
-            const data = await response.json();
-
-            if (data.success) {
-              toast.success('Payment successful! Your subscription is now active.');
-              router.push('/dashboard?subscription=success');
-            } else {
-              toast.error('Payment verification failed. Please contact support.');
-            }
-          } catch (error) {
-            console.error('Verification error:', error);
-            toast.error('Failed to verify payment. Please contact support.');
-          } finally {
-            setIsProcessing(false);
-          }
-        },
-        onClose: () => {
-          toast.info('Payment cancelled');
-          setIsProcessing(false);
-        },
-      });
-    } catch (error) {
-      console.error('Payment error:', error);
-      toast.error('Failed to initiate payment');
-      setIsProcessing(false);
-    }
-  };
 
   const plans = [
     {
@@ -278,17 +213,17 @@ export default function PricingPage() {
                 <p className="text-gray-700 mb-6">{plan.description}</p>
 
                 {/* CTA Button */}
-                <Button
-                  onClick={() => handleSubscribe(plan)}
-                  disabled={isProcessing}
-                  className={`w-full mb-8 ${
-                    plan.popular
-                      ? 'bg-teal-700 hover:bg-teal-800 text-white'
-                      : 'bg-white border-2 border-gray-300 text-gray-900 hover:bg-gray-50'
-                  }`}
-                >
-                  {isProcessing ? 'Processing...' : 'Subscribe Now'}
-                </Button>
+                <Link href="/sign-up" className="block mb-8">
+                  <Button
+                    className={`w-full ${
+                      plan.popular
+                        ? 'bg-teal-700 hover:bg-teal-800 text-white'
+                        : 'bg-white border-2 border-gray-300 text-gray-900 hover:bg-gray-50'
+                    }`}
+                  >
+                    Start Free Trial
+                  </Button>
+                </Link>
 
                 {/* Features */}
                 <div className="space-y-3">
