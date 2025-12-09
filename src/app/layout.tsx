@@ -5,6 +5,13 @@ import "./globals.css";
 export const metadata: Metadata = {
   title: "LeaveHub - BCEA-Compliant Leave Management",
   description: "AI-powered leave management system for South African businesses",
+  icons: {
+    icon: [
+      { url: '/favicon.png', sizes: '512x512', type: 'image/png' },
+      { url: '/icon-03.png', sizes: '512x512', type: 'image/png' },
+    ],
+    apple: { url: '/apple-touch-icon.png', sizes: '512x512', type: 'image/png' },
+  },
 };
 
 export default function RootLayout({
