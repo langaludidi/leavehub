@@ -57,9 +57,9 @@ export default function DocumentList() {
     }
   };
 
-  const handleDownload = async (document: Document) => {
+  const handleDownload = async (doc: Document) => {
     try {
-      const response = await fetch(`/api/documents/${document.id}/download`);
+      const response = await fetch(`/api/documents/${doc.id}/download`);
       if (!response.ok) {
         throw new Error('Download failed');
       }
@@ -67,7 +67,7 @@ export default function DocumentList() {
       const url = window.URL.createObjectURL(blob);
       const a = document.createElement('a');
       a.href = url;
-      a.download = document.filename;
+      a.download = doc.filename;
       a.click();
       window.URL.revokeObjectURL(url);
     } catch (err) {
