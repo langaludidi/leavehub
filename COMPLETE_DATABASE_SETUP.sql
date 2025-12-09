@@ -168,7 +168,22 @@ CREATE TABLE IF NOT EXISTS documents (
 );
 
 -- ============================================
--- 9. ROW LEVEL SECURITY POLICIES
+-- 9. NEWSLETTER SUBSCRIBERS TABLE
+-- ============================================
+CREATE TABLE IF NOT EXISTS newsletter_subscribers (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  email VARCHAR(255) UNIQUE NOT NULL,
+  subscribed_at TIMESTAMPTZ DEFAULT NOW(),
+  source VARCHAR(100) DEFAULT 'website_footer',
+  active BOOLEAN DEFAULT true,
+  unsubscribed_at TIMESTAMPTZ
+);
+
+CREATE INDEX IF NOT EXISTS idx_newsletter_email ON newsletter_subscribers(email);
+CREATE INDEX IF NOT EXISTS idx_newsletter_active ON newsletter_subscribers(active);
+
+-- ============================================
+-- 10. ROW LEVEL SECURITY POLICIES
 -- ============================================
 
 -- Enable RLS on all tables
@@ -254,7 +269,7 @@ CREATE POLICY "Users can create own requests"
   );
 
 -- ============================================
--- 10. HELPER FUNCTIONS
+-- 11. HELPER FUNCTIONS
 -- ============================================
 
 -- Function to get user role
@@ -306,7 +321,7 @@ GRANT EXECUTE ON FUNCTION get_user_role(text) TO authenticated;
 GRANT EXECUTE ON FUNCTION has_role_permission(text, user_role) TO authenticated;
 
 -- ============================================
--- 11. SUCCESS MESSAGE
+-- 12. SUCCESS MESSAGE
 -- ============================================
 DO $$
 BEGIN
