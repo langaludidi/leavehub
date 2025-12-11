@@ -54,43 +54,23 @@ export async function POST(req: Request) {
   if (eventType === 'user.created') {
     const { id, email_addresses, first_name, last_name } = evt.data;
 
-    try {
-      const supabase = await createClient();
+    console.log('✓ New user created:', id, email_addresses[0]?.email_address);
 
-      // Get the demo company ID (for now, all users join the demo company)
-      // In production, you'd implement proper organization selection
-      const demoCompanyId = '12345678-1234-1234-1234-123456789000';
+    // Note: Profile creation is now handled by the onboarding flow
+    // This ensures users properly set up their company during first login
 
-      // Create profile with default employee role
-      const { error: profileError } = await supabase
-        .from('profiles')
-        .insert({
-          clerk_user_id: id,
-          email: email_addresses[0]?.email_address || '',
-          first_name: first_name || null,
-          last_name: last_name || null,
-          role: UserRole.EMPLOYEE, // Default to employee role
-          company_id: demoCompanyId,
-          department: null, // Can be set later by HR/Admin
-        });
+    // Send welcome email
+    const userEmail = email_addresses[0]?.email_address;
+    const userName = first_name || 'there';
 
-      if (profileError) {
-        console.error('Error creating profile:', profileError);
-        return new Response('Error creating profile', { status: 500 });
-      }
-
-      console.log('✓ Profile created for user:', id);
-
-      // Send welcome email
-      const userEmail = email_addresses[0]?.email_address;
-      const userName = first_name || 'there';
-      if (userEmail) {
+    if (userEmail) {
+      try {
         await sendWelcomeEmail(userName, userEmail);
         console.log('✓ Welcome email sent to:', userEmail);
+      } catch (emailError) {
+        console.error('Error sending welcome email:', emailError);
+        // Don't fail the webhook if email fails
       }
-    } catch (error) {
-      console.error('Error in user.created webhook:', error);
-      return new Response('Error processing webhook', { status: 500 });
     }
   }
 

@@ -1,3 +1,6 @@
+import { redirect } from 'next/navigation';
+import { auth, currentUser } from '@clerk/nextjs/server';
+import { createClient } from '@/lib/supabase/server';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Calendar, FileText, TrendingUp } from 'lucide-react';
@@ -7,129 +10,81 @@ import DashboardHeader from '@/components/DashboardHeader';
 export const dynamic = 'force-dynamic';
 
 export default async function DashboardPage() {
-  // Hardcoded demo data for now since Supabase fetch is having issues
-  const profile = {
-    id: '12345678-1234-1234-1234-123456789012',
-    clerk_user_id: 'demo-user-123',
-    email: 'demo@leavehub.com',
-    first_name: 'Demo',
-    last_name: 'User',
-    role: 'employee',
-    department: 'Engineering'
-  };
+  const { userId } = await auth();
+  const user = await currentUser();
 
-  console.log('Using hardcoded profile:', profile);
+  if (!userId || !user) {
+    redirect('/sign-in');
+  }
 
-  // Hardcoded leave balances - matching real Supabase data
-  const leaveBalances = [
-    {
-      id: '1',
-      user_id: profile.id,
-      year: 2025,
-      entitled_days: 21,
-      used_days: 6,
-      available_days: 15,
-      leave_types: {
-        name: 'Annual Leave',
-        code: 'ANN',
-        color: '#0D9488'
-      }
-    },
-    {
-      id: '2',
-      user_id: profile.id,
-      year: 2025,
-      entitled_days: 10,
-      used_days: 2,
-      available_days: 8,
-      leave_types: {
-        name: 'Sick Leave',
-        code: 'SICK',
-        color: '#EF4444'
-      }
-    },
-    {
-      id: '3',
-      user_id: profile.id,
-      year: 2025,
-      entitled_days: 3,
-      used_days: 1,
-      available_days: 2,
-      leave_types: {
-        name: 'Family Responsibility',
-        code: 'FAM',
-        color: '#F59E0B'
-      }
-    }
-  ];
+  const supabase = await createClient();
 
-  // Hardcoded leave requests - matching real Supabase data
-  const leaveRequests = [
-    {
-      id: '1',
-      user_id: profile.id,
-      start_date: '2025-12-23',
-      end_date: '2025-12-27',
-      working_days: 3,
-      status: 'pending',
-      reason: 'Christmas holiday',
-      leave_types: {
-        name: 'Annual Leave',
-        code: 'ANN',
-        color: '#0D9488'
-      }
-    },
-    {
-      id: '2',
-      user_id: profile.id,
-      start_date: '2025-10-15',
-      end_date: '2025-10-16',
-      working_days: 2,
-      status: 'pending',
-      reason: 'Flu',
-      leave_types: {
-        name: 'Sick Leave',
-        code: 'SICK',
-        color: '#EF4444'
-      }
-    },
-    {
-      id: '3',
-      user_id: profile.id,
-      start_date: '2025-03-10',
-      end_date: '2025-03-14',
-      working_days: 5,
-      status: 'approved',
-      reason: 'Family vacation',
-      leave_types: {
-        name: 'Annual Leave',
-        code: 'ANN',
-        color: '#0D9488'
-      }
-    }
-  ];
+  // Fetch user profile
+  const { data: profile, error: profileError } = await supabase
+    .from('profiles')
+    .select('*, companies(*)')
+    .eq('clerk_user_id', userId)
+    .single();
 
-  console.log('Loaded hardcoded data - Balances:', leaveBalances.length, 'Requests:', leaveRequests.length);
+  // If no profile exists, redirect to onboarding
+  if (profileError || !profile) {
+    console.log('No profile found for user:', userId, '- redirecting to onboarding');
+    redirect('/onboarding');
+  }
+
+  console.log('✓ Profile loaded:', profile.email, 'Role:', profile.role);
+
+  // Fetch leave balances for current year
+  const currentYear = new Date().getFullYear();
+  const { data: leaveBalances, error: balancesError } = await supabase
+    .from('leave_balances')
+    .select(`
+      *,
+      leave_types (
+        name,
+        code,
+        color
+      )
+    `)
+    .eq('user_id', profile.id)
+    .eq('year', currentYear);
+
+  if (balancesError) {
+    console.error('Error fetching leave balances:', balancesError);
+  }
+
+  // Fetch recent leave requests
+  const { data: leaveRequests, error: requestsError } = await supabase
+    .from('leave_requests')
+    .select(`
+      *,
+      leave_types (
+        name,
+        code,
+        color
+      )
+    `)
+    .eq('user_id', profile.id)
+    .order('created_at', { ascending: false })
+    .limit(5);
+
+  if (requestsError) {
+    console.error('Error fetching leave requests:', requestsError);
+  }
+
+  console.log('✓ Data loaded - Balances:', leaveBalances?.length || 0, 'Requests:', leaveRequests?.length || 0);
 
   // Calculate totals
-  const annualLeave = leaveBalances?.find(lb => lb.leave_types?.code === 'ANN');
   const totalDaysRemaining = leaveBalances?.reduce((sum, lb) => sum + (lb.available_days || 0), 0) || 0;
   const totalDaysTaken = leaveBalances?.reduce((sum, lb) => sum + (lb.used_days || 0), 0) || 0;
   const pendingRequests = leaveRequests?.filter(lr => lr.status === 'pending').length || 0;
-
-  const user = {
-    firstName: profile?.first_name || 'Demo',
-    lastName: profile?.last_name || 'User',
-    emailAddresses: [{ emailAddress: profile?.email }]
-  };
-  const userId = profile?.clerk_user_id || 'demo-user-123';
 
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Top Navigation */}
       <DashboardHeader
         userId={userId}
-        userName={`${user?.firstName || 'Demo'} ${user?.lastName || 'User'}`}
+        userName={`${profile.first_name || ''} ${profile.last_name || ''}`.trim() || user.firstName || 'User'}
       />
 
       {/* Main Content */}
@@ -137,7 +92,7 @@ export default async function DashboardPage() {
         {/* Welcome Section */}
         <div className="mb-8">
           <h1 className="text-3xl font-bold text-gray-900 mb-2">
-            Welcome back, {user?.firstName || 'there'}! 👋
+            Welcome back, {profile.first_name || user.firstName || 'there'}! 👋
           </h1>
           <p className="text-gray-600">
             Here&apos;s your leave management dashboard
@@ -188,7 +143,7 @@ export default async function DashboardPage() {
 
         {/* Leave Balances */}
         <Card className="p-6 mb-8">
-          <h2 className="text-xl font-semibold mb-4">Leave Balances (2025)</h2>
+          <h2 className="text-xl font-semibold mb-4">Leave Balances ({currentYear})</h2>
           {leaveBalances && leaveBalances.length > 0 ? (
             <div className="grid md:grid-cols-2 gap-6">
               {leaveBalances.map((balance) => {
@@ -248,7 +203,12 @@ export default async function DashboardPage() {
               })}
             </div>
           ) : (
-            <p className="text-gray-600 text-sm">No leave balances found.</p>
+            <div className="text-center py-8">
+              <p className="text-gray-600 mb-4">No leave balances set up yet.</p>
+              <p className="text-sm text-gray-500">
+                Contact your HR admin to set up your leave entitlements.
+              </p>
+            </div>
           )}
         </Card>
 
@@ -262,10 +222,12 @@ export default async function DashboardPage() {
                 New Leave Request
               </Button>
             </Link>
-            <Button variant="outline">
-              <TrendingUp className="w-4 h-4 mr-2" />
-              Plan Leave (AI)
-            </Button>
+            <Link href="/dashboard/ai-planner">
+              <Button variant="outline">
+                <TrendingUp className="w-4 h-4 mr-2" />
+                Plan Leave (AI)
+              </Button>
+            </Link>
             <Link href="/dashboard/calendar">
               <Button variant="outline">
                 <Calendar className="w-4 h-4 mr-2" />
@@ -332,27 +294,18 @@ export default async function DashboardPage() {
               ))}
             </div>
           ) : (
-            <p className="text-gray-600 text-sm">
-              No recent activity. Submit your first leave request to get started!
-            </p>
+            <div className="text-center py-8">
+              <p className="text-gray-600 mb-4">
+                No leave requests yet.
+              </p>
+              <Link href="/dashboard/leave/new">
+                <Button className="bg-primary hover:bg-primary/90">
+                  <FileText className="w-4 h-4 mr-2" />
+                  Submit Your First Request
+                </Button>
+              </Link>
+            </div>
           )}
-        </Card>
-
-        {/* Data Info (for testing) */}
-        <Card className="p-6 mt-8 bg-blue-50 border-blue-200">
-          <h3 className="font-semibold mb-2 text-blue-900">
-            📊 Demo Data Loaded
-          </h3>
-          <p className="text-sm text-blue-800 mb-2">
-            Using realistic demo data that matches your Supabase database.
-          </p>
-          <div className="text-xs text-blue-700 space-y-1">
-            <p><strong>Email:</strong> {profile?.email}</p>
-            <p><strong>Department:</strong> {profile?.department}</p>
-            <p><strong>Leave Types:</strong> Annual, Sick, Family Responsibility</p>
-            <p><strong>Total Available:</strong> {Math.round(totalDaysRemaining)} days</p>
-            <p><strong>Pending Requests:</strong> {pendingRequests}</p>
-          </div>
         </Card>
       </main>
     </div>
