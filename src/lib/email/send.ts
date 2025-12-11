@@ -27,7 +27,7 @@ interface LeaveRequestEmailData {
  */
 export async function sendLeaveRequestSubmitted(data: LeaveRequestEmailData) {
   try {
-    const emailHtml = render(LeaveRequestSubmittedEmail({
+    const emailHtml = await render(LeaveRequestSubmittedEmail({
       name: data.employeeName,
       leaveType: data.leaveType,
       startDate: data.startDate,
@@ -65,7 +65,7 @@ export async function sendLeaveRequestPendingApproval(data: LeaveRequestEmailDat
   }
 
   try {
-    const emailHtml = render(LeaveRequestPendingApprovalEmail({
+    const emailHtml = await render(LeaveRequestPendingApprovalEmail({
       managerName: data.managerName,
       employeeName: data.employeeName,
       leaveType: data.leaveType,
@@ -105,7 +105,7 @@ export async function sendLeaveRequestApproved(data: LeaveRequestEmailData) {
   }
 
   try {
-    const emailHtml = render(LeaveRequestApprovedEmail({
+    const emailHtml = await render(LeaveRequestApprovedEmail({
       name: data.employeeName,
       leaveType: data.leaveType,
       startDate: data.startDate,
@@ -144,7 +144,7 @@ export async function sendLeaveRequestRejected(data: LeaveRequestEmailData) {
   }
 
   try {
-    const emailHtml = render(LeaveRequestRejectedEmail({
+    const emailHtml = await render(LeaveRequestRejectedEmail({
       name: data.employeeName,
       leaveType: data.leaveType,
       startDate: data.startDate,
@@ -179,7 +179,7 @@ export async function sendLeaveRequestRejected(data: LeaveRequestEmailData) {
  */
 export async function sendWelcomeEmail(name: string, email: string) {
   try {
-    const emailHtml = render(WelcomeEmail({ name }));
+    const emailHtml = await render(WelcomeEmail({ name }));
 
     const { data: result, error } = await resend.emails.send({
       from: FROM_EMAIL,

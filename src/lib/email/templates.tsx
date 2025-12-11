@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 interface EmailTemplateProps {
-  name: string;
+  name?: string;
   [key: string]: any;
 }
 

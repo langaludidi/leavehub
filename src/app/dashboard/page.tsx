@@ -4,6 +4,8 @@ import { Calendar, FileText, TrendingUp } from 'lucide-react';
 import Link from 'next/link';
 import DashboardHeader from '@/components/DashboardHeader';
 
+export const dynamic = 'force-dynamic';
+
 export default async function DashboardPage() {
   // Hardcoded demo data for now since Supabase fetch is having issues
   const profile = {

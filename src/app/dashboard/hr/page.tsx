@@ -18,6 +18,8 @@ import {
 } from 'lucide-react';
 import Link from 'next/link';
 
+export const dynamic = 'force-dynamic';
+
 export default async function HRAdminDashboard() {
   // Protect this route - require HR Admin role or higher
   await requireRole(UserRole.HR_ADMIN);
