@@ -92,7 +92,34 @@ export async function POST(request: NextRequest) {
 
     console.log('✓ Profile created for user:', userId);
 
-    // TODO: Send welcome email here if needed
+    // Create default BCEA-compliant leave types for the company
+    const { error: leaveTypesError } = await supabase.rpc(
+      'create_default_leave_types_for_company',
+      { company_uuid: company.id }
+    );
+
+    if (leaveTypesError) {
+      console.error('Error creating default leave types:', leaveTypesError);
+      // Don't fail onboarding if leave types fail - they can be added later
+    } else {
+      console.log('✓ Default leave types created for company');
+    }
+
+    // Initialize leave balances for the first user
+    const { error: balancesError } = await supabase.rpc(
+      'initialize_employee_leave_balances',
+      {
+        employee_uuid: (await supabase.from('profiles').select('id').eq('clerk_user_id', userId).single()).data?.id,
+        company_uuid: company.id,
+        hire_date: new Date().toISOString().split('T')[0]
+      }
+    );
+
+    if (balancesError) {
+      console.error('Error initializing leave balances:', balancesError);
+    } else {
+      console.log('✓ Leave balances initialized for user');
+    }
 
     return NextResponse.json({
       success: true,
