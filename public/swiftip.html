@@ -1,0 +1,1032 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0"/>
+<title>SwiftTip</title>
+<script src="/react.js"></script>
+<script src="/react-dom.js"></script>
+<script src="/babel.min.js"></script>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
+html,body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;}
+body{
+  background:#F2F8F7;
+  background-image:radial-gradient(ellipse 70% 40% at 10% 0%, rgba(0,196,168,0.10) 0%, transparent 60%),
+                   radial-gradient(ellipse 50% 50% at 90% 100%, rgba(0,130,180,0.06) 0%, transparent 60%);
+  min-height:100vh;color:#1A2E2B;
+}
+#root{max-width:440px;margin:0 auto;min-height:100vh;position:relative;}
+.phone{min-height:100vh;padding-bottom:90px;position:relative;overflow-x:hidden;}
+.screen-anim{animation:scrIn .3s ease;}
+@keyframes scrIn{from{opacity:0;transform:translateY(12px);}to{opacity:1;transform:translateY(0);}}
+.pop{animation:pop .5s cubic-bezier(.17,.89,.32,1.49);}
+@keyframes pop{0%{transform:scale(0);}60%{transform:scale(1.15);}100%{transform:scale(1);}}
+.pulse{animation:pulse .5s ease;}
+@keyframes pulse{0%{transform:scale(1);}50%{transform:scale(1.08);}100%{transform:scale(1);}}
+.spin{animation:spin 1s linear infinite;}
+@keyframes spin{to{transform:rotate(360deg);}}
+.key{background:#F0F7F6;font-size:24px;height:64px;border-radius:16px;display:flex;align-items:center;justify-content:center;font-weight:600;color:#1A2E2B;transition:transform .08s,background .15s;}
+.key:active{transform:scale(.95);background:#E0EFEC;}
+.hrow{display:flex;gap:14px;overflow-x:auto;padding:4px 0 8px;scrollbar-width:none;}
+.hrow::-webkit-scrollbar{display:none;}
+.pill{padding:8px 16px;border-radius:30px;font-size:14px;font-weight:600;cursor:pointer;transition:all .2s;border:1.5px solid #D8EDEA;background:#fff;color:#4A6360;white-space:nowrap;}
+.pill.on{background:linear-gradient(135deg,#00C4A8,#009E88);color:#fff;border-color:transparent;}
+.btn{width:100%;border:none;border-radius:16px;padding:16px;font-size:16px;font-weight:700;cursor:pointer;transition:transform .1s,opacity .2s;}
+.btn:active{transform:scale(.98);}
+.btn:disabled{opacity:.4;cursor:not-allowed;}
+.btn-primary{background:linear-gradient(135deg,#00C4A8,#009E88);color:#fff;box-shadow:0 4px 16px rgba(0,196,168,0.35);}
+.btn-amber{background:linear-gradient(135deg,#F5A623,#E8920F);color:#fff;box-shadow:0 4px 16px rgba(245,166,35,0.35);}
+.btn-ghost{background:#fff;border:1.5px solid #D8EDEA;color:#00C4A8;}
+.card{background:#fff;border-radius:20px;box-shadow:0 2px 8px rgba(0,0,0,0.06),0 8px 24px rgba(0,196,168,0.08);}
+.glassDark{background:rgba(255,255,255,0.10);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,0.18);box-shadow:0 8px 32px rgba(0,0,0,0.2),inset 0 1px 0 rgba(255,255,255,0.12);}
+.glassLt{background:rgba(255,255,255,0.72);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border:1px solid rgba(255,255,255,0.85);box-shadow:0 4px 24px rgba(0,196,168,0.10);}
+.amberGlass{background:rgba(245,166,35,0.12);backdrop-filter:blur(16px);border:1px solid rgba(245,166,35,0.3);box-shadow:0 4px 24px rgba(245,166,35,0.10);}
+.header{background:linear-gradient(155deg,#0D2028 0%,#0A3030 60%,#071E26 100%);border-radius:0 0 32px 32px;color:#fff;padding:18px 20px 24px;}
+.bottomnav{position:fixed;bottom:0;left:0;right:0;max-width:440px;margin:0 auto;background:rgba(255,255,255,0.92);backdrop-filter:blur(20px);border-top:1px solid rgba(0,196,168,0.15);display:flex;justify-content:space-around;padding:10px 0 14px;z-index:50;}
+.navitem{display:flex;flex-direction:column;align-items:center;gap:3px;font-size:11px;font-weight:600;color:#8FA8A5;cursor:pointer;flex:1;}
+.navitem.on{color:#00C4A8;}
+.toast{position:fixed;bottom:100px;left:50%;transform:translateX(-50%);background:#0D2028;color:#fff;padding:12px 22px;border-radius:30px;font-size:14px;font-weight:600;z-index:100;animation:slideup .3s ease;box-shadow:0 8px 24px rgba(0,0,0,0.3);white-space:nowrap;}
+@keyframes slideup{from{opacity:0;transform:translate(-50%,20px);}to{opacity:1;transform:translate(-50%,0);}}
+.inp{width:100%;padding:14px 16px;border-radius:14px;border:1.5px solid #D8EDEA;font-size:15px;background:#fff;outline:none;transition:border .2s;font-family:inherit;}
+.inp:focus{border-color:#00C4A8;}
+.lbl{font-size:13px;font-weight:700;color:#4A6360;margin-bottom:7px;display:block;}
+.dots span{display:inline-block;width:8px;height:8px;border-radius:50%;background:#00C4A8;margin:0 3px;animation:bounce 1.2s infinite;}
+.dots span:nth-child(2){animation-delay:.2s;}
+.dots span:nth-child(3){animation-delay:.4s;}
+@keyframes bounce{0%,80%,100%{opacity:.3;transform:scale(.8);}40%{opacity:1;transform:scale(1.2);}}
+.muted{color:#8FA8A5;}
+select.inp{appearance:none;-webkit-appearance:none;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='14' height='14' fill='none' stroke='%238FA8A5' stroke-width='2'><path d='M3 5l4 4 4-4'/></svg>");background-repeat:no-repeat;background-position:right 16px center;}
+</style>
+</head>
+<body>
+<div id="root"></div>
+<script type="text/babel">
+const {useState,useEffect,useRef}=React;
+
+/* ============ ICONS ============ */
+const ic=(p,extra={})=>props=><svg width={props.size||22} height={props.size||22} viewBox="0 0 24 24" fill="none" stroke={props.color||"currentColor"} strokeWidth={props.sw||2} strokeLinecap="round" strokeLinejoin="round" {...extra}>{p}</svg>;
+const Icons={
+  home:ic(<><path d="M3 9.5L12 3l9 6.5"/><path d="M5 10v10h14V10"/></>),
+  qr:ic(<><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><path d="M14 14h3v3M21 14v7M17 21h4M14 18v3"/></>),
+  clock:ic(<><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></>),
+  arrowUp:ic(<><path d="M12 19V5M5 12l7-7 7 7"/></>),
+  barChart:ic(<><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></>),
+  users:ic(<><path d="M16 18v-1a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v1"/><circle cx="9" cy="7" r="3"/><path d="M22 18v-1a4 4 0 0 0-3-3.8"/><path d="M16 4.2A4 4 0 0 1 16 11"/></>),
+  trendingUp:ic(<><path d="M22 7l-8.5 8.5-5-5L2 17"/><path d="M16 7h6v6"/></>),
+  chevronRight:ic(<path d="M9 6l6 6-6 6"/>),
+  check:ic(<path d="M5 13l4 4L19 7"/>),
+  download:ic(<><path d="M12 3v12M7 10l5 5 5-5"/><path d="M4 21h16"/></>),
+  share:ic(<><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="M8.6 13.5l6.8 4M15.4 6.5l-6.8 4"/></>),
+  printer:ic(<><path d="M6 9V3h12v6"/><rect x="6" y="14" width="12" height="7"/><path d="M6 18H3v-7h18v7h-3"/></>),
+  bell:ic(<><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.7 21a2 2 0 0 1-3.4 0"/></>),
+  arrowLeft:ic(<><path d="M19 12H5M12 19l-7-7 7-7"/></>),
+  backspace:ic(<><path d="M21 5H8L2 12l6 7h13a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2z"/><path d="M18 9l-6 6M12 9l6 6"/></>),
+  copy:ic(<><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></>),
+  phone:ic(<path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3-8.6A2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 2 .7 2.9a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.2-1.2a2 2 0 0 1 2.1-.5c.9.3 1.9.6 2.9.7a2 2 0 0 1 1.7 2z"/>),
+  star:ic(<path d="M12 2l3 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.9 21l1.2-6.8-5-4.9 6.9-1z"/>),
+  camera:ic(<><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></>),
+  edit:ic(<><path d="M11 4H4v16h16v-7"/><path d="M18.5 2.5a2.1 2.1 0 0 1 3 3L12 15l-4 1 1-4z"/></>),
+  plus:ic(<><path d="M12 5v14M5 12h14"/></>),
+  wallet:ic(<><path d="M21 8V6a2 2 0 0 0-2-2H5a2 2 0 0 0 0 4h16a1 1 0 0 1 1 1v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V6"/><circle cx="16" cy="13" r="1.3"/></>),
+  shield:ic(<path d="M12 2l8 3v6c0 5-3.5 8.5-8 10-4.5-1.5-8-5-8-10V5z"/>),
+  logout:ic(<><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><path d="M16 17l5-5-5-5M21 12H9"/></>),
+  eye:ic(<><path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7z"/><circle cx="12" cy="12" r="3"/></>),
+  eyeOff:ic(<><path d="M9.9 4.2A11 11 0 0 1 12 4c7 0 11 8 11 8a18 18 0 0 1-2.6 3.7M6.6 6.6A18 18 0 0 0 1 12s4 8 11 8a11 11 0 0 0 5.4-1.4M1 1l22 22"/></>),
+  loader:ic(<path d="M12 2v4M12 18v4M4.9 4.9l2.8 2.8M16.3 16.3l2.8 2.8M2 12h4M18 12h4M4.9 19.1l2.8-2.8M16.3 7.7l2.8-2.8"/>),
+  bank:ic(<><path d="M3 21h18M4 10h16M5 10V7l7-4 7 4v3M6 10v8M10 10v8M14 10v8M18 10v8"/></>),
+};
+
+/* ============ HELPERS ============ */
+const AVATAR_COLORS=[['#00C4A8','#009E88'],['#F5A623','#E8920F'],['#3B82C4','#2563EB'],['#8B5CF6','#7C3AED'],['#E85555','#DC2626']];
+function avatarColor(name){let h=0;for(const c of name)h=(h*31+c.charCodeAt(0))%AVATAR_COLORS.length;return AVATAR_COLORS[h];}
+function Avatar({name,size=44}){
+  const [a,b]=avatarColor(name||'?');
+  const ini=(name||'?').split(' ').map(w=>w[0]).slice(0,2).join('').toUpperCase();
+  return <div style={{width:size,height:size,borderRadius:'50%',flexShrink:0,background:`linear-gradient(135deg,${a},${b})`,display:'flex',alignItems:'center',justifyContent:'center',color:'#fff',fontWeight:800,fontSize:size*0.36,boxShadow:'0 3px 10px rgba(0,0,0,0.15)'}}>{ini}</div>;
+}
+const fmt=n=>'R'+Number(n).toFixed(2);
+const firstName=n=>n.split(' ')[0];
+const now=()=>new Date().toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'});
+const today=()=>new Date().toLocaleDateString('en-GB',{day:'2-digit',month:'short',year:'numeric'});
+const ts=()=>Date.now().toString().slice(-7);
+
+function QRCode({value, size=160}) {
+  const seed = value.split('').reduce((a,c)=>a+c.charCodeAt(0),0);
+  const cells = 21, cell = size/cells;
+  const rng = n => ((seed*9301+49297*(n+1))%233280)/233280;
+  const grid = Array.from({length:cells},(_,r)=>Array.from({length:cells},(_,c)=>{
+    if((r<7&&c<7)||(r<7&&c>13)||(r>13&&c<7)) return true;
+    if((r===7||r===13)&&c<8) return r===7;
+    if(c===7&&r<8) return false;
+    return rng(r*cells+c)>0.45;
+  }));
+  return (
+    <svg width={size} height={size} viewBox={`0 0 ${size} ${size}`} style={{display:'block',borderRadius:8}}>
+      <rect width={size} height={size} fill="white" rx="8"/>
+      {grid.map((row,r)=>row.map((on,c)=>on?<rect key={`${r}-${c}`} x={c*cell} y={r*cell} width={cell-0.5} height={cell-0.5} fill="#0D2028"/>:null))}
+      <rect x={size/2-16} y={size/2-16} width={32} height={32} fill="white" rx="4"/>
+      <rect x={size/2-12} y={size/2-12} width={24} height={24} fill="#00C4A8" rx="3"/>
+      <text x={size/2} y={size/2+6} textAnchor="middle" fill="white" fontSize="12" fontWeight="800">ST</text>
+    </svg>
+  );
+}
+
+function Numpad({value, onChange, maxVal}){
+  const press = k => {
+    if(k==='back') return onChange(value.slice(0,-1));
+    if(k==='.'){if(value.includes('.'))return;return onChange((value||'0')+'.');}
+    const next = value==='' ? k : value==='0'?k:value+k;
+    if(next.includes('.')){const [,dec]=next.split('.');if(dec&&dec.length>2)return;}
+    if(maxVal && parseFloat(next) > maxVal) return;
+    onChange(next);
+  };
+  const keys=['1','2','3','4','5','6','7','8','9','.','0','back'];
+  return (
+    <div style={{display:'grid',gridTemplateColumns:'repeat(3,1fr)',gap:10}}>
+      {keys.map(k=>(
+        <div key={k} className="key" onClick={()=>press(k)} style={{cursor:'pointer',userSelect:'none'}}>
+          {k==='back' ? <Icons.backspace/> : k}
+        </div>
+      ))}
+    </div>
+  );
+}
+
+function STLogo({size=44,light=false}){
+  return <div style={{width:size,height:size,borderRadius:size*0.28,background:light?'rgba(255,255,255,0.15)':'linear-gradient(135deg,#00C4A8,#009E88)',display:'flex',alignItems:'center',justifyContent:'center',color:'#fff',fontWeight:800,fontSize:size*0.4,boxShadow:'0 4px 14px rgba(0,196,168,0.4)',border:light?'1px solid rgba(255,255,255,0.25)':'none'}}>ST</div>;
+}
+
+function Stars({rating,onRate,size=28}){
+  const [hover,setHover]=useState(0);
+  return <div style={{display:'flex',gap:6,justifyContent:'center'}}>
+    {[1,2,3,4,5].map(i=>(
+      <div key={i} onClick={onRate?()=>onRate(i):undefined} onMouseEnter={onRate?()=>setHover(i):undefined} onMouseLeave={onRate?()=>setHover(0):undefined} style={{cursor:onRate?'pointer':'default'}}>
+        <svg width={size} height={size} viewBox="0 0 24 24" fill={(hover||rating)>=i?'#F5A623':'none'} stroke="#F5A623" strokeWidth="1.6" strokeLinejoin="round"><path d="M12 2l3 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.9 21l1.2-6.8-5-4.9 6.9-1z"/></svg>
+      </div>
+    ))}
+  </div>;
+}
+
+/* ============ SEED ============ */
+const SEED_WORKERS = [
+  {id:'W1', name:'Sipho Dlamini', role:'Bartender', station:'The Grand Hotel — Bar', phone:'+27 82 555 0102',
+   bank:'Capitec', accMasked:'****3421', balance:347.50,
+   tips:[{id:'t1',amt:20,from:'Customer',time:'2h ago'},{id:'t2',amt:15,from:'Customer',time:'5h ago'},
+         {id:'t3',amt:30,from:'Customer',time:'Yesterday'},{id:'t4',amt:30,from:'Customer',time:'2 days ago'}],
+   payouts:[{id:'p1',amt:200,date:'12 Jun 2026',status:'paid',bank:'Capitec ****3421'}],
+   active:true, joined:'Jan 2026', rating:4.8, tipCount:47},
+  {id:'W2', name:'Thandi Nkosi', role:'Waitress', station:'The Grand Hotel — Bar', phone:'+27 83 555 0144',
+   bank:'FNB', accMasked:'****8812', balance:112.00,
+   tips:[{id:'t5',amt:18,from:'Customer',time:'1h ago'},{id:'t6',amt:30,from:'Customer',time:'4h ago'}],
+   payouts:[],
+   active:true, joined:'Feb 2026', rating:4.6, tipCount:23},
+];
+const SEED_STATION = {id:'S1', name:'The Grand Hotel — Bar', dealer:'The Grand Group (Pty) Ltd', workerIds:['W1','W2'], monthlyTips:8420};
+const EMPLOYER_CREDS = {email:'manager@thegrand.co.za', password:'demo1234'};
+const BANKS=['Capitec','FNB','Standard Bank','ABSA','Nedbank','TymeBank'];
+
+/* ============ APP ============ */
+function App(){
+  const [workers,setWorkers]=useState(SEED_WORKERS);
+  const [stations,setStations]=useState([SEED_STATION]);
+  const [txLog,setTxLog]=useState([]);
+  const [role,setRole]=useState(null);
+  const [workerCtx,setWorkerCtx]=useState({screen:'login',worker:null});
+  const [custCtx,setCustCtx]=useState({step:'scan',worker:null,amount:'',payMethod:'card'});
+  const [empCtx,setEmpCtx]=useState({loggedIn:false,tab:'overview',expandedWorker:null});
+  const [pending,setPending]=useState([]);
+  const [toast,setToast]=useState(null);
+
+  const showToast=m=>setToast(m);
+  useEffect(()=>{if(toast){const t=setTimeout(()=>setToast(null),3000);return()=>clearTimeout(t);}},[toast]);
+
+  const updateWorker=(id,updates)=>setWorkers(prev=>prev.map(w=>w.id===id?(typeof updates==='function'?updates(w):{...w,...updates}):w));
+  const getWorker=id=>workers.find(w=>w.id===id);
+
+  const ctx={workers,setWorkers,updateWorker,getWorker,stations,setStations,txLog,setTxLog,role,setRole,
+    workerCtx,setWorkerCtx,custCtx,setCustCtx,empCtx,setEmpCtx,pending,setPending,showToast};
+
+  let content;
+  if(role===null) content=<RoleSelector ctx={ctx}/>;
+  else if(role==='worker') content=<WorkerPortal ctx={ctx}/>;
+  else if(role==='customer') content=<CustomerPortal ctx={ctx}/>;
+  else if(role==='employer') content=<EmployerPortal ctx={ctx}/>;
+
+  return <>{content}{toast&&<div className="toast">{toast}</div>}</>;
+}
+
+/* ============ ROLE SELECTOR ============ */
+function RoleSelector({ctx}){
+  const cards=[
+    {emoji:'👷',title:'I am a worker',sub:'Receive & withdraw tips',role:'worker'},
+    {emoji:'💳',title:'I want to tip',sub:'Tip a worker instantly',role:'customer'},
+    {emoji:'🏢',title:'I am an employer',sub:'Manage your team',role:'employer'},
+  ];
+  return <div className="phone screen-anim" style={{background:'linear-gradient(155deg,#0D2028 0%,#0A3030 60%,#071E26 100%)',backgroundImage:'radial-gradient(ellipse 80% 50% at 50% 0%, rgba(0,196,168,0.18) 0%, transparent 60%)',color:'#fff',display:'flex',flexDirection:'column',justifyContent:'center',padding:'40px 24px',minHeight:'100vh'}}>
+    <div style={{textAlign:'center',marginBottom:48}}>
+      <div style={{display:'flex',justifyContent:'center',marginBottom:18}}><STLogo size={64}/></div>
+      <div style={{fontSize:34,fontWeight:800,letterSpacing:-1}}>SwiftTip</div>
+      <div style={{color:'rgba(255,255,255,0.6)',fontSize:15,marginTop:6}}>Cashless tipping, made simple</div>
+    </div>
+    <div style={{display:'flex',flexDirection:'column',gap:16}}>
+      {cards.map(c=>(
+        <div key={c.role} className="glassDark" onClick={()=>ctx.setRole(c.role)} style={{borderRadius:20,padding:18,display:'flex',alignItems:'center',gap:16,cursor:'pointer'}}>
+          <div style={{width:52,height:52,borderRadius:16,background:'rgba(0,196,168,0.25)',display:'flex',alignItems:'center',justifyContent:'center',fontSize:26}}>{c.emoji}</div>
+          <div style={{flex:1}}>
+            <div style={{fontWeight:700,fontSize:17}}>{c.title}</div>
+            <div style={{color:'rgba(255,255,255,0.6)',fontSize:13,marginTop:2}}>{c.sub}</div>
+          </div>
+          <Icons.chevronRight color="rgba(255,255,255,0.5)"/>
+        </div>
+      ))}
+    </div>
+    <div style={{textAlign:'center',marginTop:36,color:'rgba(255,255,255,0.35)',fontSize:12}}>POPIA compliant · 256-bit encrypted</div>
+  </div>;
+}
+
+/* ============ WORKER PORTAL ============ */
+function WorkerPortal({ctx}){
+  const {workerCtx,setWorkerCtx}=ctx;
+  const s=workerCtx.screen;
+  const nav=screen=>setWorkerCtx(c=>({...c,screen}));
+  const worker=workerCtx.worker?ctx.getWorker(workerCtx.worker.id)||workerCtx.worker:null;
+
+  if(s==='login') return <WorkerLogin ctx={ctx}/>;
+  if(s==='register') return <WorkerRegister ctx={ctx}/>;
+
+  const Nav=()=>(
+    <div className="bottomnav">
+      {[['dashboard','home','Home'],['qr','qr','QR Code'],['history','clock','History'],['payout','arrowUp','Pay Out']].map(([scr,icon,lbl])=>{
+        const I=Icons[icon];const on=s===scr||(scr==='payout'&&s.startsWith('payout'));
+        return <div key={scr} className={"navitem"+(on?' on':'')} onClick={()=>nav(scr)}><I size={22}/><span>{lbl}</span></div>;
+      })}
+    </div>
+  );
+
+  let body;
+  if(s==='dashboard') body=<WorkerDashboard ctx={ctx} worker={worker} nav={nav}/>;
+  else if(s==='qr') body=<WorkerQR worker={worker} ctx={ctx}/>;
+  else if(s==='history') body=<WorkerHistory worker={worker}/>;
+  else if(s==='payout') body=<WorkerPayout ctx={ctx} worker={worker}/>;
+  else if(s==='payout-processing') body=<PayoutProcessing ctx={ctx} worker={worker}/>;
+  else if(s==='payout-success') body=<PayoutSuccess ctx={ctx} worker={worker}/>;
+
+  const showNav=['dashboard','qr','history','payout'].includes(s);
+  return <div className="phone">{body}{showNav&&<Nav/>}</div>;
+}
+
+function WorkerLogin({ctx}){
+  return <div className="screen-anim">
+    <div className="header" style={{borderRadius:'0 0 32px 32px'}}>
+      <div style={{display:'flex',alignItems:'center',gap:12,marginBottom:8}}>
+        <span onClick={()=>ctx.setRole(null)} style={{cursor:'pointer'}}><Icons.arrowLeft color="#fff"/></span>
+        <STLogo size={36} light/>
+        <div style={{fontWeight:700,fontSize:18}}>Worker Sign In</div>
+      </div>
+    </div>
+    <div style={{padding:20}}>
+      <h2 style={{fontSize:20,marginBottom:16}}>Your profile</h2>
+      <div style={{display:'flex',flexDirection:'column',gap:12}}>
+        {ctx.workers.map(w=>(
+          <div key={w.id} className="glassLt" onClick={()=>ctx.setWorkerCtx({screen:'dashboard',worker:w})} style={{borderRadius:18,padding:14,display:'flex',alignItems:'center',gap:14,cursor:'pointer'}}>
+            <Avatar name={w.name} size={48}/>
+            <div style={{flex:1}}>
+              <div style={{fontWeight:700,fontSize:16}}>{w.name}</div>
+              <div className="muted" style={{fontSize:13}}>{w.station}</div>
+            </div>
+            <div style={{textAlign:'right'}}>
+              <div style={{fontWeight:800,color:'#00C4A8'}}>{fmt(w.balance)}</div>
+              <Icons.chevronRight color="#8FA8A5" size={18}/>
+            </div>
+          </div>
+        ))}
+      </div>
+      <button className="btn btn-ghost" style={{marginTop:20,display:'flex',alignItems:'center',justifyContent:'center',gap:8}} onClick={()=>ctx.setWorkerCtx({screen:'register',worker:null})}>
+        <Icons.plus size={18}/> Register as new worker
+      </button>
+    </div>
+  </div>;
+}
+
+function WorkerRegister({ctx}){
+  const [step,setStep]=useState(1);
+  const [loading,setLoading]=useState(false);
+  const [f,setF]=useState({name:'',id:'',phone:'',station:ctx.stations[0].name,bank:'Capitec',acc:''});
+  const set=(k,v)=>setF(p=>({...p,[k]:v}));
+  const valid={1:f.name&&f.id.length>=6,2:f.phone&&f.station,3:f.bank&&f.acc.length>=4,4:true};
+
+  const create=()=>{
+    setLoading(true);
+    setTimeout(()=>{
+      const id='W'+Date.now().toString().slice(-4);
+      const accMasked='****'+f.acc.slice(-4);
+      const nw={id,name:f.name,role:'Staff',station:f.station,phone:f.phone,bank:f.bank,accMasked,balance:0,tips:[],payouts:[],active:true,joined:'Jun 2026',rating:5.0,tipCount:0};
+      ctx.setWorkers(p=>[...p,nw]);
+      ctx.setStations(p=>p.map(st=>st.name===f.station?{...st,workerIds:[...st.workerIds,id]}:st));
+      setLoading(false);setStep(5);
+      ctx.showToast('🎉 Account created!');
+      setTimeout(()=>ctx.setWorkerCtx({screen:'dashboard',worker:nw}),2600);
+    },1500);
+  };
+
+  if(loading) return <FullDark><div className="spin" style={{marginBottom:24}}><Icons.loader size={48} color="#00C4A8"/></div><div style={{fontSize:18,fontWeight:600}}>Creating your account...</div></FullDark>;
+  if(step===5) return <div className="phone screen-anim" style={{display:'flex',flexDirection:'column',alignItems:'center',justifyContent:'center',textAlign:'center',padding:30,minHeight:'100vh'}}>
+    <div className="pop" style={{width:90,height:90,borderRadius:'50%',background:'linear-gradient(135deg,#00C4A8,#009E88)',display:'flex',alignItems:'center',justifyContent:'center',marginBottom:24,boxShadow:'0 10px 30px rgba(0,196,168,0.4)'}}><Icons.check size={48} color="#fff" sw={3}/></div>
+    <h1 style={{fontSize:24}}>Welcome, {firstName(f.name)}!</h1>
+    <p className="muted" style={{margin:'10px 0 24px'}}>Your QR code is ready</p>
+    <div className="card" style={{padding:20}}><QRCode value={'swifttip.app/t/new'} size={150}/></div>
+    <p className="muted" style={{marginTop:20,fontSize:13}}>Taking you to your dashboard...</p>
+  </div>;
+
+  return <div className="screen-anim">
+    <div className="header">
+      <div style={{display:'flex',alignItems:'center',gap:12,marginBottom:14}}>
+        <span onClick={()=>step>1?setStep(step-1):ctx.setWorkerCtx({screen:'login',worker:null})} style={{cursor:'pointer'}}><Icons.arrowLeft color="#fff"/></span>
+        <div style={{fontWeight:700,fontSize:18}}>Register</div>
+        <div style={{marginLeft:'auto',color:'rgba(255,255,255,0.6)',fontSize:13}}>Step {step}/4</div>
+      </div>
+      <div style={{height:6,background:'rgba(255,255,255,0.15)',borderRadius:3}}><div style={{height:'100%',width:(step/4*100)+'%',background:'#00C4A8',borderRadius:3,transition:'width .3s'}}/></div>
+    </div>
+    <div style={{padding:20}}>
+      {step===1&&<div className="screen-anim">
+        <h2 style={{marginBottom:18}}>Personal details</h2>
+        <label className="lbl">Full name</label><input className="inp" value={f.name} onChange={e=>set('name',e.target.value)} placeholder="e.g. Lerato Moloi"/>
+        <label className="lbl" style={{marginTop:16}}>ID number (SA)</label><input className="inp" value={f.id} onChange={e=>set('id',e.target.value.replace(/\D/g,'').slice(0,13))} placeholder="13-digit ID number"/>
+      </div>}
+      {step===2&&<div className="screen-anim">
+        <h2 style={{marginBottom:18}}>Contact & station</h2>
+        <label className="lbl">Phone number</label><input className="inp" value={f.phone} onChange={e=>set('phone',e.target.value)} placeholder="+27 ..."/>
+        <label className="lbl" style={{marginTop:16}}>Station</label>
+        <select className="inp" value={f.station} onChange={e=>set('station',e.target.value)}>{ctx.stations.map(st=><option key={st.id}>{st.name}</option>)}</select>
+      </div>}
+      {step===3&&<div className="screen-anim">
+        <h2 style={{marginBottom:18}}>Bank details</h2>
+        <label className="lbl">Bank</label>
+        <select className="inp" value={f.bank} onChange={e=>set('bank',e.target.value)}>{BANKS.map(b=><option key={b}>{b}</option>)}</select>
+        <label className="lbl" style={{marginTop:16}}>Account number</label><input className="inp" value={f.acc} onChange={e=>set('acc',e.target.value.replace(/\D/g,''))} placeholder="Account number"/>
+      </div>}
+      {step===4&&<div className="screen-anim">
+        <h2 style={{marginBottom:18}}>Review</h2>
+        <div className="card" style={{padding:18}}>
+          {[['Name',f.name],['ID',f.id],['Phone',f.phone],['Station',f.station],['Bank',f.bank],['Account','****'+f.acc.slice(-4)]].map(([k,v])=>(
+            <div key={k} style={{display:'flex',justifyContent:'space-between',padding:'10px 0',borderBottom:'1px solid #F0F7F6'}}><span className="muted">{k}</span><span style={{fontWeight:600}}>{v}</span></div>
+          ))}
+        </div>
+      </div>}
+      <button className="btn btn-primary" style={{marginTop:24}} disabled={!valid[step]} onClick={()=>step<4?setStep(step+1):create()}>{step<4?'Continue':'Create Account'}</button>
+    </div>
+  </div>;
+}
+
+function WorkerDashboard({ctx,worker,nav}){
+  const monthTips=worker.tips.reduce((a,t)=>a+t.amt,0);
+  const [pulse,setPulse]=useState(false);
+  const prev=useRef(worker.balance);
+  useEffect(()=>{if(prev.current!==worker.balance){setPulse(true);prev.current=worker.balance;const t=setTimeout(()=>setPulse(false),500);return()=>clearTimeout(t);}},[worker.balance]);
+  return <div className="screen-anim">
+    <div style={{background:'linear-gradient(155deg,#0D2028 0%,#0A3030 60%,#071E26 100%)',color:'#fff',padding:'18px 20px 26px'}}>
+      <div style={{display:'flex',alignItems:'center',gap:12,marginBottom:18}}>
+        <Avatar name={worker.name} size={44}/>
+        <div style={{flex:1}}>
+          <div style={{color:'rgba(255,255,255,0.6)',fontSize:13}}>Welcome back</div>
+          <div style={{fontWeight:700,fontSize:17}}>Hi {firstName(worker.name)}</div>
+        </div>
+        <span onClick={()=>ctx.setRole(null)} style={{cursor:'pointer'}}><Icons.bell color="rgba(255,255,255,0.8)"/></span>
+      </div>
+      <div className="glassDark" style={{borderRadius:20,padding:20}}>
+        <div style={{color:'rgba(255,255,255,0.6)',fontSize:13}}>Available balance</div>
+        <div className={pulse?'pulse':''} style={{fontSize:44,fontWeight:800,letterSpacing:-1,margin:'4px 0 14px'}}>{fmt(worker.balance)}</div>
+        <div style={{height:1,background:'rgba(255,255,255,0.15)',margin:'0 0 12px'}}/>
+        <div style={{display:'flex',justifyContent:'space-between',fontSize:13}}>
+          <span style={{color:'rgba(255,255,255,0.8)'}}>{fmt(monthTips)} this month</span>
+          <span style={{color:'rgba(255,255,255,0.8)'}}>{worker.tips.length} tips received</span>
+        </div>
+      </div>
+      <div style={{display:'flex',gap:10,marginTop:16}}>
+        {[['QR Code','qr','qr'],['Pay Out','payout','arrowUp'],['History','history','clock']].map(([lbl,scr,icon])=>{
+          const I=Icons[icon];
+          return <div key={scr} className="glassDark" onClick={()=>nav(scr)} style={{flex:1,borderRadius:16,padding:'14px 6px',textAlign:'center',cursor:'pointer'}}>
+            <div style={{display:'flex',justifyContent:'center',marginBottom:6}}><I size={20} color="#00C4A8"/></div>
+            <div style={{fontSize:12,fontWeight:600}}>{lbl}</div>
+          </div>;
+        })}
+      </div>
+    </div>
+    <div style={{padding:20}}>
+      <div style={{display:'flex',justifyContent:'space-between',alignItems:'center',marginBottom:14}}>
+        <h3 style={{fontSize:17}}>Recent tips</h3>
+        <span onClick={()=>nav('history')} style={{color:'#00C4A8',fontSize:14,fontWeight:600,cursor:'pointer'}}>View all →</span>
+      </div>
+      {worker.tips.length===0?<div className="muted" style={{textAlign:'center',padding:30}}>No tips yet. Share your QR code!</div>:
+      worker.tips.slice(0,4).map(t=>(
+        <div key={t.id} className="card" style={{padding:14,display:'flex',alignItems:'center',gap:12,marginBottom:10}}>
+          <div style={{width:40,height:40,borderRadius:12,background:'rgba(0,196,168,0.15)',display:'flex',alignItems:'center',justifyContent:'center'}}><Icons.wallet size={18} color="#00C4A8"/></div>
+          <div style={{flex:1}}><div style={{fontWeight:600}}>Tip received</div><div className="muted" style={{fontSize:12}}>{t.time}</div></div>
+          <div style={{fontWeight:800,color:'#00C4A8'}}>+{fmt(t.amt)}</div>
+        </div>
+      ))}
+      <div className="amberGlass" style={{borderRadius:16,padding:16,marginTop:10,display:'flex',gap:12,alignItems:'center'}}>
+        <span style={{fontSize:22}}>💡</span><div style={{fontSize:13,color:'#1A2E2B',fontWeight:600}}>Workers who share their QR earn 40% more</div>
+      </div>
+    </div>
+  </div>;
+}
+
+function WorkerQR({worker,ctx}){
+  return <div className="screen-anim">
+    <SubHeader title="Your QR Code"/>
+    <div style={{padding:20}}>
+      <div className="card" style={{padding:24,textAlign:'center'}}>
+        <div style={{display:'flex',justifyContent:'center',marginBottom:16}}><QRCode value={'swifttip.app/t/'+worker.id} size={180}/></div>
+        <div style={{fontWeight:800,fontSize:18}}>{worker.name}</div>
+        <div className="muted" style={{fontSize:13}}>{worker.station}</div>
+        <div style={{marginTop:10,color:'#00C4A8',fontWeight:600,fontSize:14}}>swifttip.app/t/{worker.id}</div>
+      </div>
+      <div style={{display:'flex',gap:10,marginTop:16}}>
+        {[['Download','download'],['Print Badge','printer'],['Share','share']].map(([lbl,icon])=>{
+          const I=Icons[icon];
+          return <div key={lbl} onClick={()=>ctx.showToast('✅ '+lbl+' ready!')} style={{flex:1,borderRadius:14,padding:'12px 4px',textAlign:'center',cursor:'pointer',border:'1.5px solid #D8EDEA',background:'#fff'}}>
+            <div style={{display:'flex',justifyContent:'center',marginBottom:5}}><I size={18} color="#00C4A8"/></div>
+            <div style={{fontSize:12,fontWeight:600,color:'#00C4A8'}}>{lbl}</div>
+          </div>;
+        })}
+      </div>
+      <div className="card" style={{padding:18,marginTop:16}}>
+        <h4 style={{marginBottom:14}}>How it works</h4>
+        {[['Display your code','Customers see your badge'],['Customer scans','They open the link on any phone'],['They pay','Choose amount & pay instantly'],['You receive','Lands in your balance right away']].map(([t,d],i)=>(
+          <div key={i} style={{display:'flex',gap:12,marginBottom:14,alignItems:'flex-start'}}>
+            <div style={{width:26,height:26,borderRadius:'50%',background:'rgba(0,196,168,0.15)',color:'#00C4A8',display:'flex',alignItems:'center',justifyContent:'center',fontWeight:800,fontSize:13,flexShrink:0}}>{i+1}</div>
+            <div><div style={{fontWeight:600,fontSize:14}}>{t}</div><div className="muted" style={{fontSize:13}}>{d}</div></div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>;
+}
+
+function WorkerHistory({worker}){
+  const [filter,setFilter]=useState('all');
+  const items=[
+    ...worker.tips.map(t=>({type:'tip',amt:t.amt,label:'Tip from customer',sub:t.time,id:t.id})),
+    ...worker.payouts.map(p=>({type:'payout',amt:p.amt,label:'Payout to '+p.bank,sub:p.date,id:p.id})),
+  ];
+  const shown=filter==='all'?items:items.filter(i=>i.type===(filter==='tips'?'tip':'payout'));
+  return <div className="screen-anim">
+    <SubHeader title="Transaction History"/>
+    <div style={{padding:20}}>
+      <div style={{display:'flex',gap:10,marginBottom:18}}>
+        {[['all','All'],['tips','Tips'],['payouts','Payouts']].map(([k,l])=>(
+          <div key={k} className={"pill"+(filter===k?' on':'')} onClick={()=>setFilter(k)}>{l}</div>
+        ))}
+      </div>
+      {shown.length===0?<div className="muted" style={{textAlign:'center',padding:40}}>No transactions yet</div>:
+      shown.map(it=>(
+        <div key={it.id} className="card" style={{padding:14,display:'flex',alignItems:'center',gap:12,marginBottom:10}}>
+          <div style={{width:40,height:40,borderRadius:12,background:it.type==='tip'?'rgba(0,196,168,0.15)':'rgba(232,85,85,0.12)',display:'flex',alignItems:'center',justifyContent:'center'}}>
+            {it.type==='tip'?<Icons.wallet size={18} color="#00C4A8"/>:<Icons.bank size={18} color="#E85555"/>}
+          </div>
+          <div style={{flex:1}}><div style={{fontWeight:600}}>{it.label}</div><div className="muted" style={{fontSize:12}}>{it.sub}</div></div>
+          <div style={{fontWeight:800,color:it.type==='tip'?'#00C4A8':'#E85555'}}>{it.type==='tip'?'+':'–'}{fmt(it.amt)}</div>
+        </div>
+      ))}
+    </div>
+  </div>;
+}
+
+function WorkerPayout({ctx,worker}){
+  const [amount,setAmount]=useState('');
+  const val=parseFloat(amount||'0');
+  const ok=val>=20&&val<=worker.balance;
+  return <div className="screen-anim">
+    <SubHeader title="Withdraw Funds"/>
+    <div style={{padding:20}}>
+      <div className="glassLt" style={{borderRadius:16,padding:14,display:'flex',alignItems:'center',gap:12}}>
+        <div style={{width:40,height:40,borderRadius:12,background:'rgba(0,196,168,0.15)',display:'flex',alignItems:'center',justifyContent:'center'}}><Icons.bank size={18} color="#00C4A8"/></div>
+        <div style={{flex:1}}><div className="muted" style={{fontSize:12}}>Send to</div><div style={{fontWeight:700}}>{worker.bank} {worker.accMasked}</div></div>
+        <Icons.edit size={18} color="#8FA8A5"/>
+      </div>
+      <div style={{textAlign:'center',margin:'20px 0'}}>
+        <div className="muted" style={{fontSize:13}}>Available: {fmt(worker.balance)}</div>
+        <div style={{fontSize:44,fontWeight:800,letterSpacing:-1,color:val>worker.balance?'#E85555':'#1A2E2B'}}>R{amount||'0'}</div>
+      </div>
+      <div style={{display:'flex',gap:8,marginBottom:18,justifyContent:'center'}}>
+        {[['R50','50'],['R100','100'],['R200','200'],['All',String(worker.balance)]].map(([l,v])=>(
+          <div key={l} className={"pill"+(amount===v?' on':'')} onClick={()=>setAmount(v)}>{l}</div>
+        ))}
+      </div>
+      <Numpad value={amount} onChange={setAmount} maxVal={worker.balance}/>
+      <button className="btn btn-primary" style={{marginTop:18}} disabled={!ok} onClick={()=>ctx.setWorkerCtx(c=>({...c,screen:'payout-processing',amount}))}>Withdraw {fmt(val)}</button>
+      <div className="muted" style={{textAlign:'center',fontSize:12,marginTop:10}}>Minimum R20 · Processed within 2 hours</div>
+    </div>
+  </div>;
+}
+
+function PayoutProcessing({ctx,worker}){
+  const amount=ctx.workerCtx.amount;
+  useEffect(()=>{
+    const t=setTimeout(()=>ctx.setWorkerCtx(c=>({...c,screen:'payout-success'})),2000);
+    return()=>clearTimeout(t);
+  },[]);
+  return <FullDark>
+    <div className="spin" style={{marginBottom:26}}><Icons.loader size={48} color="#00C4A8"/></div>
+    <div style={{fontSize:18,fontWeight:600,marginBottom:8}}>Processing your withdrawal...</div>
+    <div style={{color:'rgba(255,255,255,0.6)'}}>{fmt(parseFloat(amount))} → {worker.bank} {worker.accMasked}</div>
+  </FullDark>;
+}
+
+function PayoutSuccess({ctx,worker}){
+  const amount=parseFloat(ctx.workerCtx.amount);
+  const ref=useRef('SWT-'+ts()).current;
+  const done=()=>{
+    ctx.updateWorker(worker.id,w=>({...w,balance:w.balance-amount,payouts:[{id:'p'+Date.now(),amt:amount,date:today(),status:'pending',bank:w.bank+' '+w.accMasked},...w.payouts]}));
+    ctx.setPending(p=>[{id:'pr'+Date.now(),workerId:worker.id,workerName:worker.name,amt:amount,date:today(),bank:worker.bank+' '+worker.accMasked},...p]);
+    ctx.setTxLog(p=>[{type:'payout',workerId:worker.id,amt:amount,date:today()},...p]);
+    ctx.showToast('Payout requested · '+fmt(amount));
+    ctx.setWorkerCtx(c=>({...c,screen:'dashboard',amount:''}));
+  };
+  return <div className="phone screen-anim" style={{display:'flex',flexDirection:'column',alignItems:'center',justifyContent:'center',textAlign:'center',padding:30,minHeight:'100vh'}}>
+    <div className="pop" style={{width:80,height:80,borderRadius:'50%',background:'linear-gradient(135deg,#00C4A8,#009E88)',display:'flex',alignItems:'center',justifyContent:'center',marginBottom:22,boxShadow:'0 10px 30px rgba(0,196,168,0.4)'}}><Icons.check size={42} color="#fff" sw={3}/></div>
+    <h1 style={{fontSize:24}}>Withdrawal Successful!</h1>
+    <div className="glassLt" style={{borderRadius:18,padding:20,marginTop:22,width:'100%',textAlign:'left'}}>
+      {[['Amount',fmt(amount),'#00C4A8'],['To',worker.bank+' '+worker.accMasked],['Reference',ref],['ETA','Within 2 hours'],['Date',today()]].map(([k,v,c],i)=>(
+        <div key={k} style={{display:'flex',justifyContent:'space-between',padding:'9px 0',borderBottom:i<4?'1px solid #F0F7F6':'none'}}><span className="muted">{k}</span><span style={{fontWeight:700,color:c||'#1A2E2B',fontSize:i===0?18:14}}>{v}</span></div>
+      ))}
+    </div>
+    <button className="btn btn-primary" style={{marginTop:24}} onClick={done}>Done</button>
+  </div>;
+}
+
+/* ============ CUSTOMER PORTAL ============ */
+function CustomerPortal({ctx}){
+  const {custCtx}=ctx;
+  const step=custCtx.step;
+  const worker=custCtx.worker?ctx.getWorker(custCtx.worker.id)||custCtx.worker:null;
+  if(step==='scan') return <CustScan ctx={ctx}/>;
+  if(step==='worker') return <CustWorker ctx={ctx} worker={worker}/>;
+  if(step==='amount') return <CustAmount ctx={ctx} worker={worker}/>;
+  if(step==='card') return <CustCard ctx={ctx} worker={worker}/>;
+  if(step==='processing') return <CustProcessing ctx={ctx} worker={worker}/>;
+  if(step==='success') return <CustSuccess ctx={ctx} worker={worker}/>;
+  return null;
+}
+
+function CustScan({ctx}){
+  const station=ctx.stations[0];
+  const ws=ctx.workers.filter(w=>w.active);
+  const pick=w=>ctx.setCustCtx({step:'worker',worker:w,amount:'',payMethod:'card'});
+  return <div className="phone screen-anim">
+    <div className="header">
+      <div style={{display:'flex',alignItems:'center',gap:12,marginBottom:6}}>
+        <span onClick={()=>ctx.setRole(null)} style={{cursor:'pointer'}}><Icons.arrowLeft color="#fff"/></span>
+        <div style={{fontWeight:700,fontSize:20}}>Tip a Worker</div>
+      </div>
+      <div style={{color:'rgba(255,255,255,0.6)',fontSize:13,marginLeft:36}}>Great service deserves recognition</div>
+    </div>
+    <div style={{padding:20}}>
+      <div style={{background:'#0D2028',borderRadius:24,padding:'36px 20px',textAlign:'center',border:'2px dashed rgba(0,196,168,0.4)',marginBottom:22}}>
+        <div style={{display:'flex',justifyContent:'center',marginBottom:14}}><Icons.camera size={42} color="#00C4A8"/></div>
+        <div style={{color:'#fff',fontWeight:600,marginBottom:6}}>Point camera at worker's SwiftTip badge</div>
+        <div style={{color:'rgba(255,255,255,0.5)',fontSize:13}}>Camera access · or pick below</div>
+      </div>
+      <div className="lbl">Quick select</div>
+      <div className="hrow">
+        {ws.map(w=>(
+          <div key={w.id} onClick={()=>pick(w)} style={{textAlign:'center',cursor:'pointer',flexShrink:0}}>
+            <Avatar name={w.name} size={52}/>
+            <div style={{fontSize:12,marginTop:6,fontWeight:600}}>{firstName(w.name)}</div>
+          </div>
+        ))}
+      </div>
+      <div className="lbl" style={{marginTop:18}}>All workers · {station.name}</div>
+      {ws.map(w=>(
+        <div key={w.id} className="glassLt" onClick={()=>pick(w)} style={{borderRadius:18,padding:14,display:'flex',alignItems:'center',gap:12,marginBottom:10,cursor:'pointer'}}>
+          <Avatar name={w.name} size={46}/>
+          <div style={{flex:1}}>
+            <div style={{display:'flex',alignItems:'center',gap:6}}><span style={{fontWeight:700}}>{w.name}</span><span style={{fontSize:11,background:'rgba(0,196,168,0.15)',color:'#00C4A8',padding:'2px 7px',borderRadius:20,fontWeight:700}}>Verified ✓</span></div>
+            <div className="muted" style={{fontSize:13}}>{w.role} · ⭐ {w.rating}</div>
+          </div>
+          <Icons.chevronRight color="#8FA8A5"/>
+        </div>
+      ))}
+    </div>
+  </div>;
+}
+
+function CustWorker({ctx,worker}){
+  return <div className="phone screen-anim">
+    <SubHeader title="Worker Profile" onBack={()=>ctx.setCustCtx(c=>({...c,step:'scan'}))}/>
+    <div style={{padding:20}}>
+      <div className="card" style={{padding:24,textAlign:'center'}}>
+        <div style={{display:'flex',justifyContent:'center',marginBottom:14}}><Avatar name={worker.name} size={80}/></div>
+        <div style={{fontSize:22,fontWeight:800}}>{worker.name}</div>
+        <div className="muted" style={{fontSize:14,marginTop:2}}>{worker.role} · {worker.station}</div>
+        <div style={{display:'inline-block',background:'rgba(0,196,168,0.15)',color:'#00C4A8',padding:'4px 12px',borderRadius:20,fontWeight:700,fontSize:13,margin:'12px 0'}}>✓ Verified</div>
+        <div style={{display:'flex',justifyContent:'center',alignItems:'center',gap:8,marginBottom:14}}>
+          <Stars rating={Math.round(worker.rating)} size={20}/>
+          <span style={{fontWeight:700}}>{worker.rating}</span><span className="muted">· {worker.tipCount} tips</span>
+        </div>
+        <div style={{height:1,background:'#F0F7F6',margin:'8px 0 14px'}}/>
+        <div className="muted" style={{fontSize:12}}>Station</div>
+        <div style={{fontWeight:600}}>{worker.station}</div>
+      </div>
+      <button className="btn btn-primary" style={{marginTop:22}} onClick={()=>ctx.setCustCtx(c=>({...c,step:'amount'}))}>Tip {firstName(worker.name)}</button>
+    </div>
+  </div>;
+}
+
+function CustAmount({ctx,worker}){
+  const [amount,setAmount]=useState(ctx.custCtx.amount||'');
+  const [pm,setPm]=useState(ctx.custCtx.payMethod||'card');
+  const val=parseFloat(amount||'0');
+  const go=()=>ctx.setCustCtx(c=>({...c,amount,payMethod:pm,step:pm==='card'?'card':'processing'}));
+  return <div className="phone screen-anim">
+    <SubHeader title="Tip Amount" onBack={()=>ctx.setCustCtx(c=>({...c,step:'worker'}))}/>
+    <div style={{padding:20}}>
+      <div className="glassLt" style={{borderRadius:16,padding:12,display:'flex',alignItems:'center',gap:12,marginBottom:18}}>
+        <Avatar name={worker.name} size={40}/>
+        <div><div style={{fontWeight:700}}>{worker.name}</div><div className="muted" style={{fontSize:12}}>{worker.role}</div></div>
+      </div>
+      <div style={{textAlign:'center',marginBottom:16}}>
+        <div className="lbl" style={{textAlign:'center'}}>Tip amount</div>
+        <div style={{fontSize:44,fontWeight:800,letterSpacing:-1}}>R{amount||'0'}</div>
+      </div>
+      <div style={{display:'flex',gap:7,marginBottom:18,justifyContent:'center'}}>
+        {['10','15','20','30','50'].map(v=>(
+          <div key={v} className={"pill"+(amount===v?' on':'')} onClick={()=>setAmount(v)}>R{v}</div>
+        ))}
+      </div>
+      <Numpad value={amount} onChange={setAmount}/>
+      <div className="lbl" style={{marginTop:18}}>Pay with</div>
+      <div style={{display:'flex',gap:8,marginBottom:18}}>
+        {[['card','💳 Card'],['snapscan','📱 SnapScan'],['ozow','🏦 Ozow EFT']].map(([k,l])=>(
+          <div key={k} className={"pill"+(pm===k?' on':'')} style={{flex:1,textAlign:'center'}} onClick={()=>setPm(k)}>{l}</div>
+        ))}
+      </div>
+      <button className="btn btn-amber" disabled={val<5} onClick={go}>Tip {fmt(val)} to {firstName(worker.name)}</button>
+    </div>
+  </div>;
+}
+
+function CustCard({ctx,worker}){
+  const [num,setNum]=useState('');
+  const [exp,setExp]=useState('');
+  const [cvv,setCvv]=useState('');
+  const [showCvv,setShowCvv]=useState(false);
+  const amount=parseFloat(ctx.custCtx.amount);
+  const last4=num.replace(/\s/g,'').slice(-4).padStart(4,'•');
+  const fmtNum=v=>v.replace(/\D/g,'').slice(0,16).replace(/(.{4})/g,'$1 ').trim();
+  const fmtExp=v=>{v=v.replace(/\D/g,'').slice(0,4);return v.length>2?v.slice(0,2)+'/'+v.slice(2):v;};
+  const valid=num.replace(/\s/g,'').length>=16&&exp.length===5&&cvv.length===3;
+  return <div className="phone screen-anim">
+    <SubHeader title="Card Details" onBack={()=>ctx.setCustCtx(c=>({...c,step:'amount'}))}/>
+    <div style={{padding:20}}>
+      <div className="glassDark" style={{borderRadius:18,padding:20,height:180,background:'linear-gradient(135deg,#0D2028,#0A3030)',color:'#fff',marginBottom:20}}>
+        <div style={{display:'flex',justifyContent:'space-between'}}>
+          <Icons.wallet size={28} color="#00C4A8"/>
+          <div style={{fontWeight:800,fontStyle:'italic',fontSize:18}}>VISA</div>
+        </div>
+        <div style={{fontSize:20,letterSpacing:2,marginTop:34,fontWeight:600}}>•••• •••• •••• {last4}</div>
+        <div style={{marginTop:20,fontSize:12,color:'rgba(255,255,255,0.7)'}}>
+          <div style={{fontSize:9}}>VALID THRU</div><div style={{fontWeight:700,color:'#fff'}}>{exp||'MM/YY'}</div>
+        </div>
+      </div>
+      <label className="lbl">Card number</label><input className="inp" value={num} onChange={e=>setNum(fmtNum(e.target.value))} placeholder="1234 5678 9012 3456"/>
+      <div style={{display:'flex',gap:12,marginTop:14}}>
+        <div style={{flex:1}}><label className="lbl">Expiry</label><input className="inp" value={exp} onChange={e=>setExp(fmtExp(e.target.value))} placeholder="MM/YY"/></div>
+        <div style={{flex:1}}><label className="lbl">CVV</label>
+          <div style={{position:'relative'}}>
+            <input className="inp" type={showCvv?'text':'password'} value={cvv} onChange={e=>setCvv(e.target.value.replace(/\D/g,'').slice(0,3))} placeholder="123"/>
+            <span onClick={()=>setShowCvv(!showCvv)} style={{position:'absolute',right:14,top:14,cursor:'pointer'}}>{showCvv?<Icons.eyeOff size={18} color="#8FA8A5"/>:<Icons.eye size={18} color="#8FA8A5"/>}</span>
+          </div>
+        </div>
+      </div>
+      <button className="btn btn-amber" style={{marginTop:22}} disabled={!valid} onClick={()=>ctx.setCustCtx(c=>({...c,step:'processing'}))}>Pay {fmt(amount)} Securely</button>
+      <div className="muted" style={{textAlign:'center',fontSize:12,marginTop:12,display:'flex',justifyContent:'center',alignItems:'center',gap:6}}><Icons.shield size={14}/> 256-bit SSL · POPIA compliant</div>
+    </div>
+  </div>;
+}
+
+function CustProcessing({ctx,worker}){
+  const amount=parseFloat(ctx.custCtx.amount);
+  const done=useRef(false);
+  useEffect(()=>{
+    const t=setTimeout(()=>{
+      if(done.current)return;done.current=true;
+      const tip={id:'t'+Date.now(),amt:amount,from:'Customer',time:'Just now'};
+      ctx.updateWorker(worker.id,w=>({...w,balance:w.balance+amount,tips:[tip,...w.tips],tipCount:w.tipCount+1}));
+      ctx.setStations(p=>p.map(st=>st.workerIds.includes(worker.id)?{...st,monthlyTips:st.monthlyTips+amount}:st));
+      ctx.setTxLog(p=>[{type:'tip',workerId:worker.id,amt:amount,time:'Just now'},...p]);
+      ctx.setCustCtx(c=>({...c,step:'success'}));
+    },2000);
+    return()=>clearTimeout(t);
+  },[]);
+  return <FullDark>
+    <div className="spin" style={{marginBottom:20}}><Icons.loader size={56} color="#00C4A8"/></div>
+    <div style={{marginBottom:14}}><Avatar name={worker.name} size={48}/></div>
+    <div style={{fontSize:17,fontWeight:600}}>Sending {fmt(amount)} to {firstName(worker.name)}...</div>
+    <div className="dots" style={{marginTop:18}}><span/><span/><span/></div>
+  </FullDark>;
+}
+
+function CustSuccess({ctx,worker}){
+  const amount=parseFloat(ctx.custCtx.amount);
+  const pm=ctx.custCtx.payMethod;
+  const pmLbl={card:'Card',snapscan:'SnapScan',ozow:'Ozow EFT'}[pm];
+  const ref=useRef('TIP-'+ts()).current;
+  const [rated,setRated]=useState(0);
+  return <div className="phone screen-anim" style={{display:'flex',flexDirection:'column',alignItems:'center',padding:'40px 24px',minHeight:'100vh'}}>
+    <div className="pop" style={{width:80,height:80,borderRadius:'50%',background:'linear-gradient(135deg,#00C4A8,#009E88)',display:'flex',alignItems:'center',justifyContent:'center',marginBottom:20,boxShadow:'0 10px 30px rgba(0,196,168,0.4)'}}><Icons.check size={42} color="#fff" sw={3}/></div>
+    <h1 style={{fontSize:24}}>Tip Sent! 🎉</h1>
+    <p className="muted" style={{marginTop:6}}>{worker.name} received your tip</p>
+    <div className="glassLt" style={{borderRadius:18,padding:20,marginTop:22,width:'100%',textAlign:'center'}}>
+      <div style={{fontSize:36,fontWeight:800,color:'#00C4A8'}}>{fmt(amount)}</div>
+      <div className="muted" style={{fontSize:13,marginBottom:14}}>via {pmLbl}</div>
+      <div style={{height:1,background:'#F0F7F6',marginBottom:12}}/>
+      {[['To',worker.name],['Station',worker.station],['Reference',ref],['Time',now()]].map(([k,v])=>(
+        <div key={k} style={{display:'flex',justifyContent:'space-between',padding:'6px 0',textAlign:'left'}}><span className="muted">{k}</span><span style={{fontWeight:600,fontSize:14}}>{v}</span></div>
+      ))}
+    </div>
+    <div className="lbl" style={{marginTop:24,textAlign:'center'}}>Rate {firstName(worker.name)}'s service</div>
+    <Stars rating={rated} onRate={r=>{setRated(r);ctx.showToast('Thanks for the rating!');}} size={32}/>
+    <button className="btn btn-primary" style={{marginTop:24}} onClick={()=>ctx.setCustCtx({step:'scan',worker:null,amount:'',payMethod:'card'})}>Done</button>
+    <button className="btn btn-ghost" style={{marginTop:10}} onClick={()=>ctx.showToast('Receipt sent to your number')}>Get receipt by SMS</button>
+  </div>;
+}
+
+/* ============ EMPLOYER PORTAL ============ */
+function EmployerPortal({ctx}){
+  const {empCtx,setEmpCtx}=ctx;
+  if(!empCtx.loggedIn) return <EmployerLogin ctx={ctx}/>;
+  const tab=empCtx.tab;
+  const Nav=()=>(
+    <div className="bottomnav">
+      {[['overview','barChart','Overview'],['workers','users','Workers'],['analytics','trendingUp','Analytics'],['payouts','wallet','Payouts']].map(([t,icon,lbl])=>{
+        const I=Icons[icon];
+        return <div key={t} className={"navitem"+(tab===t?' on':'')} onClick={()=>setEmpCtx(c=>({...c,tab:t}))}><I size={22}/><span>{lbl}</span></div>;
+      })}
+    </div>
+  );
+  let body;
+  if(tab==='overview') body=<EmpOverview ctx={ctx}/>;
+  else if(tab==='workers') body=<EmpWorkers ctx={ctx}/>;
+  else if(tab==='analytics') body=<EmpAnalytics ctx={ctx}/>;
+  else if(tab==='payouts') body=<EmpPayouts ctx={ctx}/>;
+  return <div className="phone">{body}<Nav/></div>;
+}
+
+function EmployerLogin({ctx}){
+  const [email,setEmail]=useState(EMPLOYER_CREDS.email);
+  const [pw,setPw]=useState(EMPLOYER_CREDS.password);
+  const [show,setShow]=useState(false);
+  const [err,setErr]=useState('');
+  const [loading,setLoading]=useState(false);
+  const submit=()=>{
+    setErr('');
+    if(email!==EMPLOYER_CREDS.email||pw!==EMPLOYER_CREDS.password){setErr('Invalid email or password');return;}
+    setLoading(true);
+    setTimeout(()=>{setLoading(false);ctx.setEmpCtx(c=>({...c,loggedIn:true}));},1000);
+  };
+  return <div className="phone screen-anim" style={{background:'linear-gradient(155deg,#0D2028 0%,#0A3030 60%,#071E26 100%)',backgroundImage:'radial-gradient(ellipse 80% 50% at 50% 0%, rgba(0,196,168,0.18) 0%, transparent 60%)',minHeight:'100vh',padding:'40px 24px',color:'#fff'}}>
+    <span onClick={()=>ctx.setRole(null)} style={{cursor:'pointer'}}><Icons.arrowLeft color="#fff"/></span>
+    <div style={{textAlign:'center',margin:'30px 0 40px'}}>
+      <div style={{display:'flex',justifyContent:'center',marginBottom:16}}><STLogo size={56}/></div>
+      <h1 style={{fontSize:26}}>SwiftTip Business</h1>
+      <p style={{color:'rgba(255,255,255,0.6)',marginTop:6,fontSize:14}}>Sign in to your employer account</p>
+    </div>
+    <div className="glassDark" style={{borderRadius:20,padding:22}}>
+      <label className="lbl" style={{color:'rgba(255,255,255,0.8)'}}>Email</label>
+      <input className="inp" style={{background:'rgba(255,255,255,0.9)'}} value={email} onChange={e=>setEmail(e.target.value)}/>
+      <label className="lbl" style={{color:'rgba(255,255,255,0.8)',marginTop:14}}>Password</label>
+      <div style={{position:'relative'}}>
+        <input className="inp" style={{background:'rgba(255,255,255,0.9)'}} type={show?'text':'password'} value={pw} onChange={e=>setPw(e.target.value)}/>
+        <span onClick={()=>setShow(!show)} style={{position:'absolute',right:14,top:14,cursor:'pointer'}}>{show?<Icons.eyeOff size={18} color="#8FA8A5"/>:<Icons.eye size={18} color="#8FA8A5"/>}</span>
+      </div>
+      {err&&<div style={{color:'#E85555',fontSize:13,marginTop:12,fontWeight:600}}>{err}</div>}
+      <button className="btn btn-primary" style={{marginTop:20}} disabled={loading} onClick={submit}>{loading?'Signing in...':'Sign In'}</button>
+    </div>
+    <p style={{textAlign:'center',color:'rgba(255,255,255,0.4)',fontSize:12,marginTop:18}}>Demo credentials pre-filled</p>
+  </div>;
+}
+
+function EmpHeader({ctx,children}){
+  const station=ctx.stations[0];
+  return <div style={{background:'linear-gradient(155deg,#0D2028 0%,#0A3030 60%,#071E26 100%)',color:'#fff',padding:'18px 20px 22px',borderRadius:'0 0 28px 28px'}}>
+    <div style={{display:'flex',alignItems:'center',gap:10}}>
+      <div style={{flex:1}}>
+        <div style={{display:'flex',alignItems:'center',gap:8}}><span style={{fontWeight:800,fontSize:17}}>{station.dealer}</span><span style={{fontSize:11,background:'rgba(0,196,168,0.25)',color:'#00C4A8',padding:'2px 8px',borderRadius:20,fontWeight:700}}>● Live</span></div>
+        <div style={{color:'rgba(255,255,255,0.6)',fontSize:13,marginTop:2}}>{station.name}</div>
+      </div>
+      <span onClick={()=>ctx.setEmpCtx(c=>({...c,loggedIn:false}))} style={{cursor:'pointer'}}><Icons.logout color="rgba(255,255,255,0.8)"/></span>
+    </div>
+    {children}
+  </div>;
+}
+
+function EmpOverview({ctx}){
+  const ws=ctx.workers;
+  const totalTips=ws.reduce((a,w)=>a+w.tips.reduce((b,t)=>b+t.amt,0),0);
+  const tipN=ws.reduce((a,w)=>a+w.tips.length,0);
+  const active=ws.filter(w=>w.active).length;
+  const avg=tipN?totalTips/tipN:0;
+  const kpis=[['Total tips',fmt(totalTips)],['Active workers',String(active)],['Avg tip',fmt(avg)],['Stations','1']];
+  const shares=ws.map(w=>({name:w.name,amt:w.tips.reduce((b,t)=>b+t.amt,0)})).filter(s=>s.amt>0);
+  const tot=shares.reduce((a,s)=>a+s.amt,0)||1;
+  const R=58,C=2*Math.PI*R;let offset=0;
+  const colors=['#00C4A8','#F5A623','#3B82C4','#8B5CF6','#E85555'];
+  const sorted=[...shares].sort((a,b)=>b.amt-a.amt);
+  return <div className="screen-anim">
+    <EmpHeader ctx={ctx}>
+      <div style={{display:'grid',gridTemplateColumns:'1fr 1fr',gap:10,marginTop:16}}>
+        {kpis.map(([l,v])=>(
+          <div key={l} className="glassDark" style={{borderRadius:16,padding:14}}>
+            <div style={{color:'rgba(255,255,255,0.6)',fontSize:12}}>{l}</div>
+            <div style={{fontWeight:800,fontSize:22,marginTop:4}}>{v}</div>
+          </div>
+        ))}
+      </div>
+    </EmpHeader>
+    <div style={{padding:20}}>
+      <div className="card" style={{padding:20}}>
+        <h3 style={{marginBottom:16}}>Tips by worker</h3>
+        <div style={{display:'flex',justifyContent:'center'}}>
+          <svg width={150} height={150} viewBox="0 0 150 150">
+            <circle cx="75" cy="75" r={R} fill="none" stroke="#F0F7F6" strokeWidth="16"/>
+            {shares.map((s,i)=>{
+              const len=s.amt/tot*C;const el=<circle key={i} cx="75" cy="75" r={R} fill="none" stroke={colors[i%colors.length]} strokeWidth="16" strokeDasharray={`${len} ${C-len}`} strokeDashoffset={-offset} transform="rotate(-90 75 75)" strokeLinecap="round"/>;offset+=len;return el;
+            })}
+            <text x="75" y="70" textAnchor="middle" fontSize="11" fill="#8FA8A5">Total</text>
+            <text x="75" y="90" textAnchor="middle" fontSize="18" fontWeight="800" fill="#1A2E2B">{fmt(tot)}</text>
+          </svg>
+        </div>
+        <div style={{marginTop:16}}>
+          {shares.map((s,i)=>(
+            <div key={i} style={{display:'flex',alignItems:'center',gap:8,padding:'6px 0'}}>
+              <div style={{width:10,height:10,borderRadius:3,background:colors[i%colors.length]}}/>
+              <span style={{flex:1,fontSize:14}}>{s.name}</span>
+              <span style={{fontWeight:700,fontSize:14}}>{fmt(s.amt)}</span>
+              <span className="muted" style={{fontSize:12,width:40,textAlign:'right'}}>{Math.round(s.amt/tot*100)}%</span>
+            </div>
+          ))}
+        </div>
+      </div>
+      <div className="card" style={{padding:20,marginTop:16}}>
+        <h3 style={{marginBottom:14}}>Top earners</h3>
+        {sorted.map((s,i)=>(
+          <div key={i} style={{display:'flex',alignItems:'center',gap:12,marginBottom:14}}>
+            <span style={{fontSize:18}}>{['🥇','🥈','🥉'][i]||'🏅'}</span>
+            <div style={{flex:1}}>
+              <div style={{display:'flex',justifyContent:'space-between',marginBottom:5}}><span style={{fontWeight:600,fontSize:14}}>{s.name}</span><span style={{fontWeight:700,fontSize:14}}>{fmt(s.amt)}</span></div>
+              <div style={{height:8,background:'#F0F7F6',borderRadius:4}}><div style={{height:'100%',width:(s.amt/(sorted[0].amt||1)*100)+'%',background:'linear-gradient(90deg,#00C4A8,#009E88)',borderRadius:4}}/></div>
+            </div>
+          </div>
+        ))}
+      </div>
+      <div style={{display:'flex',gap:12,marginTop:16}}>
+        <div className="glassLt" style={{flex:1,borderRadius:16,padding:16}}><div className="muted" style={{fontSize:12}}>Best day</div><div style={{fontWeight:800,fontSize:18,marginTop:4}}>Saturday</div></div>
+        <div className="glassLt" style={{flex:1,borderRadius:16,padding:16}}><div className="muted" style={{fontSize:12}}>Peak hours</div><div style={{fontWeight:800,fontSize:18,marginTop:4}}>20:00–22:00</div></div>
+      </div>
+    </div>
+  </div>;
+}
+
+function EmpWorkers({ctx}){
+  const {empCtx,setEmpCtx}=ctx;
+  const toggle=id=>setEmpCtx(c=>({...c,expandedWorker:c.expandedWorker===id?null:id}));
+  return <div className="screen-anim">
+    <EmpHeader ctx={ctx}>
+      <div style={{display:'flex',justifyContent:'space-between',alignItems:'center',marginTop:14}}>
+        <span style={{fontWeight:700,fontSize:15}}>Team ({ctx.workers.length})</span>
+        <div onClick={()=>ctx.showToast('Invite link copied!')} style={{display:'flex',alignItems:'center',gap:6,background:'rgba(0,196,168,0.25)',color:'#00C4A8',padding:'8px 14px',borderRadius:30,fontWeight:700,fontSize:13,cursor:'pointer'}}><Icons.plus size={16}/> Add worker</div>
+      </div>
+    </EmpHeader>
+    <div style={{padding:20}}>
+      {ctx.workers.map(w=>{
+        const earned=w.tips.reduce((a,t)=>a+t.amt,0);
+        const exp=empCtx.expandedWorker===w.id;
+        return <div key={w.id} className="card" style={{padding:16,marginBottom:12}}>
+          <div style={{display:'flex',alignItems:'center',gap:12,cursor:'pointer'}} onClick={()=>toggle(w.id)}>
+            <Avatar name={w.name} size={46}/>
+            <div style={{flex:1}}>
+              <div style={{fontWeight:700}}>{w.name}</div>
+              <div className="muted" style={{fontSize:12}}>{w.role} · {w.phone}</div>
+            </div>
+            <span style={{fontSize:11,background:w.active?'rgba(0,196,168,0.15)':'rgba(143,168,165,0.2)',color:w.active?'#00C4A8':'#8FA8A5',padding:'3px 10px',borderRadius:20,fontWeight:700}}>{w.active?'Active':'Inactive'}</span>
+          </div>
+          <div style={{display:'flex',marginTop:14,gap:8}}>
+            {[['Tips',w.tips.length],['Earned',fmt(earned)],['Balance',fmt(w.balance)]].map(([l,v])=>(
+              <div key={l} style={{flex:1,background:'#F0F7F6',borderRadius:12,padding:'10px 8px',textAlign:'center'}}><div className="muted" style={{fontSize:11}}>{l}</div><div style={{fontWeight:700,fontSize:14,marginTop:2}}>{v}</div></div>
+            ))}
+          </div>
+          {exp&&<div className="screen-anim" style={{marginTop:14}}>
+            <div className="lbl">Recent transactions</div>
+            {w.tips.slice(0,5).map(t=>(
+              <div key={t.id} style={{display:'flex',justifyContent:'space-between',padding:'7px 0',borderBottom:'1px solid #F0F7F6',fontSize:13}}><span className="muted">Tip · {t.time}</span><span style={{color:'#00C4A8',fontWeight:700}}>+{fmt(t.amt)}</span></div>
+            ))}
+            {w.payouts.map(p=>(
+              <div key={p.id} style={{display:'flex',justifyContent:'space-between',padding:'7px 0',borderBottom:'1px solid #F0F7F6',fontSize:13}}><span className="muted">Payout · {p.date}</span><span style={{color:'#E85555',fontWeight:700}}>–{fmt(p.amt)}</span></div>
+            ))}
+            {w.tips.length===0&&w.payouts.length===0&&<div className="muted" style={{fontSize:13,padding:'8px 0'}}>No transactions yet</div>}
+          </div>}
+          <button className="btn" style={{marginTop:12,background:w.active?'rgba(232,85,85,0.12)':'rgba(0,196,168,0.15)',color:w.active?'#E85555':'#00C4A8',padding:'10px',fontSize:14}} onClick={()=>{ctx.updateWorker(w.id,{active:!w.active});ctx.showToast(w.active?w.name+' suspended':w.name+' activated');}}>{w.active?'Suspend':'Activate'}</button>
+        </div>;
+      })}
+    </div>
+  </div>;
+}
+
+function EmpAnalytics({ctx}){
+  const ws=ctx.workers;
+  const totalTips=ws.reduce((a,w)=>a+w.tips.reduce((b,t)=>b+t.amt,0),0);
+  const tipN=ws.reduce((a,w)=>a+w.tips.length,0);
+  const months=[['Jan',4200],['Feb',5100],['Mar',6300],['Apr',5800],['May',7400],['Jun',Math.round(8420+totalTips)]];
+  const max=Math.max(...months.map(m=>m[1]));
+  const insights=[['Total tips this month',fmt(totalTips+8420)],['Total transactions',String(tipN)],['Average tip value',fmt(tipN?totalTips/tipN:0)],['Active workers',String(ws.filter(w=>w.active).length)],['Worker retention','94%']];
+  return <div className="screen-anim">
+    <EmpHeader ctx={ctx}><div style={{marginTop:12,fontWeight:700,fontSize:15}}>Analytics</div></EmpHeader>
+    <div style={{padding:20}}>
+      <div className="card" style={{padding:20}}>
+        <h3 style={{marginBottom:16}}>Monthly tip volume</h3>
+        {months.map(([m,v])=>(
+          <div key={m} style={{display:'flex',alignItems:'center',gap:10,marginBottom:12}}>
+            <span style={{width:34,fontSize:13,fontWeight:600,color:'#4A6360'}}>{m}</span>
+            <div style={{flex:1,height:24,background:'#F0F7F6',borderRadius:8,overflow:'hidden'}}><div style={{height:'100%',width:(v/max*100)+'%',background:'linear-gradient(90deg,#00C4A8,#009E88)',borderRadius:8,display:'flex',alignItems:'center',justifyContent:'flex-end',paddingRight:8,color:'#fff',fontSize:11,fontWeight:700}}>{fmt(v)}</div></div>
+          </div>
+        ))}
+      </div>
+      <div className="card" style={{padding:20,marginTop:16}}>
+        <h3 style={{marginBottom:14}}>Platform insights</h3>
+        {insights.map(([k,v],i)=>(
+          <div key={k} style={{display:'flex',justifyContent:'space-between',padding:'10px 0',borderBottom:i<insights.length-1?'1px solid #F0F7F6':'none'}}><span className="muted">{k}</span><span style={{fontWeight:700}}>{v}</span></div>
+        ))}
+      </div>
+      <div className="amberGlass" style={{borderRadius:18,padding:20,marginTop:16,display:'flex',alignItems:'center',gap:14}}>
+        <div style={{width:44,height:44,borderRadius:14,background:'rgba(245,166,35,0.25)',display:'flex',alignItems:'center',justifyContent:'center'}}><Icons.download size={20} color="#E8920F"/></div>
+        <div style={{flex:1}}><div style={{fontWeight:700}}>Download report</div><div className="muted" style={{fontSize:13}}>Monthly PDF summary</div></div>
+        <button className="btn btn-amber" style={{width:'auto',padding:'10px 18px',fontSize:14}} onClick={()=>ctx.showToast('📄 Report downloaded')}>Get</button>
+      </div>
+    </div>
+  </div>;
+}
+
+function EmpPayouts({ctx}){
+  const {pending,setPending}=ctx;
+  const completed=[];
+  ctx.workers.forEach(w=>w.payouts.filter(p=>p.status==='paid').forEach(p=>completed.push({...p,workerName:w.name})));
+  const approve=req=>{
+    ctx.updateWorker(req.workerId,w=>({...w,payouts:w.payouts.map(p=>p.status==='pending'&&p.amt===req.amt?{...p,status:'paid'}:p)}));
+    setPending(p=>p.filter(x=>x.id!==req.id));
+    ctx.showToast('✅ '+fmt(req.amt)+' sent to '+req.bank.split(' ')[0]);
+  };
+  const decline=req=>{
+    ctx.updateWorker(req.workerId,w=>({...w,balance:w.balance+req.amt,payouts:w.payouts.filter(p=>!(p.status==='pending'&&p.amt===req.amt))}));
+    setPending(p=>p.filter(x=>x.id!==req.id));
+    ctx.showToast('Payout declined · refunded');
+  };
+  return <div className="screen-anim">
+    <EmpHeader ctx={ctx}><div style={{marginTop:12,fontWeight:700,fontSize:15}}>Payouts</div></EmpHeader>
+    <div style={{padding:20}}>
+      <h3 style={{marginBottom:14}}>Pending payouts</h3>
+      {pending.length===0?<div className="card" style={{padding:24,textAlign:'center'}}><div className="muted">No pending requests</div></div>:
+      pending.map(req=>(
+        <div key={req.id} className="card" style={{padding:16,marginBottom:12}}>
+          <div style={{display:'flex',alignItems:'center',gap:12,marginBottom:12}}>
+            <Avatar name={req.workerName} size={42}/>
+            <div style={{flex:1}}><div style={{fontWeight:700}}>{req.workerName}</div><div className="muted" style={{fontSize:12}}>Requested {fmt(req.amt)} · {req.date}</div><div className="muted" style={{fontSize:12}}>{req.bank}</div></div>
+          </div>
+          <div style={{display:'flex',gap:10}}>
+            <button className="btn btn-primary" style={{padding:'10px',fontSize:14}} onClick={()=>approve(req)}>Approve</button>
+            <button className="btn" style={{padding:'10px',fontSize:14,background:'rgba(232,85,85,0.12)',color:'#E85555'}} onClick={()=>decline(req)}>Decline</button>
+          </div>
+        </div>
+      ))}
+      <h3 style={{margin:'24px 0 14px'}}>Completed payouts</h3>
+      {completed.length===0?<div className="muted" style={{textAlign:'center',padding:20}}>No completed payouts</div>:
+      completed.map((p,i)=>(
+        <div key={i} className="card" style={{padding:14,display:'flex',alignItems:'center',gap:12,marginBottom:10}}>
+          <div style={{width:38,height:38,borderRadius:11,background:'rgba(0,196,168,0.15)',display:'flex',alignItems:'center',justifyContent:'center'}}><Icons.check size={18} color="#00C4A8"/></div>
+          <div style={{flex:1}}><div style={{fontWeight:600,fontSize:14}}>{p.workerName}</div><div className="muted" style={{fontSize:12}}>{p.bank} · {p.date}</div></div>
+          <div style={{fontWeight:800}}>{fmt(p.amt)}</div>
+        </div>
+      ))}
+    </div>
+  </div>;
+}
+
+/* ============ SHARED LAYOUT BITS ============ */
+function SubHeader({title,onBack}){
+  return <div className="header" style={{borderRadius:'0 0 28px 28px',paddingBottom:20}}>
+    <div style={{display:'flex',alignItems:'center',gap:12}}>
+      {onBack&&<span onClick={onBack} style={{cursor:'pointer'}}><Icons.arrowLeft color="#fff"/></span>}
+      <div style={{fontWeight:700,fontSize:20}}>{title}</div>
+    </div>
+  </div>;
+}
+function FullDark({children}){
+  return <div className="phone screen-anim" style={{background:'linear-gradient(155deg,#0D2028 0%,#0A3030 60%,#071E26 100%)',color:'#fff',display:'flex',flexDirection:'column',alignItems:'center',justifyContent:'center',textAlign:'center',padding:30,minHeight:'100vh'}}>{children}</div>;
+}
+
+ReactDOM.createRoot(document.getElementById('root')).render(<App/>);
+</script>
+</body>
+</html>
